@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">MLand</string>
+    <string name="dialog_title">ATTENTION</string>
+    <string name="dialog_message">THIS IS NOT MY ORIGINAL WORK. PLEASE SEE THE GITHUB README OR THE SOURCE CODE FOR THE ORIGINAL LINKS.</string>
+    <string name="okay">Okay!</string>
+</resources>
