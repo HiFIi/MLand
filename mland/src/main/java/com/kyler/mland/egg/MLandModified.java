@@ -51,7 +51,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 // It's like LLand, but "M"ultiplayer.
-public class MLand extends FrameLayout {
+public class MLandModified extends FrameLayout {
     public static final String TAG = "MLand";
 
     public static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
@@ -86,15 +86,16 @@ public class MLand extends FrameLayout {
     static final int[] CACTI = {R.drawable.cactus1, R.drawable.cactus2, R.drawable.cactus3};
     static final int[] MOUNTAINS = {
             R.drawable.mountain1, R.drawable.mountain2, R.drawable.mountain3};
-    private static final int DAY = 0, NIGHT = 1, TWILIGHT = 2, SUNSET = 3;
+    private static final int DAY = 0, NIGHT = 1, TWILIGHT = 2, SUNSET = 3, WTF = 4;
     private static final int[][] SKIES = {
-            {0xFFc0c0FF, 0xFFa0a0FF}, // DAY
+            {0xFF7EC0EE, 0xFF6499BE}, // DAY
             {0xFF000010, 0xFF000000}, // NIGHT
             {0xFF000040, 0xFF000010}, // TWILIGHT
             {0xFFa08020, 0xFF204080}, // SUNSET
+            {0xFF161718, 0xFF161718}, // WTF
     };
     private static final int SCENE_CITY = 0, SCENE_TX = 1, SCENE_ZRH = 2;
-    private static final int SCENE_COUNT = 3;
+    private static final int SCENE_COUNT = 4;
     private static Params PARAMS;
     private static float dp = 1f;
     private final AudioAttributes mAudioAttrs = new AudioAttributes.Builder()
@@ -120,15 +121,15 @@ public class MLand extends FrameLayout {
     private Paint mTouchPaint, mPlayerTracePaint;
     private ArrayList<Integer> mGameControllers = new ArrayList<>();
 
-    public MLand(Context context) {
+    public MLandModified(Context context) {
         this(context, null);
     }
 
-    public MLand(Context context, AttributeSet attrs) {
+    public MLandModified(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public MLand(Context context, AttributeSet attrs, int defStyle) {
+    public MLandModified(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
         mVibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
@@ -955,6 +956,7 @@ public class MLand extends FrameLayout {
         pt.setTextSize(20f);
         c.drawText(sb.toString(), 20, 100, pt);
     }
+
     private interface GameView {
         public void step(long t_ms, long dt_ms, float t, float dt);
     }
@@ -1016,7 +1018,7 @@ public class MLand extends FrameLayout {
         static int sNextColor = 0;
         private final int[] sColors = new int[]{
                 //0xFF78C557,
-                0xFFDB4437,
+                0xFFF1F1F1,
                 0xFF3B78E7,
                 0xFFF4B400,
                 0xFF0F9D58,
@@ -1036,7 +1038,7 @@ public class MLand extends FrameLayout {
         public final float[] corners = new float[sHull.length];
         public float dv;
         public int color;
-        private MLand mLand;
+        private MLandModified mLandModified;
         private boolean mBoosting;
         private float mTouchX = -1, mTouchY = -1;
         private boolean mAlive;
@@ -1062,9 +1064,9 @@ public class MLand extends FrameLayout {
             });
         }
 
-        public static Player create(MLand land) {
+        public static Player create(MLandModified land) {
             final Player p = new Player(land.getContext());
-            p.mLand = land;
+            p.mLandModified = land;
             p.reset();
             p.setVisibility(View.INVISIBLE);
             land.addView(p, new LayoutParams(PARAMS.PLAYER_SIZE, PARAMS.PLAYER_SIZE));
@@ -1098,7 +1100,7 @@ public class MLand extends FrameLayout {
 
         public void reset() {
             //setX(mLand.mWidth / 2);
-            setY(mLand.mHeight / 2
+            setY(mLandModified.mHeight / 2
                     + (int) (Math.random() * PARAMS.PLAYER_SIZE)
                     - PARAMS.PLAYER_SIZE / 2);
             setScore(0);

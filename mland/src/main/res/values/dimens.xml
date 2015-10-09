@@ -1,3 +1,18 @@
 <resources>
+    <dimen name="nav_drawer_max_width">320.0dip</dimen>
+    <dimen name="list_item_primary_action">24.0dip</dimen>
+    <dimen name="about_header_bg_height">200dp</dimen>
+    <dimen name="max_height_drawer_img">200.0dip</dimen>
 
+    <dimen name="drawer_item_icon_left_padding">16.0dip</dimen>
+    <dimen name="drawer_item_icon_right_padding">16.0dip</dimen>
+
+    <dimen name="g_top_margin">100dp</dimen>
+
+    <dimen name="drawer_item_text_left_padding">16.0dip</dimen>
+    <dimen name="drawer_item_text_right_padding">16.0dip</dimen>
+
+    <dimen name="play_drawer_item_left_padding">16.0dip</dimen>
+    <dimen name="play_drawer_item_primary_min_height">48.0dip</dimen>
+    <dimen name="play_drawer_item_right_padding">16.0dip</dimen>
 </resources>

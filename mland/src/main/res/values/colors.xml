@@ -3,4 +3,9 @@
     <color name="colorPrimary">#FF3C4452</color>
     <color name="colorPrimaryDark">#FF2B313B</color>
     <color name="colorAccent">#FF3C4452</color>
+    <color name="session_photo_scrim">#6000</color>
+    <color name="navdrawer_item_text_color">#FF0D0D0D</color>
+    <color name="navdrawer_item_icon_color">#FF757575</color>
+    <color name="icon_grey">#FF505050</color>
+    <color name="play_drawer_profile_overlay_shade">#38000000</color>
 </resources>

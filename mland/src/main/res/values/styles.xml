@@ -1,10 +1,67 @@
 <resources>
-    <style name="Theme.MLand" parent="@android:style/Theme.Material.Light">
+    <!-- Root styles that vary by API level -->
+    <!-- Disable RTL support on older devices -->
+    <!-- Prevents crash on certain devices to namespace conflict -->
+    <style name="FrameworkRoot.Theme" parent="Theme.AppCompat.Light.NoActionBar" />
+
+    <!-- Immediate parent theme to specify base values for custom attributes -->
+    <style name="Theme" parent="FrameworkRoot.Theme">
+
+    </style>
+
+    <style name="Theme.MLand.Base" parent="@style/Theme">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
         <item name="android:colorPrimary">@color/colorPrimary</item>
-        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:colorAccent">@color/colorPrimary</item>
         <item name="android:textAllCaps">false</item>
+        <item name="android:statusBarColor">@color/play_drawer_profile_overlay_shade</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowSharedElementsUseOverlay">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="windowActionBarOverlay">true</item>
     </style>
+    <style name="Theme.MLand" parent="@style/Theme">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorAccent">@color/colorPrimary</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:statusBarColor">@color/play_drawer_profile_overlay_shade</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowSharedElementsUseOverlay">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="windowActionBarOverlay">true</item>
+    </style>
+    <style name="Theme.MLand.About" parent="@android:style/Theme.Material.Light">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:colorPrimary">#343840</item>
+        <item name="android:colorPrimaryDark">#171920</item>
+        <item name="android:colorAccent">#4285F4</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:statusBarColor">#171920</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowSharedElementsUseOverlay">true</item>
+    </style>
+
 </resources>

@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">MLand</string>
+    <string name="mland_original">MLand (Original)</string>
+    <string name="mland_modified">MLand (Modified)</string>
     <string name="dialog_title">ATTENTION</string>
     <string name="dialog_message">THIS IS NOT MY ORIGINAL WORK. PLEASE SEE THE GITHUB README OR THE SOURCE CODE FOR THE ORIGINAL LINKS.</string>
     <string name="okay">Okay!</string>
+    <string name="home">Home</string>
+    <string name="blank"></string>
+    <string name="about">About</string>
 </resources>

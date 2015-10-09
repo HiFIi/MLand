@@ -29,11 +29,11 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
-    <com.kyler.mland.egg.MLandModified
+    <com.kyler.mland.egg.MLandOriginal
         android:id="@+id/world"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
-    </com.kyler.mland.egg.MLandModified>
+    </com.kyler.mland.egg.MLandOriginal>
 
     <include layout="@layout/toolbar_actionbar_transparent" />
 

@@ -1,0 +1,30 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:customfontdemo="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#efefef"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/overlaycover"
+        android:layout_width="fill_parent"
+        android:layout_height="200.0dip"
+        android:background="#FF141718"/>
+
+    <com.kyler.mland.egg.ui.MLandTextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:textSize="36.0sp"
+        android:text="@string/about"
+        customfontdemo:fontName="ProductSans-Regular.ttf"
+        android:layout_alignBottom="@+id/overlaycover"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center_vertical|center_horizontal"
+        android:elevation="8.0dip" />
+
+</RelativeLayout>
