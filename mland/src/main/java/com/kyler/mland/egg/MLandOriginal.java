@@ -945,6 +945,7 @@ public class MLandOriginal extends FrameLayout {
         pt.setTextSize(20f);
         c.drawText(sb.toString(), 20, 100, pt);
     }
+
     private interface GameView {
         public void step(long t_ms, long dt_ms, float t, float dt);
     }

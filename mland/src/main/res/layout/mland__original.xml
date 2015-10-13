@@ -11,11 +11,9 @@
      limitations under the License.
 -->
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:customfontdemo="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
     android:fitsSystemWindows="false">
 
     <LinearLayout
@@ -24,95 +22,93 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-<FrameLayout
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical">
-
-    <com.kyler.mland.egg.MLandOriginal
-        android:id="@+id/world"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-    </com.kyler.mland.egg.MLandOriginal>
-
-    <include layout="@layout/toolbar_actionbar_transparent" />
-
-    <FrameLayout
-        android:id="@+id/welcome"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#a0000000"
-        android:clickable="true"
-        android:visibility="gone">
-
         <FrameLayout
-            android:id="@+id/play_button"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:layout_gravity="center"
-            android:background="@drawable/ripplebg"
-            android:clickable="true"
-            android:focusable="true"
-            android:onClick="startButtonPressed">
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/play_button_image"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_gravity="center"
-                android:scaleType="fitCenter"
-                android:src="@drawable/play"
-                android:tint="#000000" />
+            <com.kyler.mland.egg.MLandOriginal
+                android:id="@+id/world"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"></com.kyler.mland.egg.MLandOriginal>
 
-            <TextView
-                android:id="@+id/play_button_text"
+            <include layout="@layout/toolbar_actionbar_transparent" />
+
+            <FrameLayout
+                android:id="@+id/welcome"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#a0000000"
+                android:clickable="true"
+                android:visibility="gone">
+
+                <FrameLayout
+                    android:id="@+id/play_button"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ripplebg"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="startButtonPressed">
+
+                    <ImageView
+                        android:id="@+id/play_button_image"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/play"
+                        android:tint="#000000" />
+
+                    <TextView
+                        android:id="@+id/play_button_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:alpha="0"
+                        android:textColor="#000000"
+                        android:textSize="40dp" />
+                </FrameLayout>
+            </FrameLayout>
+
+            <LinearLayout
+                android:id="@+id/player_setup"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:alpha="0"
-                android:textColor="#000000"
-                android:textSize="40dp" />
+                android:layout_height="56.0dip"
+                android:layout_gravity="top|center_horizontal"
+                android:layout_marginTop="24.0dip"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/player_minus_button"
+                    style="@android:style/Widget.Material.Button.Borderless"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:onClick="playerMinus"
+                    android:padding="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/minus" />
+
+                <LinearLayout
+                    android:id="@+id/scores"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"></LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/player_plus_button"
+                    style="@android:style/Widget.Material.Button.Borderless"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:onClick="playerPlus"
+                    android:padding="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/plus" />
+            </LinearLayout>
         </FrameLayout>
-    </FrameLayout>
-
-    <LinearLayout
-        android:id="@+id/player_setup"
-        android:layout_width="wrap_content"
-        android:layout_height="56.0dip"
-        android:layout_gravity="top|center_horizontal"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:layout_marginTop="24.0dip">
-
-        <ImageButton
-            android:id="@+id/player_minus_button"
-            style="@android:style/Widget.Material.Button.Borderless"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:onClick="playerMinus"
-            android:padding="10dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/minus" />
-
-        <LinearLayout
-            android:id="@+id/scores"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:orientation="horizontal">
-        </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/player_plus_button"
-            style="@android:style/Widget.Material.Button.Borderless"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:onClick="playerPlus"
-            android:padding="10dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/plus" />
-    </LinearLayout>
-    </FrameLayout>
     </LinearLayout>
 
     <!-- Nav drawer -->

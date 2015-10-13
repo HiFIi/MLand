@@ -13,8 +13,6 @@
 
 <com.google.samples.apps.iosched.ui.widget.ScrimInsetsScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:customfontdemo="http://schemas.android.com/apk/res-auto"
-    xmlns:fresco="http://schemas.android.com/tools"
     android:id="@+id/navdrawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -42,10 +40,10 @@
                 android:id="@+id/overlaycover"
                 android:layout_width="fill_parent"
                 android:layout_height="180.0dip"
-                android:src="@drawable/marshmallow"
+                android:layout_marginTop="16.0dip"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:layout_marginTop="16.0dip" />
+                android:src="@drawable/marshmallow" />
 
             <RelativeLayout
                 android:id="@+id/chosen_account_content_view"
