@@ -51,7 +51,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 // It's like LLand, but "M"ultiplayer.
-public class MLandModified extends FrameLayout {
+public class MLandHome extends FrameLayout {
     public static final String TAG = "MLand";
 
     public static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
@@ -86,13 +86,9 @@ public class MLandModified extends FrameLayout {
     static final int[] CACTI = {R.drawable.cactus1, R.drawable.cactus2, R.drawable.cactus3};
     static final int[] MOUNTAINS = {
             R.drawable.mountain1, R.drawable.mountain2, R.drawable.mountain3};
-    private static final int DAY = 0, NIGHT = 1, TWILIGHT = 2, SUNSET = 3, WTF = 4;
+    private static final int DAY = 0;
     private static final int[][] SKIES = {
             {0xFF4285F4, 0xFF6499BE}, // DAY
-            {0xFF000010, 0xFF000000}, // NIGHT
-            {0xFF000040, 0xFF000010}, // TWILIGHT
-            {0xFFa08020, 0xFF204080}, // SUNSET
-            {0xFF161718, 0xFF161718}, // WTF
     };
     private static final int SCENE_CITY = 0, SCENE_TX = 1, SCENE_ZRH = 2;
     private static final int SCENE_COUNT = 4;
@@ -121,15 +117,15 @@ public class MLandModified extends FrameLayout {
     private Paint mTouchPaint, mPlayerTracePaint;
     private ArrayList<Integer> mGameControllers = new ArrayList<>();
 
-    public MLandModified(Context context) {
+    public MLandHome(Context context) {
         this(context, null);
     }
 
-    public MLandModified(Context context, AttributeSet attrs) {
+    public MLandHome(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public MLandModified(Context context, AttributeSet attrs, int defStyle) {
+    public MLandHome(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
         mVibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
@@ -395,7 +391,7 @@ public class MLandModified extends FrameLayout {
         mWidth = getWidth();
         mHeight = getHeight();
 
-        boolean showingSun = (mTimeOfDay == DAY || mTimeOfDay == SUNSET) && frand() > 0.25;
+        boolean showingSun = (mTimeOfDay == DAY) && frand() > 0.25;
         if (showingSun) {
             final Star sun = new Star(getContext());
             sun.setBackgroundResource(R.drawable.sun);
@@ -411,21 +407,6 @@ public class MLandModified extends FrameLayout {
 
             }
             addView(sun, new LayoutParams(w, w));
-        }
-        if (!showingSun) {
-            final boolean dark = mTimeOfDay == NIGHT || mTimeOfDay == TWILIGHT;
-            final float ff = frand();
-            if ((dark && ff < 0.75f) || ff < 0.5f) {
-                final Star moon = new Star(getContext());
-                moon.setBackgroundResource(R.drawable.moon);
-                moon.getBackground().setAlpha(dark ? 255 : 128);
-                moon.setScaleX(frand() > 0.5 ? -1 : 1);
-                moon.setRotation(moon.getScaleX() * frand(5, 30));
-                final int w = getResources().getDimensionPixelSize(R.dimen.sun_size);
-                moon.setTranslationX(frand(w, mWidth - w));
-                moon.setTranslationY(frand(w, mHeight - w));
-                addView(moon, new LayoutParams(w, w));
-            }
         }
 
         final int mh = mHeight / 6;
@@ -1038,7 +1019,7 @@ public class MLandModified extends FrameLayout {
         public final float[] corners = new float[sHull.length];
         public float dv;
         public int color;
-        private MLandModified mLandModified;
+        private MLandHome MLandHome;
         private boolean mBoosting;
         private float mTouchX = -1, mTouchY = -1;
         private boolean mAlive;
@@ -1064,9 +1045,9 @@ public class MLandModified extends FrameLayout {
             });
         }
 
-        public static Player create(MLandModified land) {
+        public static Player create(MLandHome land) {
             final Player p = new Player(land.getContext());
-            p.mLandModified = land;
+            p.MLandHome = land;
             p.reset();
             p.setVisibility(View.INVISIBLE);
             land.addView(p, new LayoutParams(PARAMS.PLAYER_SIZE, PARAMS.PLAYER_SIZE));
@@ -1100,7 +1081,7 @@ public class MLandModified extends FrameLayout {
 
         public void reset() {
             //setX(mLand.mWidth / 2);
-            setY(mLandModified.mHeight / 2
+            setY(MLandHome.mHeight / 2
                     + (int) (Math.random() * PARAMS.PLAYER_SIZE)
                     - PARAMS.PLAYER_SIZE / 2);
             setScore(0);
@@ -1348,7 +1329,7 @@ public class MLandModified extends FrameLayout {
         public void onDraw(Canvas c) {
             final int w = c.getWidth();
             final int h = c.getHeight();
-            mGradient.setGradientCenter(w * 0.85f, 0);
+            mGradient.setGradientCenter(w * 0.75f, 0);
             mGradient.setBounds(0, 0, w, h);
             mGradient.draw(c);
 
@@ -1356,7 +1337,7 @@ public class MLandModified extends FrameLayout {
                 mJandystripe.reset();
                 mJandystripe.moveTo(0, w);
                 mJandystripe.lineTo(w, 0);
-                mJandystripe.lineTo(w, 4 * w);
+                mJandystripe.lineTo(w, 2 * w);
                 mJandystripe.lineTo(0, 3 * w);
                 mJandystripe.close();
                 for (int y = 0; y < h; y += 4 * w) {
@@ -1369,8 +1350,8 @@ public class MLandModified extends FrameLayout {
             mShadow.reset();
             mShadow.moveTo(0, 0);
             mShadow.lineTo(w, 0);
-            mShadow.lineTo(w, PARAMS.OBSTACLE_WIDTH * 0.8f + w * 1.5f);
-            mShadow.lineTo(0, PARAMS.OBSTACLE_WIDTH * 0.8f);
+            mShadow.lineTo(w, PARAMS.OBSTACLE_WIDTH * 0.4f + w * 1.5f);
+            mShadow.lineTo(0, PARAMS.OBSTACLE_WIDTH * 0.4f);
             mShadow.close();
             c.drawPath(mShadow, mPaint);
         }
@@ -1415,7 +1396,7 @@ public class MLandModified extends FrameLayout {
 
             setBackgroundResource(pick(MOUNTAINS));
             w = h = irand(PARAMS.BUILDING_WIDTH_MAX / 2, PARAMS.BUILDING_WIDTH_MAX);
-            z = 8;
+            z = 0;
         }
     }
 

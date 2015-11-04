@@ -19,15 +19,15 @@ Copyright (C) 2015 The Android Open Source Project
     android:viewportHeight="48.0"
     android:viewportWidth="48.0">
     <path
-        android:fillColor="#4DB6AC"
+        android:fillColor="@color/mountain_green_1"
         android:pathData="M0.0,48.0l24.0,-36.0l24.0,36.0z" />
     <path
-        android:fillColor="#00897B"
+        android:fillColor="@color/mountain_green_2"
         android:pathData="M24.0,12.0l-9.9,36.0l33.9,0.0z" />
     <path
-        android:fillColor="#CCCCCC"
+        android:fillColor="@color/mountain_off_white_1"
         android:pathData="M24.0,12.0l7.700001,11.5l-5.300001,-5.0l-0.8999996,0.8999996l-1.5,-1.2999992l-4.6000004,10.5z" />
     <path
-        android:fillColor="#FFFFFF"
+        android:fillColor="@android:color/white"
         android:pathData="M24.0,12.0l-8.1,12.200001l2.3000011,1.8999996l1.1999989,2.5z" />
 </vector>

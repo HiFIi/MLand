@@ -8,4 +8,6 @@
     <string name="home">Home</string>
     <string name="blank"></string>
     <string name="about">About</string>
+    <string name="home_test">Home</string>
+
 </resources>

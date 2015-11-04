@@ -1,14 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Hex transparency cheatsheet. -->
+    <!--
+    100% — FF
+    95% — F2
+    90% — E6
+    85% — D9
+    80% — CC
+    75% — BF
+    70% — B3
+    65% — A6
+    60% — 99
+    55% — 8C
+    50% — 80
+    45% — 73
+    40% — 66
+    35% — 59
+    30% — 4D
+    25% — 40
+    20% — 33
+    15% — 26
+    10% — 1A
+    5% — 0D
+    0% — 00
+    -->
     <color name="colorPrimary">#FF3C4452</color>
     <color name="colorPrimaryDark">#FF2B313B</color>
     <color name="colorAccent">#FF3C4452</color>
     <color name="session_photo_scrim">#6000</color>
-    <color name="navdrawer_item_text_color">#FF0D0D0D</color>
+    <color name="navdrawer_item_text_color">#FF505050</color>
     <color name="navdrawer_item_icon_color">#FF757575</color>
     <color name="icon_grey">#FF505050</color>
     <color name="default_text_color">#FF505050</color>
     <color name="play_drawer_profile_overlay_shade">#38000000</color>
+    <color name="dark_bg">#FF252829</color>
+    <color name="about__dark_blue">#CC222831</color>
+    <color name="white_75">#BFFFFFFF</color>
+    <color name="tealish_green__primary">#FF00ADB5</color>
+    <color name="tealish_green__primaryDark">#FF008A90</color>
+    <color name="black__10_percent">#1A000000</color>
+    <color name="header__sky_blue">#FF26A9EC</color>
+    <color name="scorefield__lightish_grey">#FFAAAAAA</color>
+    <color name="navdrawer_separator">#FFE4E4E4</color>
+    <color name="google_blue">#FF4285F4</color>
+    <color name="google_blue__80_percent_opaque">#CC4285F4</color>
+    <color name="black_100">#FF000000</color>
+
+    <!-- Cacti colors -->
+    <color name="cactus_green_1">#FF0D904F</color>
+    <color name="cactus_green_2">#FF097138</color>
+    <color name="cactus_green_3">#FF055524</color>
+    <color name="cactus_purple_1">#FFAB47BC</color>
+    <color name="cactus_purple_2">#FFBA68C8</color>
+    <color name="cactus_orange">#FFFFA726</color>
+
+    <!-- Cloud color(s) -->
+    <color name="cloud_white">#B3FFFFFF</color>
+
+    <!-- icon colors -->
+    <color name="icon_pink_1">#FFE91E63</color>
+    <color name="icon_pink_2">#FFF06292</color>
+    <color name="icon_white_1">#FFAB47BC</color>
+    <color name="icon_off_white_1">#FFEEEEEE</color>
+    <color name="icon_off_white_2">#FFDDDDDD</color>
+
+    <!-- icon (modified) colors -->
+    <color name="icon_blue_1">#FF1D6DF2</color>
+    <color name="icon_modified_off_white_1">#FFFAFAFA</color>
+    <color name="mountain_off_white_1">#FFCCCCCC</color>
+
+    <color name="minus_white">#CCFFFFFF</color>
+    <color name="mm_head_black">#33000000</color>
+    <color name="moon">#FFF2F2FF</color>
+    <color name="scorecard">#E6FFFFFF</color>
+    <color name="scorecard__gameover">#FFFF0000</color>
+
+    <!-- mountain colors -->
+    <color name="mountain_green_1">#FF4DB6AC</color>
+    <color name="mountain_green_2">#FF00897B</color>
+    <color name="icon_modified_off_white_2">#FFD2D2D2</color>
+
+    <!-- sun colors -->
+    <color name="sun_yellow_1">#FFFFFFCC</color>
+    <color name="sun_yellow_2">#CCFFFF40</color>
 
     <!-- Not technically a 20% transparent black :P -->
     <color name="black__20">#FFCDCDCD</color>

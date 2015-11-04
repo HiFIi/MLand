@@ -33,6 +33,7 @@ public class RecentTasksStyler {
     private static Bitmap sIcon = null;
 
     private RecentTasksStyler() {
+
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)

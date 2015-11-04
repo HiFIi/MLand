@@ -22,4 +22,8 @@
 
     <!-- 'Borrowed' From the Hangouts 5.0 values/dimens.xml :p -->
     <dimen name="launchscreens_google_logo_bottom">48.0dip</dimen>
+
+
+    <dimen name="card_margin">16dp</dimen>
+
 </resources>

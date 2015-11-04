@@ -56,17 +56,18 @@
     <style name="Theme.MLand.About" parent="@style/Theme">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:colorPrimary">#00adb5</item>
-        <item name="android:colorPrimaryDark">#008a90</item>
-        <item name="android:colorAccent">#505050</item>
+        <item name="android:colorPrimary">@color/tealish_green__primary</item>
+        <item name="android:colorPrimaryDark">@color/tealish_green__primaryDark</item>
+        <item name="android:colorAccent">@color/icon_grey</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:statusBarColor">@color/play_drawer_profile_overlay_shade</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowAllowEnterTransitionOverlap">true</item>
-        <item name="colorPrimary">#00adb5</item>
-        <item name="colorAccent">#505050</item>
+        <item name="colorPrimary">@color/tealish_green__primary</item>
+        <item name="colorAccent">@color/icon_grey</item>
+        <item name="colorPrimaryDark">@color/tealish_green__primaryDark</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowSharedElementsUseOverlay">true</item>
         <item name="android:windowActionBar">false</item>
@@ -76,19 +77,31 @@
         <item name="windowActionBarOverlay">true</item>
     </style>
 
-    <style name="Theme.MLand.Splash" parent="@android:style/Theme.Material.Light.NoActionBar">
+    <style name="Theme.MLand.Splash" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:colorPrimary">#00adb5</item>
-        <item name="android:colorPrimaryDark">#008a90</item>
-        <item name="android:colorAccent">#505050</item>
+        <item name="android:colorPrimary">@color/tealish_green__primary</item>
+        <item name="android:colorPrimaryDark">@color/tealish_green__primaryDark</item>
+        <item name="android:colorAccent">@color/navdrawer_item_text_color</item>
+        <item name="colorPrimary">@color/tealish_green__primary</item>
+        <item name="colorPrimaryDark">@color/tealish_green__primaryDark</item>
+        <item name="colorAccent">@color/icon_grey</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:statusBarColor">#F1F1F1</item>
+        <item name="android:statusBarColor">@color/black__10_percent</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowAllowEnterTransitionOverlap">true</item>
         <item name="android:windowSharedElementsUseOverlay">true</item>
         <item name="android:windowActionBar">false</item>
+    </style>
+
+    <style name="Theme.MLand.Splash.Alt" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:colorPrimary">@color/tealish_green__primary</item>
+        <item name="android:colorPrimaryDark">@color/tealish_green__primaryDark</item>
+        <item name="android:colorAccent">@color/icon_grey</item>
+        <item name="android:textAllCaps">false</item>
     </style>
 
 </resources>

@@ -5,9 +5,7 @@ import android.animation.ObjectAnimator;
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -27,46 +25,53 @@ import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.AbsListView;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.samples.apps.iosched.ui.widget.ScrimInsetsScrollView;
+import com.kyler.mland.egg.activities.About;
+import com.kyler.mland.egg.activities.Home;
+import com.kyler.mland.egg.activities.MLandModifiedActivity;
+import com.kyler.mland.egg.activities.MLandOriginalActivity;
+import com.kyler.mland.egg.splash.Splash;
 import com.kyler.mland.egg.utils.LUtils;
-import com.kyler.mland.egg.utils.RecentTasksStyler;
 import com.kyler.mland.egg.utils.UIUtils;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
-public class MLandBase extends AppCompatActivity {
+public abstract class MLandBase extends AppCompatActivity {
 
     // symbols for navdrawer items (indices must correspond to array below). This is
     // not a list of items that are necessarily *present* in the Nav Drawer; rather,
     // it's a list of all possible items.
-    protected static final int NAVDRAWER_ITEM_MLAND = 0;
-    protected static final int NAVDRAWER_ITEM_MLANDMODIFIED = 1;
-    protected static final int NAVDRAWER_ITEM_ABOUT = 2;
+    protected static final int NAVDRAWER_ITEM_HOME = 0;
+    protected static final int NAVDRAWER_ITEM_MLAND = 1;
+    protected static final int NAVDRAWER_ITEM_MLANDMODIFIED = 2;
+    protected static final int NAVDRAWER_ITEM_ABOUT = 3;
 
     protected static final int NAVDRAWER_ITEM_INVALID = -1;
     protected static final int NAVDRAWER_ITEM_SEPARATOR = -2;
     protected static final int NAVDRAWER_ITEM_SEPARATOR_SPECIAL = -3;
-    private static final int FADE_CROSSOVER_TIME_MILLIS = 300;
+    private static final int FADE_CROSSOVER_TIME_MILLIS = 600;
     private static final TypeEvaluator ARGB_EVALUATOR = new ArgbEvaluator();
     // Durations for certain animations we use:
     private static final int HEADER_HIDE_ANIM_DURATION = 100;
 
-    /** TO DO:
+    /**
+     * TO DO:
      * Play with the launch delay values some more.
      */
-    private static final int NAVDRAWER_CLOSE_PRELAUNCH = 750;
+    private static final int NAVDRAWER_CLOSE_PRELAUNCH = 600;
     // delay to launch nav drawer item, to allow close animation to play
-    private static final int NAVDRAWER_LAUNCH_DELAY = 1000;
+    private static final int NAVDRAWER_LAUNCH_DELAY = 800;
     private static final int POST_LAUNCH_FADE = 1200;
 
-    /** END TO-DO **/
+    /**
+     * END TO-DO
+     **/
 
     // fade in and fade out durations for the main content when switching between
     // different Activities of the app through the Nav Drawer
@@ -74,14 +79,16 @@ public class MLandBase extends AppCompatActivity {
     private static final int MAIN_CONTENT_FADEIN_DURATION = 250;
     // titles for navdrawer items (indices must correspond to the above)
     private static final int[] NAVDRAWER_TITLE_RES_ID = new int[]{
+            R.string.home_test,
             R.string.mland_original,
             R.string.mland_modified,
             R.string.about
     };
     // icons for navdrawer items (indices must correspond to above array)
     private static final int[] NAVDRAWER_ICON_RES_ID = new int[]{
-            R.drawable.ic_mland,
-            R.drawable.ic_mland,
+            R.drawable.ic_home,
+            R.drawable.ic_landscape__mland_original,
+            R.drawable.ic_landscape__mland_modified,
             0
     };
     public DrawerLayout mDrawerLayout;
@@ -94,10 +101,6 @@ public class MLandBase extends AppCompatActivity {
     private Runnable mDeferredOnDrawerClosedRunnable;
     private boolean mToolbarInitialized;
     private CharSequence mTitle;
-    // variables that control the Action Bar auto hide behavior (aka "quick recall")
-    private int mActionBarAutoHideSensivity = 0;
-    private int mActionBarAutoHideMinY = 0;
-    private int mActionBarAutoHideSignal = 0;
     private Context context;
     private ObjectAnimator mStatusBarColorAnimator;
     private Handler mHandler;
@@ -113,20 +116,23 @@ public class MLandBase extends AppCompatActivity {
     private View[] mNavDrawerItemViews = null;
     // Helper methods for L APIs
     private LUtils mLUtils;
-    // When set, these components will be shown/hidden in sync with the action bar
-    // to implement the "quick recall" effect (the Action Bar and the header views disappear
-    // when you scroll down a list, and reappear quickly when you scroll up).
-    private ArrayList<View> mHideableHeaderViews = new ArrayList<View>();
     // What nav drawer item should be selected?
     private int selfItem = getSelfNavDrawerItem();
     private ActionBarDrawerToggle mDrawerToggle;
+    private SharedPreferences.Editor editor;
+
+    private boolean selected;
+
+    private ImageView iconView;
+
+    private int drawerColorCalendar = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 
     @SuppressLint("InlinedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        RecentTasksStyler.styleRecentTasksEntry(this);
+        //    RecentTasksStyler.styleRecentTasksEntry(this);
 
         // Let everyone know this isn't my original work. :)
         SharedPreferences first = PreferenceManager
@@ -141,24 +147,26 @@ public class MLandBase extends AppCompatActivity {
             new Handler().post(new Runnable() {
                 @Override
                 public void run() {
-                    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MLandBase.this);
-                    alertDialogBuilder.setTitle(R.string.dialog_title)
-                            .setMessage(R.string.dialog_message);
+                    Intent welcomeSplash = new Intent(MLandBase.this, Splash.class);
+                    startActivity(welcomeSplash);
+                    //    finish();
+                    /**    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MLandBase.this);
+                     alertDialogBuilder.setTitle(R.string.dialog_title)
+                     .setMessage(R.string.dialog_message);
 
-                    alertDialogBuilder.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            // It'll clear
-                        }
+                     alertDialogBuilder.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
+                    @Override public void onClick(DialogInterface arg0, int arg1) {
+                    // It'll clear
+                    }
                     });
 
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.show();
+                     AlertDialog alertDialog = alertDialogBuilder.create();
+                     alertDialog.show(); **/
                 }
             });
 
 
-            SharedPreferences.Editor editor = first.edit();
+            editor = first.edit();
 
             editor.putBoolean("firstTime", true);
             editor.commit();
@@ -208,10 +216,17 @@ public class MLandBase extends AppCompatActivity {
         if (mDrawerLayout == null) {
             return;
         }
+
     /*    mDrawerLayout.setStatusBarBackgroundColor(
                 getResources().getColor(R.color.theme_primary_dark)); */
         ScrimInsetsScrollView navDrawer = (ScrimInsetsScrollView)
                 mDrawerLayout.findViewById(R.id.navdrawer);
+
+        /** TO-DO: Make Menudrawer dark from 7pm-5am
+         if (drawerColorCalendar == 20) {
+         Toast.makeText(this, "8pm", Toast.LENGTH_LONG).show();
+         navDrawer.setBackgroundColor(getResources().getColor(R.color.night));
+         } **/
 
         ViewGroup.LayoutParams layout_description = navDrawer.getLayoutParams();
         layout_description.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
@@ -300,9 +315,7 @@ public class MLandBase extends AppCompatActivity {
 
     // Subclasses can override this for custom behavior
     protected void onNavDrawerStateChanged(boolean isOpen, boolean isAnimating) {
-        if (mActionBarAutoHideEnabled && isOpen) {
-            autoShowOrHideActionBar(true);
-        }
+
     }
 
     protected void onNavDrawerSlide(float offset) {
@@ -323,6 +336,7 @@ public class MLandBase extends AppCompatActivity {
      */
     private void populateNavDrawer() {
         mNavDrawerItems.clear();
+        mNavDrawerItems.add(NAVDRAWER_ITEM_HOME);
         mNavDrawerItems.add(NAVDRAWER_ITEM_MLAND);
         mNavDrawerItems.add(NAVDRAWER_ITEM_MLANDMODIFIED);
 
@@ -390,6 +404,12 @@ public class MLandBase extends AppCompatActivity {
     private void goToNavDrawerItem(int item) {
         Intent intent;
         switch (item) {
+            case NAVDRAWER_ITEM_HOME:
+                intent = new Intent(this, Home.class);
+                startActivity(intent);
+                //    overridePendingTransition(0, 0);
+                finish();
+                break;
             case NAVDRAWER_ITEM_MLAND:
                 intent = new Intent(this, MLandOriginalActivity.class);
                 startActivity(intent);
@@ -405,7 +425,7 @@ public class MLandBase extends AppCompatActivity {
             case NAVDRAWER_ITEM_ABOUT:
                 intent = new Intent(this, About.class);
                 startActivity(intent);
-                overridePendingTransition(0, 0);
+                //    overridePendingTransition(0, 0);
                 finish();
                 break;
 
@@ -499,7 +519,6 @@ public class MLandBase extends AppCompatActivity {
         Color.colorToHSV(color, hsv);
         hsv[2] *= 0.8f;
         return Color.HSVToColor(hsv);
-
         // Credits for this: https://github.com/Musenkishi/wally
     }
 
@@ -553,14 +572,6 @@ public class MLandBase extends AppCompatActivity {
         super.onDestroy();
     }
 
-    protected void autoShowOrHideActionBar(boolean show) {
-        if (show == mActionBarShown) {
-            return;
-        }
-        mActionBarShown = show;
-        onActionBarAutoShowOrHide(show);
-    }
-
     private boolean isSeparator(int itemId) {
         return itemId == NAVDRAWER_ITEM_SEPARATOR || itemId == NAVDRAWER_ITEM_SEPARATOR_SPECIAL;
     }
@@ -571,7 +582,7 @@ public class MLandBase extends AppCompatActivity {
             return;
         }
 
-        ImageView iconView = (ImageView) view.findViewById(R.id.icon);
+        iconView = (ImageView) view.findViewById(R.id.icon);
         TextView titleView = (TextView) view.findViewById(R.id.title);
         LinearLayout ll = (LinearLayout) view.findViewById(R.id.ll);
 
@@ -583,70 +594,23 @@ public class MLandBase extends AppCompatActivity {
         titleView.setTextColor(selected ?
                 getResources().getColor(R.color.navdrawer_item_text_color) :
                 getResources().getColor(R.color.navdrawer_item_text_color));
-    /*    iconView.setColorFilter(selected ?
-                getResources().getColor(R.color.icon_grey) :
-                getResources().getColor(R.color.icon_grey)); */
-
+        /**    iconView.setColorFilter(selected ?
+         getResources().getColor(R.color.navdrawer_item_icon_color) :
+         getResources().getColor(R.color.navdrawer_item_icon_color)); **/
     }
 
     /**
-     * Initializes the Action Bar auto-hide (aka Quick Recall) effect.
+     * Configure this Activity as a floating window, with the given {@code width}, {@code height}
+     * and {@code alpha}, and dimming the background with the given {@code dim} value.
      */
-    private void initActionBarAutoHide() {
-        mActionBarAutoHideEnabled = true;
-        mActionBarAutoHideMinY = getResources().getDimensionPixelSize(
-                R.dimen.action_bar_auto_hide_min_y);
-        mActionBarAutoHideSensivity = getResources().getDimensionPixelSize(
-                R.dimen.action_bar_auto_hide_sensivity);
-    }
-
-    /**
-     * Indicates that the main content has scrolled (for the purposes of showing/hiding
-     * the action bar for the "action bar auto hide" effect). currentY and deltaY may be exact
-     * (if the underlying view supports it) or may be approximate indications:
-     * deltaY may be INT_MAX to mean "scrolled forward indeterminately" and INT_MIN to mean
-     * "scrolled backward indeterminately".  currentY may be 0 to mean "somewhere close to the
-     * start of the list" and INT_MAX to mean "we don't know, but not at the start of the list"
-     */
-    private void onMainContentScrolled(int currentY, int deltaY) {
-        if (deltaY > mActionBarAutoHideSensivity) {
-            deltaY = mActionBarAutoHideSensivity;
-        } else if (deltaY < -mActionBarAutoHideSensivity) {
-            deltaY = -mActionBarAutoHideSensivity;
-        }
-
-        if (Math.signum(deltaY) * Math.signum(mActionBarAutoHideSignal) < 0) {
-            // deltaY is a motion opposite to the accumulated signal, so reset signal
-            mActionBarAutoHideSignal = deltaY;
-        } else {
-            // add to accumulated signal
-            mActionBarAutoHideSignal += deltaY;
-        }
-
-        boolean shouldShow = currentY < mActionBarAutoHideMinY ||
-                (mActionBarAutoHideSignal <= -mActionBarAutoHideSensivity);
-        autoShowOrHideActionBar(shouldShow);
-    }
-
-    protected void enableActionBarAutoHide(final ListView listView) {
-        initActionBarAutoHide();
-        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            final static int ITEMS_THRESHOLD = 3;
-            int lastFvi = 0;
-
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                onMainContentScrolled(firstVisibleItem <= ITEMS_THRESHOLD ? 0 : Integer.MAX_VALUE,
-                        lastFvi - firstVisibleItem > 0 ? Integer.MIN_VALUE :
-                                lastFvi == firstVisibleItem ? 0 : Integer.MAX_VALUE
-                );
-                lastFvi = firstVisibleItem;
-            }
-        });
+    protected void setupFloatingWindow(int width, int height, int alpha, float dim) {
+        WindowManager.LayoutParams params = getWindow().getAttributes();
+        params.width = getResources().getDimensionPixelSize(width);
+        params.height = getResources().getDimensionPixelSize(height);
+        params.alpha = alpha;
+        params.dimAmount = dim;
+        params.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+        getWindow().setAttributes(params);
     }
 
     public LUtils getLUtils() {
@@ -677,21 +641,7 @@ public class MLandBase extends AppCompatActivity {
         }
         mStatusBarColorAnimator.setEvaluator(ARGB_EVALUATOR);
         mStatusBarColorAnimator.start();
-
-        for (View view : mHideableHeaderViews) {
-            if (shown) {
-                view.animate()
-                        .translationY(0)
-                        .alpha(1)
-                        .setDuration(HEADER_HIDE_ANIM_DURATION)
-                        .setInterpolator(new DecelerateInterpolator());
-            } else {
-                view.animate()
-                        .translationY(-view.getBottom())
-                        .alpha(0)
-                        .setDuration(HEADER_HIDE_ANIM_DURATION)
-                        .setInterpolator(new DecelerateInterpolator());
-            }
-        }
     }
+
+    protected abstract Context getContext();
 }

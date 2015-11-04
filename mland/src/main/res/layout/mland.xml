@@ -38,7 +38,7 @@
                 android:id="@+id/welcome"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#a0000000"
+                android:background="@color/black__10_percent"
                 android:clickable="true"
                 android:visibility="gone">
 
@@ -59,7 +59,7 @@
                         android:layout_gravity="center"
                         android:scaleType="fitCenter"
                         android:src="@drawable/play"
-                        android:tint="#000000" />
+                        android:tint="@android:color/black" />
 
                     <TextView
                         android:id="@+id/play_button_text"
@@ -67,7 +67,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:alpha="0"
-                        android:textColor="#000000"
+                        android:textColor="@android:color/black"
                         android:textSize="40dp" />
                 </FrameLayout>
             </FrameLayout>
@@ -84,8 +84,8 @@
                 <ImageButton
                     android:id="@+id/player_minus_button"
                     style="@android:style/Widget.Material.Button.Borderless"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
                     android:onClick="playerMinus"
                     android:padding="10dp"
                     android:scaleType="centerInside"
@@ -101,8 +101,8 @@
                 <ImageButton
                     android:id="@+id/player_plus_button"
                     style="@android:style/Widget.Material.Button.Borderless"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
                     android:onClick="playerPlus"
                     android:padding="10dp"
                     android:scaleType="centerInside"

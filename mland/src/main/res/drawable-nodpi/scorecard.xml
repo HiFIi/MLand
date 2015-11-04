@@ -2,5 +2,5 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
     <!-- <corners android:radius="16dp" /> -->
-    <solid android:color="#ffffffff" />
+    <solid android:color="@color/scorecard" />
 </shape>

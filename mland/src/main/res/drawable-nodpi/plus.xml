@@ -19,9 +19,9 @@ Copyright (C) 2015 The Android Open Source Project
     android:viewportHeight="48.0"
     android:viewportWidth="48.0">
     <path
-        android:fillColor="#FFFFFF"
+        android:fillColor="@color/minus_white"
         android:pathData="M4.0,20.0l40.0,0.0l0.0,8.0l-40.0,0.0z" />
     <path
-        android:fillColor="#FFFFFF"
+        android:fillColor="@color/minus_white"
         android:pathData="M20.0,4.0l8.0,0.0l0.0,40.0l-8.0,0.0z" />
 </vector>

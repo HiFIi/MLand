@@ -14,11 +14,16 @@
  * limitations under the License.
  */
 
-package com.kyler.mland.egg;
+package com.kyler.mland.egg.activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.kyler.mland.egg.MLandBase;
+import com.kyler.mland.egg.MLandOriginal;
+import com.kyler.mland.egg.R;
 
 public class MLandOriginalActivity extends MLandBase {
     MLandOriginal mLand;
@@ -68,6 +73,11 @@ public class MLandOriginalActivity extends MLandBase {
     public void onPause() {
         mLand.stop();
         super.onPause();
+    }
+
+    @Override
+    protected Context getContext() {
+        return MLandOriginalActivity.this;
     }
 
     @Override

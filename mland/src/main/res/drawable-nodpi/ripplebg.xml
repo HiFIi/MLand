@@ -15,17 +15,17 @@ Copyright (C) 2014 The Android Open Source Project
 -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_focused="true">
-        <ripple android:color="#DDDDDD">
+        <ripple android:color="@color/icon_off_white_2">
             <item>
                 <shape android:shape="oval">
-                    <solid android:color="#FFFFFF" />
+                    <solid android:color="@android:color/white" />
                 </shape>
             </item>
         </ripple>
     </item>
     <item>
         <shape android:shape="oval">
-            <solid android:color="#AAAAAA" />
+            <solid android:color="@color/scorefield__lightish_grey" />
         </shape>
     </item>
 </selector>

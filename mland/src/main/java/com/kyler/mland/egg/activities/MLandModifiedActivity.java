@@ -18,11 +18,16 @@
    for links to the original source
  */
 
-package com.kyler.mland.egg;
+package com.kyler.mland.egg.activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.kyler.mland.egg.MLandBase;
+import com.kyler.mland.egg.MLandModified;
+import com.kyler.mland.egg.R;
 
 public class MLandModifiedActivity extends MLandBase {
     MLandModified mLandModified;
@@ -72,6 +77,11 @@ public class MLandModifiedActivity extends MLandBase {
     public void onPause() {
         mLandModified.stop();
         super.onPause();
+    }
+
+    @Override
+    protected Context getContext() {
+        return MLandModifiedActivity.this;
     }
 
     @Override

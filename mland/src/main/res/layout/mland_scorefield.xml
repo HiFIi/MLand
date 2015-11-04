@@ -21,6 +21,6 @@
     android:paddingEnd="12dp"
     android:paddingStart="12dp"
     android:paddingTop="4dp"
-    android:textColor="#FFAAAAAA"
-    android:textSize="22sp"
+    android:textColor="@color/scorefield__lightish_grey"
+    android:textSize="24.0sp"
     android:textStyle="bold" />
