@@ -36,6 +36,7 @@
     <color name="play_drawer_profile_overlay_shade">#38000000</color>
     <color name="dark_bg">#FF252829</color>
     <color name="about__dark_blue">#CC222831</color>
+    <color name="about__dark_blue_darker">#FF1B2027</color>
     <color name="white_75">#BFFFFFFF</color>
     <color name="tealish_green__primary">#FF00ADB5</color>
     <color name="tealish_green__primaryDark">#FF008A90</color>

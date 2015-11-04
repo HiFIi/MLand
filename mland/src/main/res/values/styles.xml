@@ -55,14 +55,14 @@
 
     <style name="Theme.MLand.About" parent="@style/Theme">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:colorPrimary">@color/tealish_green__primary</item>
-        <item name="android:colorPrimaryDark">@color/tealish_green__primaryDark</item>
+        <item name="android:colorPrimary">@color/about__dark_blue</item>
+        <item name="android:colorPrimaryDark">@color/about__dark_blue_darker</item>
         <item name="android:colorAccent">@color/icon_grey</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:statusBarColor">@color/tealish_green__primaryDark</item>
-        <item name="colorPrimary">@color/tealish_green__primary</item>
+        <item name="android:statusBarColor">@color/about__dark_blue_darker</item>
+        <item name="colorPrimary">@color/about__dark_blue</item>
         <item name="colorAccent">@color/icon_grey</item>
-        <item name="colorPrimaryDark">@color/tealish_green__primaryDark</item>
+        <item name="colorPrimaryDark">@color/about__dark_blue_darker</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowAllowEnterTransitionOverlap">true</item>
@@ -92,6 +92,7 @@
         <item name="android:colorPrimary">@color/tealish_green__primary</item>
         <item name="android:colorPrimaryDark">@color/tealish_green__primaryDark</item>
         <item name="android:colorAccent">@color/icon_grey</item>
+        <item name="android:statusBarColor">@color/tealish_green__primaryDark</item>
         <item name="colorPrimary">@color/tealish_green__primary</item>
         <item name="colorAccent">@color/icon_grey</item>
         <item name="colorPrimaryDark">@color/tealish_green__primaryDark</item>
