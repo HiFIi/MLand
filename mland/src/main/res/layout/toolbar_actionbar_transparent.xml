@@ -19,6 +19,5 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="24.0dip"
     android:background="@color/play_drawer_profile_overlay_shade"
     android:minHeight="?attr/actionBarSize" />

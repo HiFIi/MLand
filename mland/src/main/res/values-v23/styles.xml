@@ -39,9 +39,11 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@color/status_bar_overlay</item>
         <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorPrimaryDark">@color/off_white</item>
         <item name="android:colorAccent">@color/colorPrimary</item>
         <item name="android:textAllCaps">false</item>
         <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/off_white</item>
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowActionBar">false</item>
@@ -49,24 +51,45 @@
         <item name="windowNoTitle">true</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@color/real_black_20</item>
     </style>
 
-    <style name="Theme.MLand.About" parent="@style/Theme">
+    <style name="Theme.MLand.Modified" parent="@style/Theme">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@color/status_bar_overlay</item>
-        <item name="android:colorPrimary">@color/about__dark_blue</item>
-        <item name="android:colorPrimaryDark">@color/about__dark_blue_darker</item>
-        <item name="android:colorAccent">@color/icon_grey</item>
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorPrimaryDark">@color/off_white</item>
+        <item name="android:colorAccent">@color/colorPrimary</item>
         <item name="android:textAllCaps">false</item>
-        <item name="colorPrimary">@color/about__dark_blue</item>
-        <item name="colorAccent">@color/icon_grey</item>
-        <item name="colorPrimaryDark">@color/about__dark_blue_darker</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/off_white</item>
+        <item name="colorAccent">@color/colorPrimary</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@color/real_black_20</item>
+    </style>
+
+    <style name="Theme.MLand.About" parent="@style/Theme">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/status_bar_overlay</item>
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorPrimaryDark">@color/off_white</item>
+        <item name="android:colorAccent">@color/colorPrimary</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/off_white</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@color/tealish_green__primaryDark</item>
     </style>
 
     <style name="Theme.MLand.Splash" parent="Theme.AppCompat.NoActionBar">
@@ -81,17 +104,6 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:statusBarColor">@color/status_bar_overlay</item>
         <item name="android:windowActionBar">false</item>
-        <item name="android:windowContentOverlay">@null</item>
-    </style>
-
-    <style name="Theme.MLand.Splash.Alt" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:colorPrimary">@color/tealish_green__primary</item>
-        <item name="android:colorPrimaryDark">@color/tealish_green__primaryDark</item>
-        <item name="android:colorAccent">@color/icon_grey</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="windowActionModeOverlay">true</item>
-        <item name="android:statusBarColor">@color/status_bar_overlay</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
@@ -111,6 +123,24 @@
         <item name="windowNoTitle">true</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@color/dark_ui_bg__dark</item>
+    </style>
+
+    <style name="Theme.MLand.MoreInfo" parent="@style/Theme">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/status_bar_overlay</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:colorPrimary">@color/splash__statusbar_color</item>
+        <item name="android:colorPrimaryDark">@color/splash__statusbar_color_dark</item>
+        <item name="android:colorAccent">@color/splash__statusbar_color</item>
+        <item name="colorPrimary">@color/splash__statusbar_color</item>
+        <item name="colorPrimaryDark">@color/splash__statusbar_color_dark</item>
+        <item name="colorAccent">@color/splash__statusbar_color</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/tealish_green__primaryDark</item>
     </style>
 
 </resources>

@@ -70,7 +70,7 @@
             android:launchMode="singleTop"
             android:process=":sweetsweetdessertsTwo"
             android:screenOrientation="locked"
-            android:theme="@style/Theme.MLand">
+            android:theme="@style/Theme.MLand.Modified">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -92,6 +92,13 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.MoreInfo"
+            android:hardwareAccelerated="true"
+            android:icon="@drawable/icon_splash"
+            android:label="@string/more_info"
+            android:theme="@style/Theme.MLand.MoreInfo">
         </activity>
     </application>
 

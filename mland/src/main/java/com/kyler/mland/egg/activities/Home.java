@@ -31,19 +31,18 @@ public class Home extends MLandBase {
     public void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.Theme_MLand_Home);
 
-        // Artificial slow startup - NOT TO BE USED IN REAL APP.
-        try {
+    /**    try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        } **/
 
         super.onCreate(savedInstanceState);
 
-        Window window = getWindow();
-        window.setStatusBarColor(getResources().getColor(android.R.color.transparent));
         setContentView(R.layout.home);
         getSupportActionBar().setTitle(null);
+
+        super.mActionBarToolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_drawer_grey));
 
         Resources resources = this.getResources();
         String label = resources.getString(this.getApplicationInfo().labelRes);

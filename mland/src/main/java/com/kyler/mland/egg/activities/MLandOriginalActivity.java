@@ -86,6 +86,7 @@ public class MLandOriginalActivity extends MLandBase {
 
         mLand.onAttachedToWindow(); // resets and starts animation
         updateSplashPlayers();
+        mLand.setFitsSystemWindows(true);
         mLand.showSplash();
     }
 

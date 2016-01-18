@@ -5,9 +5,15 @@
     <string name="dialog_title">ATTENTION</string>
     <string name="dialog_message">THIS IS NOT MY ORIGINAL WORK. PLEASE SEE THE GITHUB README OR THE SOURCE CODE FOR THE ORIGINAL LINKS.</string>
     <string name="okay">Okay!</string>
+    <string name="okay_2">Okay. :(</string>
     <string name="home">Home</string>
     <string name="blank"></string>
-    <string name="about">About</string>
+    <string name="about">About (Todo)</string>
+    <string name="mland_on_github">MLand on Github</string>
     <string name="home_test">Home</string>
+    <string name="coming_soon">Coming soon. :P</string>
 
+    <string name="more_info">More info</string>
+    <string name="send_me_an_email">Send me an Email</string>
+    <string name="follow_me_on_google_plus">Follow me on Google Plus</string>
 </resources>

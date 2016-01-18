@@ -12,9 +12,11 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -29,6 +31,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.samples.apps.iosched.ui.widget.ScrimInsetsScrollView;
 import com.kyler.mland.egg.activities.About;
@@ -67,7 +70,6 @@ public abstract class MLandBase extends AppCompatActivity {
     // delay to launch nav drawer item, to allow close animation to play
     private static final int NAVDRAWER_LAUNCH_DELAY = 800;
     private static final int POST_LAUNCH_FADE = 1200;
-
     /**
      * END TO-DO
      **/
@@ -238,7 +240,7 @@ public abstract class MLandBase extends AppCompatActivity {
         }
 
         if (mActionBarToolbar != null) {
-            mActionBarToolbar.setNavigationIcon(R.drawable.ic_drawer_white);
+            mActionBarToolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_drawer_white));
             mActionBarToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -397,10 +399,11 @@ public abstract class MLandBase extends AppCompatActivity {
                 finish();
                 break;
             case NAVDRAWER_ITEM_ABOUT:
-                intent = new Intent(this, About.class);
+            /**    intent = new Intent(this, About.class);
                 startActivity(intent);
                 //    overridePendingTransition(0, 0);
-                finish();
+                finish(); **/
+                Toast.makeText(MLandBase.this, getResources().getString(R.string.coming_soon), Toast.LENGTH_LONG).show();
                 break;
 
         }

@@ -19,7 +19,6 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="24.0dip"
     android:background="@android:color/transparent"
     android:elevation="0dp"
     android:minHeight="?attr/actionBarSize"

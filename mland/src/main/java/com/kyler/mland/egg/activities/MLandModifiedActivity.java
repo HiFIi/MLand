@@ -89,6 +89,7 @@ public class MLandModifiedActivity extends MLandBase {
         super.onResume();
 
         mLandModified.onAttachedToWindow(); // resets and starts animation
+        mLandModified.setFitsSystemWindows(true);
         updateSplashPlayers();
         mLandModified.showSplash();
     }

@@ -40,7 +40,7 @@
     <color name="white_75">#BFFFFFFF</color>
     <color name="tealish_green__primary">#FF00ADB5</color>
     <color name="tealish_green__primaryDark">#FF008A90</color>
-    <color name="black__10_percent">#33000000</color>
+    <color name="black__10_percent">#1A000000</color>
     <color name="header__sky_blue">#FF26A9EC</color>
     <color name="scorefield__lightish_grey">#FFAAAAAA</color>
     <color name="navdrawer_separator">#FFE4E4E4</color>
@@ -101,5 +101,13 @@
     <color name="black__20">#FFCDCDCD</color>
 
     <color name="transparent">#00000000</color>
-    <color name="status_bar_overlay">#33000000</color>
+    <color name="status_bar_overlay">#1A000000</color>
+
+    <color name="real_black_20">#33000000</color>
+
+    <color name="about__background_dark">#FF36404B</color>
+
+    <color name="dark_ui_bg">#FF222426</color>
+    <color name="dark_ui_bg__dark">#FF111213</color>
+
 </resources>
