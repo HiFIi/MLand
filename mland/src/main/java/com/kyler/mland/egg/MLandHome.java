@@ -57,7 +57,6 @@ public class MLandHome extends FrameLayout {
     public static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
     public static final boolean DEBUG_DRAW = false; // DEBUG
 
-
     /**
      * Originally, this was set to true, but idk. It
      * looked pretty weird when the screen was touched so
@@ -84,16 +83,14 @@ public class MLandHome extends FrameLayout {
     static final int[] MOUTHS = new int[]{R.drawable.mm_mouth1, R.drawable.mm_mouth2,
             R.drawable.mm_mouth3, R.drawable.mm_mouth4};
     static final int[] CACTI = {R.drawable.cactus1, R.drawable.cactus2, R.drawable.cactus3};
-    static final int[] MOUNTAINS = {
-            R.drawable.mountain1, R.drawable.mountain2, R.drawable.mountain3};
     private static final int DAY = 0;
     private static final int[][] SKIES = {
-            {0xFF4285F4, 0xFF6499BE}, // DAY
+            {0xFFFAFBFD, 0xFFFFFFFF}, // DAY
     };
     private static final int SCENE_CITY = 0, SCENE_TX = 1, SCENE_ZRH = 2;
     private static final int SCENE_COUNT = 4;
     private static Params PARAMS;
-    private static float dp = 1f;
+    private static float dp = 4f;
     private final AudioAttributes mAudioAttrs = new AudioAttributes.Builder()
             .setUsage(AudioAttributes.USAGE_GAME).build();
     private TimeAnimator mAnim;
@@ -410,14 +407,14 @@ public class MLandHome extends FrameLayout {
         }
 
         final int mh = mHeight / 6;
-        final boolean cloudless = frand() < 0.25;
+        //    final boolean cloudless = frand() < 0.25;
         final int N = 20;
         for (i = 0; i < N; i++) {
             final float r1 = frand();
             final Scenery s;
             if (HAVE_STARS && r1 < 0.3 && mTimeOfDay != DAY) {
                 s = new Star(getContext());
-            } else if (r1 < 0.6 && !cloudless) {
+            } else if (r1 < 0.6) {
                 s = new Cloud(getContext());
             } else {
                 switch (mScene) {
@@ -1394,7 +1391,7 @@ public class MLandHome extends FrameLayout {
         public Mountain(Context context) {
             super(context);
 
-            setBackgroundResource(pick(MOUNTAINS));
+            setBackgroundResource(pick(CACTI));
             w = h = irand(PARAMS.BUILDING_WIDTH_MAX / 2, PARAMS.BUILDING_WIDTH_MAX);
             z = 0;
         }
@@ -1403,7 +1400,7 @@ public class MLandHome extends FrameLayout {
     private class Cloud extends Scenery {
         public Cloud(Context context) {
             super(context);
-            setBackgroundResource(frand() < 0.01f ? R.drawable.cloud_off : R.drawable.cloud);
+            setBackgroundResource(frand() < 0.01f ? R.drawable.icon_splash : R.drawable.cloud_inverted);
             getBackground().setAlpha(0x40);
             w = h = irand(PARAMS.CLOUD_SIZE_MIN, PARAMS.CLOUD_SIZE_MAX);
             z = 0;

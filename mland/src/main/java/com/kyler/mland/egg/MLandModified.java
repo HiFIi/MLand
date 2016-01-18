@@ -92,7 +92,7 @@ public class MLandModified extends FrameLayout {
             {0xFF000010, 0xFF000000}, // NIGHT
             {0xFF000040, 0xFF000010}, // TWILIGHT
             {0xFFa08020, 0xFF204080}, // SUNSET
-            {0xFF161718, 0xFF161718}, // WTF
+            {0xFF161718, 0xFFFFFFFF}, // WTF
     };
     private static final int SCENE_CITY = 0, SCENE_TX = 1, SCENE_ZRH = 2;
     private static final int SCENE_COUNT = 4;

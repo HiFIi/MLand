@@ -16,12 +16,12 @@
     android:id="@+id/navdrawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="left|start"
+    android:layout_gravity="start"
     android:background="@android:color/white"
     android:choiceMode="singleChoice"
     android:elevation="16dp"
     android:fitsSystemWindows="true"
-    app:insetForeground="@color/black__10_percent">
+    app:appInsetForeground="@color/black__10_percent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,7 +32,7 @@
             android:id="@+id/chosen_account_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/header__sky_blue">
+            android:foreground="?photoItemForeground">
 
             <!-- Source for the ImageView Image below: https://www.android.com/static/img/banners/marshmallow-2200.jpg -->
 
@@ -40,7 +40,6 @@
                 android:id="@+id/overlaycover"
                 android:layout_width="fill_parent"
                 android:layout_height="200.0dip"
-                android:layout_marginTop="16.0dip"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/marshmallow" />

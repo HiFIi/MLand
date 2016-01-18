@@ -32,7 +32,7 @@
                     <FrameLayout
                         android:id="@+id/fl2"
                         android:layout_width="fill_parent"
-                        android:layout_height="280.0dip"
+                        android:layout_height="240.0dip"
                         android:background="@color/about__dark_blue"
                         android:elevation="12.0dip"
                         android:orientation="vertical">

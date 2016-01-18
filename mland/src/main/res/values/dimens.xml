@@ -26,4 +26,7 @@
 
     <dimen name="card_margin">16dp</dimen>
 
+    <dimen name="launch_screen_logo_bottom">16.0dip</dimen>
+    <dimen name="launch_screen_text_bottom">48.0dip</dimen>
+
 </resources>

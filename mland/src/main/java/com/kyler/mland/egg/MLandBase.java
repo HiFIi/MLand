@@ -35,7 +35,6 @@ import com.kyler.mland.egg.activities.About;
 import com.kyler.mland.egg.activities.Home;
 import com.kyler.mland.egg.activities.MLandModifiedActivity;
 import com.kyler.mland.egg.activities.MLandOriginalActivity;
-import com.kyler.mland.egg.splash.Splash;
 import com.kyler.mland.egg.utils.LUtils;
 import com.kyler.mland.egg.utils.UIUtils;
 
@@ -102,10 +101,7 @@ public abstract class MLandBase extends AppCompatActivity {
     private boolean mToolbarInitialized;
     private CharSequence mTitle;
     private Context context;
-    private ObjectAnimator mStatusBarColorAnimator;
     private Handler mHandler;
-    private int mThemedStatusBarColor;
-    private int mNormalStatusBarColor;
     // variables that control the Action Bar auto hide behavior (aka "quick recall")
     private boolean mActionBarAutoHideEnabled = false;
     private boolean mActionBarShown = true;
@@ -125,6 +121,12 @@ public abstract class MLandBase extends AppCompatActivity {
 
     private ImageView iconView;
 
+    private ObjectAnimator mStatusBarColorAnimator;
+
+    private int mThemedStatusBarColor;
+
+    private int mNormalStatusBarColor;
+
     private int drawerColorCalendar = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 
     @SuppressLint("InlinedApi")
@@ -141,37 +143,6 @@ public abstract class MLandBase extends AppCompatActivity {
         if (getIntent().getBooleanExtra("EXIT", false)) {
             super.finish();
         }
-
-        if (!first.getBoolean("firstTime", false)) {
-
-            new Handler().post(new Runnable() {
-                @Override
-                public void run() {
-                    Intent welcomeSplash = new Intent(MLandBase.this, Splash.class);
-                    startActivity(welcomeSplash);
-                    //    finish();
-                    /**    final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MLandBase.this);
-                     alertDialogBuilder.setTitle(R.string.dialog_title)
-                     .setMessage(R.string.dialog_message);
-
-                     alertDialogBuilder.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
-                    @Override public void onClick(DialogInterface arg0, int arg1) {
-                    // It'll clear
-                    }
-                    });
-
-                     AlertDialog alertDialog = alertDialogBuilder.create();
-                     alertDialog.show(); **/
-                }
-            });
-
-
-            editor = first.edit();
-
-            editor.putBoolean("firstTime", true);
-            editor.commit();
-
-        }
         mHandler = new Handler();
 
         // Enable or disable each Activity depending on the form factor. This is necessary
@@ -184,6 +155,9 @@ public abstract class MLandBase extends AppCompatActivity {
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
         }
+
+        mThemedStatusBarColor = getResources().getColor(R.color.tealish_green__primaryDark);
+        mNormalStatusBarColor = mThemedStatusBarColor;
     }
 
     /**
@@ -217,8 +191,8 @@ public abstract class MLandBase extends AppCompatActivity {
             return;
         }
 
-    /*    mDrawerLayout.setStatusBarBackgroundColor(
-                getResources().getColor(R.color.theme_primary_dark)); */
+        mDrawerLayout.setStatusBarBackgroundColor(
+                getResources().getColor(R.color.transparent));
         ScrimInsetsScrollView navDrawer = (ScrimInsetsScrollView)
                 mDrawerLayout.findViewById(R.id.navdrawer);
 
@@ -246,6 +220,7 @@ public abstract class MLandBase extends AppCompatActivity {
         if (navDrawer != null) {
             final View chosenAccountContentView = findViewById(R.id.chosen_account_content_view);
             final View chosenAccountView = findViewById(R.id.chosen_account_view);
+
             final int navDrawerChosenAccountHeight = getResources().getDimensionPixelSize(
                     R.dimen.navdrawer_chosen_account_height);
             navDrawer.setOnInsetsCallback(new ScrimInsetsScrollView.OnInsetsCallback() {
@@ -257,7 +232,6 @@ public abstract class MLandBase extends AppCompatActivity {
                     chosenAccountContentView.setLayoutParams(lp);
 
                     ViewGroup.LayoutParams lp2 = chosenAccountView.getLayoutParams();
-                    //    lp2.height = navDrawerChosenAccountHeight + insets.top;
                     chosenAccountView.setLayoutParams(lp2);
                 }
             });
@@ -615,6 +589,20 @@ public abstract class MLandBase extends AppCompatActivity {
 
     public LUtils getLUtils() {
         return mLUtils;
+    }
+
+    public int getThemedStatusBarColor() {
+        return mThemedStatusBarColor;
+    }
+
+    public void setNormalStatusBarColor(int color) {
+        mNormalStatusBarColor = color;
+        if (mDrawerLayout != null) {
+            mDrawerLayout.setStatusBarBackgroundColor(mNormalStatusBarColor);
+        }
+
+        mStatusBarColorAnimator.setEvaluator(ARGB_EVALUATOR);
+        mStatusBarColorAnimator.start();
     }
 
     private boolean isSpecialItem(int itemId) {

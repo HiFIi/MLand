@@ -25,22 +25,22 @@
     5% — 0D
     0% — 00
     -->
-    <color name="colorPrimary">#FF3C4452</color>
-    <color name="colorPrimaryDark">#FF2B313B</color>
-    <color name="colorAccent">#FF3C4452</color>
+    <color name="colorPrimary">#FF747474</color>
+    <color name="colorPrimaryDark">#FF606060</color>
+    <color name="colorAccent">#FFEA4335</color>
     <color name="session_photo_scrim">#6000</color>
     <color name="navdrawer_item_text_color">#FF505050</color>
     <color name="navdrawer_item_icon_color">#FF757575</color>
-    <color name="icon_grey">#FF505050</color>
-    <color name="default_text_color">#FF505050</color>
+    <color name="icon_grey">#FF757575</color>
+    <color name="default_text_color">#FFFAFAFA</color>
     <color name="play_drawer_profile_overlay_shade">#38000000</color>
     <color name="dark_bg">#FF252829</color>
-    <color name="about__dark_blue">#CC222831</color>
+    <color name="about__dark_blue">#FF222831</color>
     <color name="about__dark_blue_darker">#FF1B2027</color>
     <color name="white_75">#BFFFFFFF</color>
     <color name="tealish_green__primary">#FF00ADB5</color>
     <color name="tealish_green__primaryDark">#FF008A90</color>
-    <color name="black__10_percent">#1A000000</color>
+    <color name="black__10_percent">#33000000</color>
     <color name="header__sky_blue">#FF26A9EC</color>
     <color name="scorefield__lightish_grey">#FFAAAAAA</color>
     <color name="navdrawer_separator">#FFE4E4E4</color>
@@ -86,6 +86,20 @@
     <color name="sun_yellow_1">#FFFFFFCC</color>
     <color name="sun_yellow_2">#CCFFFF40</color>
 
+    <color name="off_white">#FFFAFBFC</color>
+    <color name="home__off_white">#1A000000</color>
+    <color name="toolbar_actionbar_home">#FF151923</color>
+    <color name="toolbar_actionbar_home_dark">#FF070911</color>
+
+    <color name="dark_blue__dark_ui">#FF1B2027</color>
+    <color name="dark_blue__dark_ui_dark">#FF14181D</color>
+    <color name="splash__statusbar_color">#FF00ADB5</color>
+    <color name="splash__statusbar_color_dark">#FF008A90</color>
+    <color name="nice_grey">#FF272727</color>
+
     <!-- Not technically a 20% transparent black :P -->
     <color name="black__20">#FFCDCDCD</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="status_bar_overlay">#33000000</color>
 </resources>

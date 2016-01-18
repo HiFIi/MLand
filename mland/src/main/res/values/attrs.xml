@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <declare-styleable name="BaseTheme">
+        <attr name="photoItemForeground" format="reference" />
+    </declare-styleable>
+
     <declare-styleable name="MLandTextView">
         <attr name="fontName" format="string" />
     </declare-styleable>
 
     <declare-styleable name="ScrimInsetsView">
-        <attr name="insetForeground" format="reference|color" />
+        <attr name="appInsetForeground" format="reference|color" />
     </declare-styleable>
 
 </resources>

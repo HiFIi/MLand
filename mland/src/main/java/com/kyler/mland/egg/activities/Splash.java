@@ -1,15 +1,18 @@
-package com.kyler.mland.egg.splash;
+package com.kyler.mland.egg.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.kyler.mland.egg.R;
-import com.kyler.mland.egg.activities.Home;
 
 /**
- * Created by kyler on 7/13/2015.
+ * Created by kyler on 1/4/16.
  */
 
 public class Splash extends AppCompatActivity {
@@ -18,8 +21,15 @@ public class Splash extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.Theme_MLand_Splash);
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.splash);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.BLUE);
+        }
 
         new Handler().postDelayed(new Runnable() {
             @Override
