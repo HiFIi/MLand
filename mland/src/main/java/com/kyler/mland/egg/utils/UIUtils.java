@@ -73,7 +73,7 @@ public class UIUtils {
      * Enables and disables {@linkplain android.app.Activity activities} based on their
      * {@link #TARGET_FORM_FACTOR_ACTIVITY_METADATA}" meta-data and the current device.
      * Values should be either "handset", "tablet", or not present (meaning universal).
-     * <p/>
+     * <p>
      * <a href="http://stackoverflow.com/questions/13202805">Original code</a> by Dandre Allison.
      *
      * @param context the current context of the device

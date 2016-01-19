@@ -41,8 +41,8 @@ public class MLandModifiedActivity extends MLandBase {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.getWindow().getDecorView().setSystemUiVisibility(
-         View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
         setContentView(R.layout.mland);
         getSupportActionBar().setTitle(null);

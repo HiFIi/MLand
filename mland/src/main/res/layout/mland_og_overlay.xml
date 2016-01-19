@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:customfontdemo="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFFFF"
+    android:orientation="vertical">
+
+    <com.kyler.mland.egg.ui.MLandTextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16.0dip"
+        android:text="Welcome!"
+        android:textColor="@color/navdrawer_item_text_color"
+        android:textSize="56.0sp"
+        customfontdemo:fontName="Roboto-Bold.ttf" />
+
+</RelativeLayout>

@@ -63,8 +63,8 @@ public class MLandModified extends FrameLayout {
      * looked pretty weird when the screen was touched so
      * I, Kyler (aka IAmReinvented) set the boolean
      * to false.
-     * <p/>
-     * <p/>
+     * <p>
+     * <p>
      * public static final boolean SHOW_TOUCHES = true;
      */
     public static final boolean SHOW_TOUCHES = false;

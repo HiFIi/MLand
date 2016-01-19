@@ -6,7 +6,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.view.Window;
 
 import com.kyler.mland.egg.MLandBase;
 import com.kyler.mland.egg.R;
@@ -31,11 +30,11 @@ public class Home extends MLandBase {
     public void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.Theme_MLand_Home);
 
-    /**    try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } **/
+        /**    try {
+         Thread.sleep(3000);
+         } catch (InterruptedException e) {
+         e.printStackTrace();
+         } **/
 
         super.onCreate(savedInstanceState);
 

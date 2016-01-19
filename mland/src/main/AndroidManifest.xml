@@ -98,8 +98,7 @@
             android:hardwareAccelerated="true"
             android:icon="@drawable/icon_splash"
             android:label="@string/more_info"
-            android:theme="@style/Theme.MLand.MoreInfo">
-        </activity>
+            android:theme="@style/Theme.MLand.MoreInfo"></activity>
     </application>
 
 </manifest>

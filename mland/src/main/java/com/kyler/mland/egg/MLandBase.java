@@ -1,23 +1,16 @@
 package com.kyler.mland.egg;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ObjectAnimator;
-import android.animation.TypeEvaluator;
-import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -33,7 +26,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.samples.apps.iosched.ui.widget.ScrimInsetsScrollView;
-import com.kyler.mland.egg.activities.About;
 import com.kyler.mland.egg.activities.Home;
 import com.kyler.mland.egg.activities.MLandModifiedActivity;
 import com.kyler.mland.egg.activities.MLandOriginalActivity;
@@ -56,10 +48,6 @@ public abstract class MLandBase extends AppCompatActivity {
     protected static final int NAVDRAWER_ITEM_INVALID = -1;
     protected static final int NAVDRAWER_ITEM_SEPARATOR = -2;
     protected static final int NAVDRAWER_ITEM_SEPARATOR_SPECIAL = -3;
-    private static final int FADE_CROSSOVER_TIME_MILLIS = 600;
-    private static final TypeEvaluator ARGB_EVALUATOR = new ArgbEvaluator();
-    // Durations for certain animations we use:
-    private static final int HEADER_HIDE_ANIM_DURATION = 100;
 
     /**
      * TO DO:
@@ -75,11 +63,11 @@ public abstract class MLandBase extends AppCompatActivity {
 
     // fade in and fade out durations for the main content when switching between
     // different Activities of the app through the Nav Drawer
-    private static final int MAIN_CONTENT_FADEOUT_DURATION = 150;
-    private static final int MAIN_CONTENT_FADEIN_DURATION = 250;
+    private static final int MAIN_CONTENT_FADEOUT_DURATION = 200;
+    private static final int MAIN_CONTENT_FADEIN_DURATION = 550;
     // titles for navdrawer items (indices must correspond to the above)
     private static final int[] NAVDRAWER_TITLE_RES_ID = new int[]{
-            R.string.home_test,
+            R.string.home,
             R.string.mland_original,
             R.string.mland_modified,
             R.string.about
@@ -94,12 +82,9 @@ public abstract class MLandBase extends AppCompatActivity {
     public DrawerLayout mDrawerLayout;
     // Primary toolbar and drawer toggle
     public Toolbar mActionBarToolbar;
-    Bitmap bitmap;
     SharedPreferences pref;
-    ImageView iv;
     // A Runnable that we should execute when the navigation drawer finishes its closing animation
     private Runnable mDeferredOnDrawerClosedRunnable;
-    private boolean mToolbarInitialized;
     private CharSequence mTitle;
     private Context context;
     private Handler mHandler;
@@ -131,9 +116,28 @@ public abstract class MLandBase extends AppCompatActivity {
 
         //    RecentTasksStyler.styleRecentTasksEntry(this);
 
-        // Let everyone know this isn't my original work. :)
         SharedPreferences first = PreferenceManager
                 .getDefaultSharedPreferences(this);
+
+        if (getIntent().getBooleanExtra("EXIT", false)) {
+            super.finish();
+        }
+
+        if (!first.getBoolean("firstTimeRan", false)) {
+
+            new Handler().post(new Runnable() {
+                @Override
+                public void run() {
+
+                }
+            });
+
+            SharedPreferences.Editor editor = first.edit();
+
+            editor.putBoolean("firstTimeRan", true);
+            editor.commit();
+
+        }
 
         if (getIntent().getBooleanExtra("EXIT", false)) {
             super.finish();
@@ -303,6 +307,7 @@ public abstract class MLandBase extends AppCompatActivity {
     private void populateNavDrawer() {
         mNavDrawerItems.clear();
         mNavDrawerItems.add(NAVDRAWER_ITEM_HOME);
+
         mNavDrawerItems.add(NAVDRAWER_ITEM_MLAND);
         mNavDrawerItems.add(NAVDRAWER_ITEM_MLANDMODIFIED);
 
@@ -389,10 +394,10 @@ public abstract class MLandBase extends AppCompatActivity {
                 finish();
                 break;
             case NAVDRAWER_ITEM_ABOUT:
-            /**    intent = new Intent(this, About.class);
-                startActivity(intent);
-                //    overridePendingTransition(0, 0);
-                finish(); **/
+                /**    intent = new Intent(this, About.class);
+                 startActivity(intent);
+                 //    overridePendingTransition(0, 0);
+                 finish(); **/
                 Toast.makeText(MLandBase.this, getResources().getString(R.string.coming_soon), Toast.LENGTH_LONG).show();
                 break;
 

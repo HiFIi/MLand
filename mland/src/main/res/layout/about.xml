@@ -1,6 +1,5 @@
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:customfontdemo="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,32 +20,32 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/relativeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="240.0dip"
-                android:background="@color/tealish_green__primary"
-                android:orientation="vertical"
                 android:layout_alignParentStart="true"
-                android:id="@+id/relativeLayout">
+                android:background="@color/tealish_green__primary"
+                android:orientation="vertical">
 
                 <com.kyler.mland.egg.ui.MLandTextView
                     android:id="@+id/aboutHeadText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
                     android:text="@string/about"
                     android:textColor="@color/off_white"
                     android:textSize="56.0sp"
-                    customfontdemo:fontName="ProductSans-Regular.ttf"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true" />
+                    customfontdemo:fontName="ProductSans-Regular.ttf" />
 
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/relativeLayout">
+                android:layout_below="@+id/relativeLayout"
+                android:orientation="vertical">
 
             </RelativeLayout>
 
