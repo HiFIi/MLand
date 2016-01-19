@@ -40,9 +40,10 @@ public class MLandModifiedActivity extends MLandBase {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /**  super.getWindow().getDecorView().setSystemUiVisibility(
+        super.getWindow().getDecorView().setSystemUiVisibility(
          View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN); **/
+         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+
         setContentView(R.layout.mland);
         getSupportActionBar().setTitle(null);
         mLandModified = (MLandModified) findViewById(R.id.world);
@@ -89,7 +90,6 @@ public class MLandModifiedActivity extends MLandBase {
         super.onResume();
 
         mLandModified.onAttachedToWindow(); // resets and starts animation
-        mLandModified.setFitsSystemWindows(true);
         updateSplashPlayers();
         mLandModified.showSplash();
     }

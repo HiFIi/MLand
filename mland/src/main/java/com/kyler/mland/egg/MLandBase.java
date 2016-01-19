@@ -16,7 +16,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -66,10 +65,10 @@ public abstract class MLandBase extends AppCompatActivity {
      * TO DO:
      * Play with the launch delay values some more.
      */
-    private static final int NAVDRAWER_CLOSE_PRELAUNCH = 600;
+    private static final int NAVDRAWER_CLOSE_PRELAUNCH = 400;
     // delay to launch nav drawer item, to allow close animation to play
-    private static final int NAVDRAWER_LAUNCH_DELAY = 800;
-    private static final int POST_LAUNCH_FADE = 1200;
+    private static final int NAVDRAWER_LAUNCH_DELAY = 600;
+    private static final int POST_LAUNCH_FADE = 400;
     /**
      * END TO-DO
      **/
@@ -123,12 +122,6 @@ public abstract class MLandBase extends AppCompatActivity {
 
     private ImageView iconView;
 
-    private ObjectAnimator mStatusBarColorAnimator;
-
-    private int mThemedStatusBarColor;
-
-    private int mNormalStatusBarColor;
-
     private int drawerColorCalendar = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 
     @SuppressLint("InlinedApi")
@@ -157,9 +150,6 @@ public abstract class MLandBase extends AppCompatActivity {
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
         }
-
-        mThemedStatusBarColor = getResources().getColor(R.color.tealish_green__primaryDark);
-        mNormalStatusBarColor = mThemedStatusBarColor;
     }
 
     /**
@@ -594,44 +584,8 @@ public abstract class MLandBase extends AppCompatActivity {
         return mLUtils;
     }
 
-    public int getThemedStatusBarColor() {
-        return mThemedStatusBarColor;
-    }
-
-    public void setNormalStatusBarColor(int color) {
-        mNormalStatusBarColor = color;
-        if (mDrawerLayout != null) {
-            mDrawerLayout.setStatusBarBackgroundColor(mNormalStatusBarColor);
-        }
-
-        mStatusBarColorAnimator.setEvaluator(ARGB_EVALUATOR);
-        mStatusBarColorAnimator.start();
-    }
-
     private boolean isSpecialItem(int itemId) {
         return itemId == NAVDRAWER_ITEM_INVALID;
-    }
-
-    protected void onActionBarAutoShowOrHide(boolean shown) {
-        if (mStatusBarColorAnimator != null) {
-            mStatusBarColorAnimator.cancel();
-        }
-        mStatusBarColorAnimator = ObjectAnimator.ofInt(
-                (mDrawerLayout != null) ? mDrawerLayout : mLUtils,
-                (mDrawerLayout != null) ? "statusBarBackgroundColor" : "statusBarColor",
-                shown ? Color.BLACK : mNormalStatusBarColor,
-                shown ? mNormalStatusBarColor : Color.BLACK)
-                .setDuration(300);
-        if (mDrawerLayout != null) {
-            mStatusBarColorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                    ViewCompat.postInvalidateOnAnimation(mDrawerLayout);
-                }
-            });
-        }
-        mStatusBarColorAnimator.setEvaluator(ARGB_EVALUATOR);
-        mStatusBarColorAnimator.start();
     }
 
     protected abstract Context getContext();

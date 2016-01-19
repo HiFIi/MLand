@@ -14,7 +14,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="false">
 
     <LinearLayout
         android:id="@+id/main_content"
@@ -38,7 +38,7 @@
                 android:id="@+id/welcome"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/black__10_percent"
+                android:background="@color/real_black_20"
                 android:clickable="true"
                 android:visibility="gone">
 
@@ -77,6 +77,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="56.0dip"
                 android:layout_gravity="top|center_horizontal"
+                android:layout_marginTop="24.0dip"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
