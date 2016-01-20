@@ -73,7 +73,7 @@ public class UIUtils {
      * Enables and disables {@linkplain android.app.Activity activities} based on their
      * {@link #TARGET_FORM_FACTOR_ACTIVITY_METADATA}" meta-data and the current device.
      * Values should be either "handset", "tablet", or not present (meaning universal).
-     * <p>
+     * <p/>
      * <a href="http://stackoverflow.com/questions/13202805">Original code</a> by Dandre Allison.
      *
      * @param context the current context of the device
@@ -114,6 +114,20 @@ public class UIUtils {
         }
     }
 
+    public static int setColorOpaque(int color) {
+        return Color.argb(255, Color.red(color), Color.green(color), Color.blue(color));
+    }
+
+    public static int scaleColor(int color, float factor, boolean scaleAlpha) {
+        return Color.argb(scaleAlpha ? (Math.round(Color.alpha(color) * factor)) : Color.alpha(color),
+                Math.round(Color.red(color) * factor), Math.round(Color.green(color) * factor),
+                Math.round(Color.blue(color) * factor));
+    }
+
+    public static int scaleSessionColorToDefaultBG(int color) {
+        return scaleColor(color, SESSION_BG_COLOR_SCALE_FACTOR, false);
+    }
+
     public static long getCurrentTime(final Context context) {
     /*    if (BuildConfig.DEBUG) {
             return context.getSharedPreferences("mock_data", Context.MODE_PRIVATE)
@@ -144,5 +158,20 @@ public class UIUtils {
         }
 
         return (value - min) / (float) (max - min);
+    }
+
+
+    /**
+     * Create a color integer value with specified alpha.
+     * <p>This may be useful to change alpha value of background color.</p>
+     *
+     * @param alpha     Alpha value from 0.0f to 1.0f.
+     * @param baseColor Base color. alpha value will be ignored.
+     * @return A color with alpha made from base color.
+     */
+    public static int getColorWithAlpha(float alpha, int baseColor) {
+        int a = Math.min(255, Math.max(0, (int) (alpha * 255))) << 24;
+        int rgb = 0x00ffffff & baseColor;
+        return a + rgb;
     }
 }

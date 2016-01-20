@@ -14,6 +14,8 @@
   limitations under the License.
   -->
 <resources>
+    <dimen name="padding_normal">16dp</dimen>
+
     <!-- UI elements -->
     <dimen name="whats_on_height">64dp</dimen>
     <dimen name="track_icon_source_size">48dp</dimen>
@@ -118,9 +120,6 @@
     <dimen name="keyline_2_session_detail">@dimen/keyline_2</dimen>
 
     <dimen name="session_detail_speaker_left_offset">@dimen/keyline_1</dimen>
-
-    <dimen name="headerbar_elevation">4dp</dimen>
-    <dimen name="session_detail_max_header_elevation">@dimen/headerbar_elevation</dimen>
     <dimen name="card_elevation">2dp</dimen>
 
     <dimen name="card_corner_radius">2dp</dimen>

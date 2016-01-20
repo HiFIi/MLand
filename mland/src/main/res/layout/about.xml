@@ -1,55 +1,122 @@
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:customfontdemo="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="false">
 
     <LinearLayout
         android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/transparent"
         android:orientation="vertical">
 
-        <include layout="@layout/toolbar_actionbar_actually_transparent" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <com.google.samples.apps.iosched.ui.widget.ObservableScrollView
+            android:id="@+id/scroll_view"
+            android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:background="@color/dark_ui_bg"
-            android:orientation="vertical">
+            android:background="@android:color/transparent"
+            android:fillViewport="true"
+            android:overScrollMode="never">
 
-            <RelativeLayout
-                android:id="@+id/relativeLayout"
+            <FrameLayout
+                android:id="@+id/scroll_view_child"
                 android:layout_width="match_parent"
-                android:layout_height="240.0dip"
-                android:layout_alignParentStart="true"
-                android:background="@color/tealish_green__primary"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:background="@color/off_white"
+                android:clipChildren="false">
 
-                <com.kyler.mland.egg.ui.MLandTextView
-                    android:id="@+id/aboutHeadText"
-                    android:layout_width="wrap_content"
+                <!-- Background photo. -->
+                <FrameLayout
+                    android:id="@+id/session_photo_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="260.0dip">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/session_photo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        fresco:actualImageScaleType="focusCrop"
+                        fresco:fadeDuration="500"
+                        fresco:placeholderImage="@drawable/marshmallow"
+                        fresco:viewAspectRatio="1.33" />
+
+                    <!--  <ImageView
+                          android:layout_width="144.0dip"
+                          android:layout_height="144.0dip"
+                          android:id="@+id/test"
+                          android:src="@drawable/icon_modified_transparent"
+                          android:layout_gravity="center_horizontal" /> -->
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:id="@+id/details_container"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:text="@string/about"
-                    android:textColor="@color/off_white"
-                    android:textSize="56.0sp"
-                    customfontdemo:fontName="ProductSans-Regular.ttf" />
+                    android:clipToPadding="false"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/session_details_extra_space_bottom">
 
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|bottom"
+                        android:layout_marginTop="2000dp"
+                        android:text="Medium Text"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/relativeLayout"
-                android:orientation="vertical">
 
-            </RelativeLayout>
+                </LinearLayout>
 
-        </RelativeLayout>
+                <!-- Title/subtitle bar (floating; position determined at run time as the content view scrolls) -->
+                <LinearLayout
+                    android:id="@+id/header_session"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/pink41_transparent"
+                    android:clipChildren="false"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/toolbar_actionbar_actually_transparent_margintop" />
+
+                    <TextView
+                        android:id="@+id/session_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/padding_normal"
+                        android:layout_marginLeft="@dimen/keyline_2_session_detail"
+                        android:layout_marginRight="@dimen/padding_normal"
+                        android:layout_marginStart="@dimen/keyline_2_session_detail"
+                        android:ellipsize="end"
+                        android:maxLines="4"
+                        android:text="@string/placeholder_session_title"
+                        android:textAlignment="viewStart" />
+
+                    <TextView
+                        android:id="@+id/session_subtitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/padding_normal"
+                        android:layout_marginLeft="@dimen/keyline_2_session_detail"
+                        android:layout_marginRight="@dimen/padding_normal"
+                        android:layout_marginStart="@dimen/keyline_2_session_detail"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:text="@string/placeholder_session_subtitle"
+                        android:textAlignment="viewStart" />
+
+                </LinearLayout>
+
+                !-- FAB -->
+
+                <include layout="@layout/include_add_schedule_fab" />
+
+            </FrameLayout>
+        </com.google.samples.apps.iosched.ui.widget.ObservableScrollView>
 
     </LinearLayout>
     <!-- Nav drawer -->

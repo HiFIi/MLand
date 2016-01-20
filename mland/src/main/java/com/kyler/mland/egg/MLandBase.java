@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -23,9 +24,9 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.samples.apps.iosched.ui.widget.ScrimInsetsScrollView;
+import com.kyler.mland.egg.activities.About;
 import com.kyler.mland.egg.activities.Home;
 import com.kyler.mland.egg.activities.MLandModifiedActivity;
 import com.kyler.mland.egg.activities.MLandOriginalActivity;
@@ -55,7 +56,7 @@ public abstract class MLandBase extends AppCompatActivity {
      */
     private static final int NAVDRAWER_CLOSE_PRELAUNCH = 400;
     // delay to launch nav drawer item, to allow close animation to play
-    private static final int NAVDRAWER_LAUNCH_DELAY = 600;
+    private static final int NAVDRAWER_LAUNCH_DELAY = 700;
     private static final int POST_LAUNCH_FADE = 400;
     /**
      * END TO-DO
@@ -88,9 +89,6 @@ public abstract class MLandBase extends AppCompatActivity {
     private CharSequence mTitle;
     private Context context;
     private Handler mHandler;
-    // variables that control the Action Bar auto hide behavior (aka "quick recall")
-    private boolean mActionBarAutoHideEnabled = false;
-    private boolean mActionBarShown = true;
     private ViewGroup mDrawerItemsListContainer;
     // list of navdrawer items that were actually added to the navdrawer, in order
     private ArrayList<Integer> mNavDrawerItems = new ArrayList<Integer>();
@@ -394,11 +392,10 @@ public abstract class MLandBase extends AppCompatActivity {
                 finish();
                 break;
             case NAVDRAWER_ITEM_ABOUT:
-                /**    intent = new Intent(this, About.class);
-                 startActivity(intent);
-                 //    overridePendingTransition(0, 0);
-                 finish(); **/
-                Toast.makeText(MLandBase.this, getResources().getString(R.string.coming_soon), Toast.LENGTH_LONG).show();
+                intent = new Intent(this, About.class);
+                startActivity(intent);
+                //    overridePendingTransition(0, 0);
+                finish();
                 break;
 
         }
@@ -571,6 +568,16 @@ public abstract class MLandBase extends AppCompatActivity {
          getResources().getColor(R.color.navdrawer_item_icon_color)); **/
     }
 
+    public LUtils getLUtils() {
+        return mLUtils;
+    }
+
+    private boolean isSpecialItem(int itemId) {
+        return itemId == NAVDRAWER_ITEM_INVALID;
+    }
+
+    protected abstract Context getContext();
+
     /**
      * Configure this Activity as a floating window, with the given {@code width}, {@code height}
      * and {@code alpha}, and dimming the background with the given {@code dim} value.
@@ -585,13 +592,19 @@ public abstract class MLandBase extends AppCompatActivity {
         getWindow().setAttributes(params);
     }
 
-    public LUtils getLUtils() {
-        return mLUtils;
-    }
+    /**
+     * Returns true if the theme sets the {@code R.attr.isFloatingWindow} flag to true.
+     */
+    protected boolean shouldBeFloatingWindow() {
+        Resources.Theme theme = getTheme();
+        TypedValue floatingWindowFlag = new TypedValue();
 
-    private boolean isSpecialItem(int itemId) {
-        return itemId == NAVDRAWER_ITEM_INVALID;
-    }
+        // Check isFloatingWindow flag is defined in theme.
+        if (theme == null || !theme
+                .resolveAttribute(R.attr.isFloatingWindow, floatingWindowFlag, true)) {
+            return false;
+        }
 
-    protected abstract Context getContext();
+        return (floatingWindowFlag.data != 0);
+    }
 }

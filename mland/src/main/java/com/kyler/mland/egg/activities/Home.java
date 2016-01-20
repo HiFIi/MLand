@@ -41,8 +41,6 @@ public class Home extends MLandBase {
         setContentView(R.layout.home);
         getSupportActionBar().setTitle(null);
 
-        super.mActionBarToolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_drawer_grey));
-
         Resources resources = this.getResources();
         String label = resources.getString(this.getApplicationInfo().labelRes);
         final int aboutPrimaryDark = resources.getColor(R.color.tealish_green__primaryDark);

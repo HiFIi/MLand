@@ -23,10 +23,17 @@
     <!-- 'Borrowed' From the Hangouts 5.0 values/dimens.xml :p -->
     <dimen name="launchscreens_google_logo_bottom">48.0dip</dimen>
 
-
     <dimen name="card_margin">16dp</dimen>
+
+    <dimen name="fab_touch_raise">6dp</dimen>
+    <dimen name="fab_elevation">8dp</dimen>
+    <dimen name="fab_press_translation_z">6dp</dimen>
+    <dimen name="headerbar_elevation">16.0dip</dimen>
+    <dimen name="session_detail_max_header_elevation">@dimen/headerbar_elevation</dimen>
 
     <dimen name="launch_screen_logo_bottom">16.0dip</dimen>
     <dimen name="launch_screen_text_bottom">48.0dip</dimen>
+
+    <dimen name="headerbox_height">56.0dip</dimen>
 
 </resources>

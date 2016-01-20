@@ -25,9 +25,9 @@
     5% — 0D
     0% — 00
     -->
-    <color name="colorPrimary">#FF616870</color>
-    <color name="colorPrimaryDark">#FF343D48</color>
-    <color name="colorAccent">#CCDB4437</color>
+    <color name="colorPrimary">#FF424242</color>
+    <color name="colorPrimaryDark">#FF212121</color>
+    <color name="colorAccent">#CC4285F4</color>
     <color name="session_photo_scrim">#6000</color>
     <color name="navdrawer_item_text_color">#FF505050</color>
     <color name="navdrawer_item_icon_color">#FF757575</color>
@@ -69,6 +69,7 @@
     <!-- icon (modified) colors -->
     <color name="icon_blue_1">#FF1D6DF2</color>
     <color name="icon_modified_off_white_1">#FFFAFAFA</color>
+    <color name="icon_modified_off_white_1_transparent">#66FAFAFA</color>
     <color name="mountain_off_white_1">#FFCCCCCC</color>
 
     <color name="minus_white">#CCFFFFFF</color>
@@ -109,5 +110,10 @@
 
     <color name="dark_ui_bg">#FF222426</color>
     <color name="dark_ui_bg__dark">#FF111213</color>
+    <color name="black_40">#66000000</color>
+    <color name="google_blue_transparent">#664285F4</color>
+    <color name="tealish_green__primary_transparent">#E600ADB5</color>
+
+    <color name="pink41_transparent">#FF262828</color>
 
 </resources>

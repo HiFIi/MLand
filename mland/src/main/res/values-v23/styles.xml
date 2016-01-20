@@ -75,13 +75,13 @@
 
     <style name="Theme.MLand.About" parent="@style/Theme">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@color/status_bar_overlay</item>
+        <item name="android:statusBarColor">@color/real_black_20</item>
         <item name="android:colorPrimary">@color/colorPrimary</item>
-        <item name="android:colorPrimaryDark">@color/off_white</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:colorAccent">@color/colorPrimary</item>
         <item name="android:textAllCaps">false</item>
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/off_white</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowActionBar">false</item>
@@ -89,7 +89,8 @@
         <item name="windowNoTitle">true</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowBackground">@color/tealish_green__primaryDark</item>
+        <item name="android:windowBackground">@color/real_black_20</item>
+        <item name="android:fitsSystemWindows">false</item>
     </style>
 
     <style name="Theme.MLand.Splash" parent="Theme.AppCompat.NoActionBar">
