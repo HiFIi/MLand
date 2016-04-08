@@ -9,14 +9,13 @@
         android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/transparent"
         android:orientation="vertical">
 
         <com.google.samples.apps.iosched.ui.widget.ObservableScrollView
             android:id="@+id/scroll_view"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/transparent"
+            android:background="@color/off_white"
             android:fillViewport="true"
             android:overScrollMode="never">
 
@@ -31,17 +30,17 @@
                 <FrameLayout
                     android:id="@+id/session_photo_container"
                     android:layout_width="match_parent"
-                    android:layout_height="260.0dip">
+                    android:layout_height="wrap_content">
 
                     <com.facebook.drawee.view.SimpleDraweeView
                         android:id="@+id/session_photo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:adjustViewBounds="true"
+                        fresco:placeholderImage="@color/wait_color"
+                        fresco:placeholderImageScaleType="fitCenter"
                         fresco:actualImageScaleType="focusCrop"
-                        fresco:fadeDuration="500"
-                        fresco:placeholderImage="@drawable/marshmallow"
-                        fresco:viewAspectRatio="1.33" />
+                        fresco:fadeDuration="1500" />
 
                     <!--  <ImageView
                           android:layout_width="144.0dip"
@@ -50,12 +49,15 @@
                           android:src="@drawable/icon_modified_transparent"
                           android:layout_gravity="center_horizontal" /> -->
 
+                    <include layout="@layout/toolbar_actionbar_actually_transparent_margintop" />
+
                 </FrameLayout>
 
                 <LinearLayout
                     android:id="@+id/details_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/off_white"
                     android:clipToPadding="false"
                     android:orientation="vertical"
                     android:paddingBottom="@dimen/session_details_extra_space_bottom">
@@ -76,38 +78,10 @@
                 <LinearLayout
                     android:id="@+id/header_session"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/pink41_transparent"
+                    android:layout_height="72.0dip"
+                    android:background="@color/mountain_green_1"
                     android:clipChildren="false"
                     android:orientation="vertical">
-
-                    <include layout="@layout/toolbar_actionbar_actually_transparent_margintop" />
-
-                    <TextView
-                        android:id="@+id/session_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/padding_normal"
-                        android:layout_marginLeft="@dimen/keyline_2_session_detail"
-                        android:layout_marginRight="@dimen/padding_normal"
-                        android:layout_marginStart="@dimen/keyline_2_session_detail"
-                        android:ellipsize="end"
-                        android:maxLines="4"
-                        android:text="@string/placeholder_session_title"
-                        android:textAlignment="viewStart" />
-
-                    <TextView
-                        android:id="@+id/session_subtitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/padding_normal"
-                        android:layout_marginLeft="@dimen/keyline_2_session_detail"
-                        android:layout_marginRight="@dimen/padding_normal"
-                        android:layout_marginStart="@dimen/keyline_2_session_detail"
-                        android:ellipsize="end"
-                        android:maxLines="2"
-                        android:text="@string/placeholder_session_subtitle"
-                        android:textAlignment="viewStart" />
 
                 </LinearLayout>
 

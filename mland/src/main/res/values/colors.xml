@@ -115,5 +115,6 @@
     <color name="tealish_green__primary_transparent">#E600ADB5</color>
 
     <color name="pink41_transparent">#FF262828</color>
+    <color name="wait_color">#FF00adb5</color>
 
 </resources>

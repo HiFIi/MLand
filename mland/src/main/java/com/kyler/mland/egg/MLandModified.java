@@ -758,7 +758,7 @@ public class MLandModified extends FrameLayout {
             s2.animate()
                     .translationY(mHeight - s2.h)
                     .setStartDelay(d2)
-                    .setDuration(400);
+                    .setDuration(500);
             mObstaclesInPlay.add(s2);
 
             final Obstacle p2 = new Pop(getContext(), PARAMS.OBSTACLE_WIDTH);
@@ -1423,10 +1423,10 @@ public class MLandModified extends FrameLayout {
         public Cloud(Context context) {
             super(context);
             setBackgroundResource(frand() < 0.01f ? R.drawable.cloud_off : R.drawable.cloud);
-            getBackground().setAlpha(0x40);
+            getBackground().setAlpha(0x50);
             w = h = irand(PARAMS.CLOUD_SIZE_MIN, PARAMS.CLOUD_SIZE_MAX);
             z = 0;
-            v = frand(0.15f, 0.5f);
+            v = frand(0.25f, 0.5f);
         }
     }
 
