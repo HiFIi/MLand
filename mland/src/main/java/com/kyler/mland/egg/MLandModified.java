@@ -510,7 +510,7 @@ public class MLandModified extends FrameLayout {
             final View playImage = mSplash.findViewById(R.id.play_button_image);
             final TextView playText = (TextView) mSplash.findViewById(R.id.play_button_text);
 
-            playImage.animate().alpha(0.75f);
+            playImage.animate().alpha(0f);
             playText.animate().alpha(1f);
 
             mCountdown = 5;
