@@ -2,6 +2,7 @@ package com.kyler.mland.egg.activities;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,15 +11,28 @@ import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.ImageView;
+import android.view.Window;
+import android.widget.Toast;
 
+import com.facebook.common.logging.FLog;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.generic.GenericDraweeHierarchy;
+import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
+import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
+import com.facebook.imagepipeline.listener.RequestListener;
+import com.facebook.imagepipeline.listener.RequestLoggingListener;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.google.samples.apps.iosched.ui.widget.CheckableFloatingActionButton;
 import com.google.samples.apps.iosched.ui.widget.ObservableScrollView;
 import com.kyler.mland.egg.MLandBase;
 import com.kyler.mland.egg.R;
 import com.kyler.mland.egg.utils.UIUtils;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import static android.view.ViewTreeObserver.OnGlobalLayoutListener;
 
@@ -27,6 +41,8 @@ import static android.view.ViewTreeObserver.OnGlobalLayoutListener;
  */
 public class About extends MLandBase implements ObservableScrollView.Callbacks {
     private static final float PHOTO_ASPECT_RATIO = 1.7777777f;
+    private static final float DRAWEE_PHOTO_ASPECT_RATIO = 1.33f;
+    private static Uri mDraweeUri;
     private SimpleDraweeView draweeView;
     private int mPhotoHeightPixels;
     private View mAddScheduleButtonContainer;
@@ -42,6 +58,7 @@ public class About extends MLandBase implements ObservableScrollView.Callbacks {
     private View mHeaderBox;
     private Handler mHandler;
     private float mFABElevation;
+  //  private static String draweeUrlString;
     private OnGlobalLayoutListener mGlobalLayoutListener
             = new OnGlobalLayoutListener() {
         @Override
@@ -69,17 +86,19 @@ public class About extends MLandBase implements ObservableScrollView.Callbacks {
         boolean shouldBeFloatingWindow = false;
         if (shouldBeFloatingWindow) {
             setupFloatingWindow(R.dimen.session_details_floating_width,
-                    R.dimen.session_details_floating_height, 1, 0.4f);
+                    R.dimen.session_details_floating_height, 1, 0.7f);
         }
+        FLog.setMinimumLoggingLevel(FLog.VERBOSE);
         Fresco.initialize(getApplicationContext());
         setContentView(R.layout.about);
         getSupportActionBar().setTitle(null);
 
         mHasPhoto = true;
+        mDraweeUri = Uri.parse("http://i.imgur.com/NH5m62W.jpg");
 
-        Uri uri = Uri.parse("http://mland.altervista.org/Images/PNGCrushed/41-compressor.png");
         draweeView = (SimpleDraweeView) findViewById(R.id.session_photo);
-        draweeView.setImageURI(uri);
+        draweeView.setImageURI(mDraweeUri);
+        draweeView.setAspectRatio(DRAWEE_PHOTO_ASPECT_RATIO);
 
         mHandler = new Handler();
         initViews();
@@ -151,8 +170,8 @@ public class About extends MLandBase implements ObservableScrollView.Callbacks {
         int scrollY = mScrollView.getScrollY();
 
         float newTop = Math.max(mPhotoHeightPixels, scrollY);
+		
         mHeaderBox.setTranslationY(newTop);
-
         mAddScheduleButtonContainer.setTranslationY(newTop + mHeaderHeightPixels
                 - mAddScheduleButtonContainerHeightPixels / 2);
 
@@ -161,6 +180,12 @@ public class About extends MLandBase implements ObservableScrollView.Callbacks {
             gapFillProgress = Math.min(Math.max(UIUtils.getProgress(scrollY,
                     0,
                     mPhotoHeightPixels), 0), 1);
+
+            if (gapFillProgress == 1) {
+            //    Toast.makeText(this, "Okay we're locked", Toast.LENGTH_LONG).show();
+            } else if (gapFillProgress >= 1) {
+
+            }
         }
         // The code below is to change the statusbar color from transparent to a teal
         // green color I used.
@@ -179,7 +204,7 @@ public class About extends MLandBase implements ObservableScrollView.Callbacks {
         ViewCompat.setTranslationZ(mHeaderBox, gapFillProgress * mMaxHeaderElevation);
 
         // Move background photo (parallax effect)
-        mPhotoViewContainer.setTranslationY(scrollY * 0.4f);
+        mPhotoViewContainer.setTranslationY(scrollY * 0.7f);
 
     }
 

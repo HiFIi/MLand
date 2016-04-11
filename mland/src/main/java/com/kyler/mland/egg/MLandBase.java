@@ -1,40 +1,24 @@
 package com.kyler.mland.egg;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.Rect;
-import android.os.Bundle;
-import android.os.Handler;
-import android.preference.PreferenceManager;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
+import android.annotation.*;
+import android.content.*;
+import android.content.res.*;
+import android.graphics.*;
+import android.os.*;
+import android.preference.*;
+import android.support.v4.view.*;
+import android.support.v4.widget.*;
+import android.support.v7.app.*;
+import android.support.v7.widget.*;
+import android.util.*;
+import android.view.*;
+import android.widget.*;
+import com.google.samples.apps.iosched.ui.widget.*;
+import com.kyler.mland.egg.activities.*;
+import com.kyler.mland.egg.utils.*;
+import java.util.*;
+
 import android.support.v7.widget.Toolbar;
-import android.util.TypedValue;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import com.google.samples.apps.iosched.ui.widget.ScrimInsetsScrollView;
-import com.kyler.mland.egg.activities.About;
-import com.kyler.mland.egg.activities.Home;
-import com.kyler.mland.egg.activities.MLandModifiedActivity;
-import com.kyler.mland.egg.activities.MLandOriginalActivity;
-import com.kyler.mland.egg.utils.LUtils;
-import com.kyler.mland.egg.utils.UIUtils;
-
-import java.util.ArrayList;
-import java.util.Calendar;
 
 public abstract class MLandBase extends AppCompatActivity {
 
@@ -57,7 +41,7 @@ public abstract class MLandBase extends AppCompatActivity {
     private static final int NAVDRAWER_CLOSE_PRELAUNCH = 400;
     // delay to launch nav drawer item, to allow close animation to play
     private static final int NAVDRAWER_LAUNCH_DELAY = 700;
-    private static final int POST_LAUNCH_FADE = 400;
+    private static final int POST_LAUNCH_FADE = 600;
     /**
      * END TO-DO
      **/
@@ -65,7 +49,7 @@ public abstract class MLandBase extends AppCompatActivity {
     // fade in and fade out durations for the main content when switching between
     // different Activities of the app through the Nav Drawer
     private static final int MAIN_CONTENT_FADEOUT_DURATION = 200;
-    private static final int MAIN_CONTENT_FADEIN_DURATION = 550;
+    private static final int MAIN_CONTENT_FADEIN_DURATION = 500;
     // titles for navdrawer items (indices must correspond to the above)
     private static final int[] NAVDRAWER_TITLE_RES_ID = new int[]{
             R.string.home,
@@ -100,8 +84,6 @@ public abstract class MLandBase extends AppCompatActivity {
     private int selfItem = getSelfNavDrawerItem();
     private ActionBarDrawerToggle mDrawerToggle;
     private SharedPreferences.Editor editor;
-
-    private boolean selected;
 
     private ImageView iconView;
 
@@ -464,6 +446,12 @@ public abstract class MLandBase extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+		
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+         //   window.setStatusBarColor(Color.BLUE);
+        }
 
     }
 
