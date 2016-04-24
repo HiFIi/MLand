@@ -89,7 +89,6 @@
         <item name="windowNoTitle">true</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowBackground">@color/real_black_20</item>
         <item name="android:fitsSystemWindows">false</item>
     </style>
 
