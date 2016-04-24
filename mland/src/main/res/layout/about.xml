@@ -90,8 +90,8 @@
                 <LinearLayout
                     android:id="@+id/header_session"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#ff232728"
+                    android:layout_height="96.0dip"
+                    android:background="#CC262829"
 					android:fitsSystemWindows="false"
                     android:clipChildren="false"
                     android:orientation="vertical">				

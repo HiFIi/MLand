@@ -25,7 +25,7 @@
     <dimen name="building_height_min">20dp</dimen>
     <dimen name="cloud_size_min">10dp</dimen>
     <dimen name="cloud_size_max">100dp</dimen>
-    <dimen name="sun_size">48dp</dimen>
+    <dimen name="sun_size">56.0dip</dimen>
     <dimen name="moon_size">36dp</dimen>
     <dimen name="star_size_min">3dp</dimen>
     <dimen name="star_size_max">5dp</dimen>

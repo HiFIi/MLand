@@ -51,7 +51,7 @@
             android:icon="@drawable/icon_splash"
             android:label="@string/mland"
             android:launchMode="singleTop"
-            android:process=":sweetsweetdesserts"
+            android:process=":sweetsweetdessertsMLand"
             android:screenOrientation="locked"
             android:theme="@style/Theme.MLand">
             <intent-filter>
@@ -69,7 +69,7 @@
             android:icon="@drawable/icon_splash"
             android:label="@string/mland"
             android:launchMode="singleTop"
-            android:process=":sweetsweetdessertsTwo"
+            android:process=":sweetsweetdessertsMLand"
             android:screenOrientation="locked"
             android:theme="@style/Theme.MLand.Modified">
             <intent-filter>

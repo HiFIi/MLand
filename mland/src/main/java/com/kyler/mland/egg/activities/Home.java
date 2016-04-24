@@ -33,7 +33,12 @@ public class Home extends MLandBase {
 		super.getWindow().getDecorView().setSystemUiVisibility(
 			View.SYSTEM_UI_FLAG_LAYOUT_STABLE
 			| View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        getSupportActionBar().setTitle(null);
+
+        // I should perhaps do some research to see whether or not
+       // setting the SupportActionBars title to an empty string is
+       // more efficient than *.setTitle(null);
+
+        getSupportActionBar().setTitle("");
 
         Resources resources = this.getResources();
         String label = resources.getString(this.getApplicationInfo().labelRes);
