@@ -4,12 +4,14 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+	android:background="#FFE4E4E4"
     android:fitsSystemWindows="false">
 
     <LinearLayout
         android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+		android:background="#FFE4E4E4"
 		android:fitsSystemWindows="false"
         android:orientation="vertical">
 
@@ -17,16 +19,16 @@
             android:id="@+id/scroll_view"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:background="@color/off_white"
+            android:background="#FFE4E4E4"
 			android:fitsSystemWindows="false"
-            android:fillViewport="true"
+            android:fillViewport="false"
             android:overScrollMode="never">
 
             <FrameLayout
                 android:id="@+id/scroll_view_child"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/off_white"
+                android:background="#FFE4E4E4"
                 android:clipChildren="false">
 
                 <!-- Background photo. -->
@@ -59,9 +61,13 @@
                     android:id="@+id/details_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/off_white"
+                    android:background="#FFFAFAFA"
+					android:layout_marginLeft="10dp"
+					android:layout_marginRight="10dp"
+					android:layout_marginTop="150dp"
                     android:clipToPadding="false"
                     android:orientation="vertical"
+					android:fitsSystemWindows="false"
                     android:paddingBottom="@dimen/session_details_extra_space_bottom">
 
 					<com.kyler.mland.egg.ui.MLandTextView
@@ -90,8 +96,8 @@
                 <LinearLayout
                     android:id="@+id/header_session"
                     android:layout_width="fill_parent"
-                    android:layout_height="96.0dip"
-                    android:background="#CC262829"
+                    android:layout_height="wrap_content"
+                    android:background="#ff262829"
 					android:fitsSystemWindows="false"
                     android:clipChildren="false"
                     android:orientation="vertical">				

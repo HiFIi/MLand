@@ -137,7 +137,7 @@ public class About extends MLandBase implements ObservableScrollView.Callbacks
         if (mHasPhoto)
 		{
             mPhotoHeightPixels = (int) (draweeView.getWidth() / PHOTO_ASPECT_RATIO);
-            mPhotoHeightPixels = Math.min(mPhotoHeightPixels, mScrollView.getHeight() * 2 / 3);
+            mPhotoHeightPixels = Math.min(mPhotoHeightPixels, mScrollView.getHeight() * 1 / 3);
         }
 
         ViewGroup.LayoutParams lp;
@@ -154,6 +154,7 @@ public class About extends MLandBase implements ObservableScrollView.Callbacks
 		{
             mlp.topMargin = mHeaderHeightPixels + mPhotoHeightPixels;
             mDetailsContainer.setLayoutParams(mlp);
+			mDetailsContainer.setPadding(16, 150, 16, 150);
         }
 
         onScrollChanged(0, 0); // trigger scroll handling
@@ -197,6 +198,8 @@ public class About extends MLandBase implements ObservableScrollView.Callbacks
          Window window = getWindow();
          window.setStatusBarColor(UIUtils.getColorWithAlpha(alpha, (darkenColor(baseColor)))); */
 
+		ViewCompat.setElevation(draweeView, gapFillProgress * mMaxHeaderElevation);
+		ViewCompat.setElevation(mDetailsContainer, gapFillProgress * mMaxHeaderElevation);
         ViewCompat.setElevation(mHeaderBox, gapFillProgress * mMaxHeaderElevation);
         ViewCompat.setElevation(mAddScheduleButtonContainer, gapFillProgress * mMaxHeaderElevation
 								+ mFABElevation);
@@ -204,6 +207,10 @@ public class About extends MLandBase implements ObservableScrollView.Callbacks
 								+ mFABElevation);
 
         ViewCompat.setTranslationZ(mHeaderBox, gapFillProgress * mMaxHeaderElevation);
+		
+		// testing
+		ViewCompat.setTranslationZ(draweeView, gapFillProgress * mMaxHeaderElevation);
+		ViewCompat.setTranslationZ(mDetailsContainer, gapFillProgress * mMaxHeaderElevation);
 
         // Move background photo (parallax effect)
         mPhotoViewContainer.setTranslationY(scrollY * 0.5f);

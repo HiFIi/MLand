@@ -38,7 +38,7 @@ public class Home extends MLandBase {
        // setting the SupportActionBars title to an empty string is
        // more efficient than *.setTitle(null);
 
-        getSupportActionBar().setTitle("");
+        getSupportActionBar().setTitle(null);
 
         Resources resources = this.getResources();
         String label = resources.getString(this.getApplicationInfo().labelRes);

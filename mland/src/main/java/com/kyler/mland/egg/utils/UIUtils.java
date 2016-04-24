@@ -40,7 +40,7 @@ public class UIUtils {
      */
     public static final float SESSION_BG_COLOR_SCALE_FACTOR = 0.75f;
     public static final String TARGET_FORM_FACTOR_ACTIVITY_METADATA =
-            "com.google.samples.apps.iosched.meta.TARGET_FORM_FACTOR";
+	"com.google.samples.apps.iosched.meta.TARGET_FORM_FACTOR";
     public static final String TARGET_FORM_FACTOR_HANDSET = "handset";
     public static final String TARGET_FORM_FACTOR_TABLET = "tablet";
     public static final String GOOGLE_PLUS_PACKAGE_NAME = "com.google.android.apps.plus";
@@ -53,7 +53,7 @@ public class UIUtils {
      * Flags used with {@link android.text.format.DateUtils#formatDateRange}.
      */
     private static final int TIME_FLAGS = DateUtils.FORMAT_SHOW_TIME
-            | DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_ABBREV_WEEKDAY;
+	| DateUtils.FORMAT_SHOW_WEEKDAY | DateUtils.FORMAT_ABBREV_WEEKDAY;
     /**
      * Regex to search for HTML escape sequences.
      * <p/>
@@ -84,7 +84,7 @@ public class UIUtils {
 
         try {
             PackageInfo pi = pm.getPackageInfo(context.getPackageName(),
-                    PackageManager.GET_ACTIVITIES | PackageManager.GET_META_DATA);
+											   PackageManager.GET_ACTIVITIES | PackageManager.GET_META_DATA);
             if (pi == null) {
                 return;
             }
@@ -99,15 +99,15 @@ public class UIUtils {
                 boolean handsetActivity = TARGET_FORM_FACTOR_HANDSET.equals(targetDevice);
 
                 boolean enable = !(handsetActivity && isTablet)
-                        && !(tabletActivity && !isTablet);
+					&& !(tabletActivity && !isTablet);
 
                 String className = info.name;
                 pm.setComponentEnabledSetting(
-                        new ComponentName(context, Class.forName(className)),
-                        enable
-                                ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED
-                                : PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                        PackageManager.DONT_KILL_APP);
+					new ComponentName(context, Class.forName(className)),
+					enable
+					? PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+					: PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+					PackageManager.DONT_KILL_APP);
             }
         } catch (PackageManager.NameNotFoundException e) {
         } catch (ClassNotFoundException e) {
@@ -120,8 +120,8 @@ public class UIUtils {
 
     public static int scaleColor(int color, float factor, boolean scaleAlpha) {
         return Color.argb(scaleAlpha ? (Math.round(Color.alpha(color) * factor)) : Color.alpha(color),
-                Math.round(Color.red(color) * factor), Math.round(Color.green(color) * factor),
-                Math.round(Color.blue(color) * factor));
+						  Math.round(Color.red(color) * factor), Math.round(Color.green(color) * factor),
+						  Math.round(Color.blue(color) * factor));
     }
 
     public static int scaleSessionColorToDefaultBG(int color) {
@@ -129,13 +129,13 @@ public class UIUtils {
     }
 
     public static long getCurrentTime(final Context context) {
-    /*    if (BuildConfig.DEBUG) {
-            return context.getSharedPreferences("mock_data", Context.MODE_PRIVATE)
-                    .getLong("mock_current_time", System.currentTimeMillis())
-                    + System.currentTimeMillis();
-//            return ParserUtils.parseTime("2012-06-27T09:44:45.000-07:00")
-//                    + System.currentTimeMillis() - sAppLoadTime;
-        } else { */
+		/*    if (BuildConfig.DEBUG) {
+		 return context.getSharedPreferences("mock_data", Context.MODE_PRIVATE)
+		 .getLong("mock_current_time", System.currentTimeMillis())
+		 + System.currentTimeMillis();
+		 //            return ParserUtils.parseTime("2012-06-27T09:44:45.000-07:00")
+		 //                    + System.currentTimeMillis() - sAppLoadTime;
+		 } else { */
         return System.currentTimeMillis();
     }
     //  }
@@ -145,11 +145,11 @@ public class UIUtils {
         float a = SESSION_PHOTO_SCRIM_ALPHA;
         float sat = SESSION_PHOTO_SCRIM_SATURATION; // saturation (0=gray, 1=color)
         return new ColorMatrixColorFilter(new float[]{
-                ((1 - 0.213f) * sat + 0.213f) * a, ((0 - 0.715f) * sat + 0.715f) * a, ((0 - 0.072f) * sat + 0.072f) * a, 0, Color.red(sessionColor) * (1 - a),
-                ((0 - 0.213f) * sat + 0.213f) * a, ((1 - 0.715f) * sat + 0.715f) * a, ((0 - 0.072f) * sat + 0.072f) * a, 0, Color.green(sessionColor) * (1 - a),
-                ((0 - 0.213f) * sat + 0.213f) * a, ((0 - 0.715f) * sat + 0.715f) * a, ((1 - 0.072f) * sat + 0.072f) * a, 0, Color.blue(sessionColor) * (1 - a),
-                0, 0, 0, 0, 255
-        });
+											  ((1 - 0.213f) * sat + 0.213f) * a, ((0 - 0.715f) * sat + 0.715f) * a, ((0 - 0.072f) * sat + 0.072f) * a, 0, Color.red(sessionColor) * (1 - a),
+											  ((0 - 0.213f) * sat + 0.213f) * a, ((1 - 0.715f) * sat + 0.715f) * a, ((0 - 0.072f) * sat + 0.072f) * a, 0, Color.green(sessionColor) * (1 - a),
+											  ((0 - 0.213f) * sat + 0.213f) * a, ((0 - 0.715f) * sat + 0.715f) * a, ((1 - 0.072f) * sat + 0.072f) * a, 0, Color.blue(sessionColor) * (1 - a),
+											  0, 0, 0, 0, 255
+										  });
     }
 
     public static float getProgress(int value, int min, int max) {
