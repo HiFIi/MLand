@@ -181,14 +181,14 @@ public class About extends MLandBase implements ObservableScrollView.Callbacks
 																	0,
 																	mPhotoHeightPixels), 0), 1);
 
-            if (gapFillProgress == 1)
-			{
-				//    Toast.makeText(this, "Okay we're locked", Toast.LENGTH_LONG).show();
-            }
-			else if (gapFillProgress >= 1)
-			{
+			/**     if (gapFillProgress == 1)
+			 {
+			 //    Toast.makeText(this, "Okay we're locked", Toast.LENGTH_LONG).show();
+			 }
+			 else if (gapFillProgress >= 1)
+			 {
 
-            }
+			 } **/
         }
 
         // The code below is to change the statusbar color from transparent to a teal
@@ -207,7 +207,7 @@ public class About extends MLandBase implements ObservableScrollView.Callbacks
 								+ mFABElevation);
 
         ViewCompat.setTranslationZ(mHeaderBox, gapFillProgress * mMaxHeaderElevation);
-		
+
 		// testing
 		ViewCompat.setTranslationZ(draweeView, gapFillProgress * mMaxHeaderElevation);
 		ViewCompat.setTranslationZ(mDetailsContainer, gapFillProgress * mMaxHeaderElevation);

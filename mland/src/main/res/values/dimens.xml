@@ -1,8 +1,8 @@
 <resources>
-    <dimen name="nav_drawer_max_width">320.0dip</dimen>
+    <dimen name="nav_drawer_max_width">360.0dip</dimen>
     <dimen name="list_item_primary_action">24.0dip</dimen>
-    <dimen name="about_header_bg_height">220dp</dimen>
-    <dimen name="max_height_drawer_img">220.0dip</dimen>
+    <dimen name="about_header_bg_height">300.0dip</dimen>
+    <dimen name="max_height_drawer_img">200.0dip</dimen>
 
     <dimen name="drawer_item_icon_left_padding">16.0dip</dimen>
     <dimen name="drawer_item_icon_right_padding">16.0dip</dimen>

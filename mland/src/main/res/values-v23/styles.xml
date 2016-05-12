@@ -130,7 +130,6 @@
     <style name="Theme.MLand.MoreInfo" parent="@style/Theme">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@color/status_bar_overlay</item>
-        <item name="android:textAllCaps">false</item>
         <item name="android:colorPrimary">@color/splash__statusbar_color</item>
         <item name="android:colorPrimaryDark">@color/splash__statusbar_color_dark</item>
         <item name="android:colorAccent">@color/splash__statusbar_color</item>
