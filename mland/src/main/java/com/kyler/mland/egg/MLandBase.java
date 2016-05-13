@@ -43,8 +43,8 @@ public abstract class MLandBase extends AppCompatActivity {
      */
     private static final int NAVDRAWER_CLOSE_PRELAUNCH = 600;
     // delay to launch nav drawer item, to allow close animation to play
-    private static final int NAVDRAWER_LAUNCH_DELAY = 800;
-    private static final int POST_LAUNCH_FADE = 600;
+    private static final int NAVDRAWER_LAUNCH_DELAY = 400;
+    private static final int POST_LAUNCH_FADE = 400;
     /**
      * END TO-DO
      **/
