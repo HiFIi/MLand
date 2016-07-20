@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.kyler.mland.egg;
 
 import android.animation.LayoutTransition;
@@ -52,11 +51,9 @@ import java.util.ArrayList;
 
 // It's like LLand, but "M"ultiplayer.
 public class MLandOriginal extends FrameLayout {
-    public static final String TAG = "MLand";
-
+    public static final String TAG = "MLandOriginal";
     public static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
     public static final boolean DEBUG_DRAW = false; // DEBUG
-
     public static final boolean SHOW_TOUCHES = false;
     public static final float PI_2 = (float) (Math.PI / 2);
     public static final boolean AUTOSTART = true;
@@ -120,29 +117,22 @@ public class MLandOriginal extends FrameLayout {
 
     public MLandOriginal(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-
         mVibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         setFocusable(true);
         PARAMS = new Params(getResources());
         mTimeOfDay = irand(0, SKIES.length - 1);
         mScene = irand(0, SCENE_COUNT);
-
         mTouchPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mTouchPaint.setColor(0x80FFFFFF);
         mTouchPaint.setStyle(Paint.Style.FILL);
-
         mPlayerTracePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPlayerTracePaint.setColor(0x80FFFFFF);
         mPlayerTracePaint.setStyle(Paint.Style.STROKE);
         mPlayerTracePaint.setStrokeWidth(2 * dp);
-
         // we assume everything will be laid out left|top
         setLayoutDirection(LAYOUT_DIRECTION_LTR);
-
         setupPlayers(DEFAULT_PLAYERS);
-
-        //    MetricsLogger.count(getContext(), "egg_mland_create", 1);
     }
 
     public static void L(String s, Object... objects) {
@@ -153,7 +143,6 @@ public class MLandOriginal extends FrameLayout {
 
     public static boolean isGamePad(InputDevice dev) {
         int sources = dev.getSources();
-
         // Verify that the device has gamepad buttons, control sticks, or both.
         return (((sources & InputDevice.SOURCE_GAMEPAD) == InputDevice.SOURCE_GAMEPAD)
                 || ((sources & InputDevice.SOURCE_JOYSTICK) == InputDevice.SOURCE_JOYSTICK));
@@ -197,7 +186,6 @@ public class MLandOriginal extends FrameLayout {
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
         dp = getResources().getDisplayMetrics().density;
-
         reset();
         if (AUTOSTART) {
             start(false);
@@ -267,9 +255,7 @@ public class MLandOriginal extends FrameLayout {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         dp = getResources().getDisplayMetrics().density;
-
         stop();
-
         reset();
         if (AUTOSTART) {
             start(false);
@@ -366,10 +352,8 @@ public class MLandOriginal extends FrameLayout {
         );
         sky.setDither(true);
         setBackground(sky);
-
         mFlipped = frand() > 0.5f;
         setScaleX(mFlipped ? -1 : 1);
-
         int i = getChildCount();
         while (i-- > 0) {
             final View v = getChildAt(i);
@@ -377,13 +361,10 @@ public class MLandOriginal extends FrameLayout {
                 removeViewAt(i);
             }
         }
-
         mObstaclesInPlay.clear();
         mCurrentPipeId = 0;
-
         mWidth = getWidth();
         mHeight = getHeight();
-
         boolean showingSun = (mTimeOfDay == DAY || mTimeOfDay == SUNSET) && frand() > 0.25;
         if (showingSun) {
             final Star sun = new Star(getContext());
@@ -397,7 +378,6 @@ public class MLandOriginal extends FrameLayout {
                 sun.setTranslationY(frand(mHeight * 0.66f, mHeight - w));
                 sun.getBackground().setTintMode(PorterDuff.Mode.SRC_ATOP);
                 sun.getBackground().setTint(0xC0FF8000);
-
             }
             addView(sun, new LayoutParams(w, w));
         }
@@ -416,7 +396,6 @@ public class MLandOriginal extends FrameLayout {
                 addView(moon, new LayoutParams(w, w));
             }
         }
-
         final int mh = mHeight / 6;
         final boolean cloudless = frand() < 0.25;
         final int N = 20;
@@ -464,19 +443,14 @@ public class MLandOriginal extends FrameLayout {
                     lp.topMargin = (int) (1 - r * r * mHeight / 2) + mHeight / 2;
                 }
             }
-
-
             addView(s, lp);
             s.setTranslationX(frand(-lp.width, mWidth + lp.width));
         }
-
         for (Player p : mPlayers) {
             addView(p); // put it back!
             p.reset();
         }
-
         realignPlayers();
-
         if (mAnim != null) {
             mAnim.cancel();
         }
@@ -493,15 +467,11 @@ public class MLandOriginal extends FrameLayout {
         L("start(startPlaying=%s)", startPlaying ? "true" : "false");
         if (startPlaying && mCountdown <= 0) {
             showSplash();
-
             mSplash.findViewById(R.id.play_button).setEnabled(false);
-
             final View playImage = mSplash.findViewById(R.id.play_button_image);
             final TextView playText = (TextView) mSplash.findViewById(R.id.play_button_text);
-
             playImage.animate().alpha(0f);
             playText.animate().alpha(1f);
-
             mCountdown = 3;
             post(new Runnable() {
                 @Override
@@ -516,11 +486,9 @@ public class MLandOriginal extends FrameLayout {
                 }
             });
         }
-
         for (Player p : mPlayers) {
             p.setVisibility(View.INVISIBLE);
         }
-
         if (!mAnimating) {
             mAnim.start();
             mAnimating = true;
@@ -556,18 +524,13 @@ public class MLandOriginal extends FrameLayout {
 
     public void startPlaying() {
         mPlaying = true;
-
         t = 0;
         // there's a sucker born every OBSTACLE_PERIOD
         mLastPipeTime = getGameTime() - PARAMS.OBSTACLE_PERIOD;
-
         hideSplash();
-
         realignPlayers();
         mTaps = 0;
-
         final int N = mPlayers.size();
-        //    MetricsLogger.histogram(getContext(), "egg_mland_players", N);
         for (int i = 0; i < N; i++) {
             final Player p = mPlayers.get(i);
             p.setVisibility(View.VISIBLE);
@@ -602,12 +565,10 @@ public class MLandOriginal extends FrameLayout {
     private void step(long t_ms, long dt_ms) {
         t = t_ms / 1000f; // seconds
         dt = dt_ms / 1000f;
-
         if (DEBUG) {
             t *= DEBUG_SPEED_MULTIPLIER;
             dt *= DEBUG_SPEED_MULTIPLIER;
         }
-
         // 1. Move all objects and update bounds
         final int N = getChildCount();
         int i = 0;
@@ -617,12 +578,10 @@ public class MLandOriginal extends FrameLayout {
                 ((GameView) v).step(t_ms, dt_ms, t, dt);
             }
         }
-
         if (mPlaying) {
             int livingPlayers = 0;
             for (i = 0; i < mPlayers.size(); i++) {
                 final Player p = getPlayer(i);
-
                 if (p.mAlive) {
                     // 2. Check for altitude
                     if (p.below(mHeight)) {
@@ -635,7 +594,6 @@ public class MLandOriginal extends FrameLayout {
                             p.die();
                         }
                     }
-
                     // 3. Check for obstacles
                     int maxPassedStem = 0;
                     for (int j = mObstaclesInPlay.size(); j-- > 0; ) {
@@ -650,28 +608,21 @@ public class MLandOriginal extends FrameLayout {
                             }
                         }
                     }
-
                     if (maxPassedStem > p.mScore) {
                         p.addScore(1);
                     }
                 }
-
                 if (p.mAlive) livingPlayers++;
             }
-
             if (livingPlayers == 0) {
                 stop();
-
-                //    MetricsLogger.count(getContext(), "egg_mland_taps", mTaps);
                 mTaps = 0;
                 final int playerCount = mPlayers.size();
                 for (int pi = 0; pi < playerCount; pi++) {
                     final Player p = mPlayers.get(pi);
-                    //    MetricsLogger.histogram(getContext(), "egg_mland_score", p.getScore());
                 }
             }
         }
-
         // 4. Handle edge of screen
         // Walk backwards to make sure removal is safe
         while (i-- > 0) {
@@ -688,7 +639,6 @@ public class MLandOriginal extends FrameLayout {
                 }
             }
         }
-
         // 3. Time for more obstacles!
         if (mPlaying && (t - mLastPipeTime) > PARAMS.OBSTACLE_PERIOD) {
             mLastPipeTime = t;
@@ -696,10 +646,8 @@ public class MLandOriginal extends FrameLayout {
             final int obstacley =
                     (int) (frand() * (mHeight - 2 * PARAMS.OBSTACLE_MIN - PARAMS.OBSTACLE_GAP)) +
                             PARAMS.OBSTACLE_MIN;
-
             final int inset = (PARAMS.OBSTACLE_WIDTH - PARAMS.OBSTACLE_STEM_WIDTH) / 2;
             final int yinset = PARAMS.OBSTACLE_WIDTH / 2;
-
             final int d1 = irand(0, 250);
             final Obstacle s1 = new Stem(getContext(), obstacley - yinset, false);
             addView(s1, new LayoutParams(
@@ -714,7 +662,6 @@ public class MLandOriginal extends FrameLayout {
                     .setStartDelay(d1)
                     .setDuration(250);
             mObstaclesInPlay.add(s1);
-
             final Obstacle p1 = new Pop(getContext(), PARAMS.OBSTACLE_WIDTH);
             addView(p1, new LayoutParams(
                     PARAMS.OBSTACLE_WIDTH,
@@ -732,7 +679,6 @@ public class MLandOriginal extends FrameLayout {
                     .setStartDelay(d1)
                     .setDuration(250);
             mObstaclesInPlay.add(p1);
-
             final int d2 = irand(0, 250);
             final Obstacle s2 = new Stem(getContext(),
                     mHeight - obstacley - PARAMS.OBSTACLE_GAP - yinset,
@@ -749,7 +695,6 @@ public class MLandOriginal extends FrameLayout {
                     .setStartDelay(d2)
                     .setDuration(400);
             mObstaclesInPlay.add(s2);
-
             final Obstacle p2 = new Pop(getContext(), PARAMS.OBSTACLE_WIDTH);
             addView(p2, new LayoutParams(
                     PARAMS.OBSTACLE_WIDTH,
@@ -768,7 +713,6 @@ public class MLandOriginal extends FrameLayout {
                     .setDuration(400);
             mObstaclesInPlay.add(p2);
         }
-
         if (SHOW_TOUCHES || DEBUG_DRAW) invalidate();
     }
 
@@ -880,7 +824,6 @@ public class MLandOriginal extends FrameLayout {
     @Override
     public void onDraw(Canvas c) {
         super.onDraw(c);
-
         if (SHOW_TOUCHES) {
             for (Player p : mPlayers) {
                 if (p.mTouchX > 0) {
@@ -898,9 +841,7 @@ public class MLandOriginal extends FrameLayout {
                 }
             }
         }
-
         if (!DEBUG_DRAW) return;
-
         final Paint pt = new Paint();
         pt.setColor(0xFFFFFFFF);
         for (Player p : mPlayers) {
@@ -916,10 +857,8 @@ public class MLandOriginal extends FrameLayout {
                         pt);
             }
         }
-
         pt.setStyle(Paint.Style.STROKE);
         pt.setStrokeWidth(getResources().getDisplayMetrics().density);
-
         final int M = getChildCount();
         pt.setColor(0x8000FF00);
         for (int i = 0; i < M; i++) {
@@ -935,7 +874,6 @@ public class MLandOriginal extends FrameLayout {
                 c.drawRect(r, pt);
             }
         }
-
         pt.setColor(Color.BLACK);
         final StringBuilder sb = new StringBuilder("obstacles: ");
         for (Obstacle ob : mObstaclesInPlay) {
@@ -985,16 +923,13 @@ public class MLandOriginal extends FrameLayout {
             CLOUD_SIZE_MAX = res.getDimensionPixelSize(R.dimen.cloud_size_max);
             STAR_SIZE_MIN = res.getDimensionPixelSize(R.dimen.star_size_min);
             STAR_SIZE_MAX = res.getDimensionPixelSize(R.dimen.star_size_max);
-
             G = res.getDimensionPixelSize(R.dimen.G);
             MAX_V = res.getDimensionPixelSize(R.dimen.max_v);
-
             SCENERY_Z = res.getDimensionPixelSize(R.dimen.scenery_z);
             OBSTACLE_Z = res.getDimensionPixelSize(R.dimen.obstacle_z);
             PLAYER_Z = res.getDimensionPixelSize(R.dimen.player_z);
             PLAYER_Z_BOOST = res.getDimensionPixelSize(R.dimen.player_z_boost);
             HUD_Z = res.getDimensionPixelSize(R.dimen.hud_z);
-
             // Sanity checking
             if (OBSTACLE_MIN <= OBSTACLE_WIDTH / 2) {
                 L("error: obstacles might be too short, adjusting");
@@ -1036,7 +971,6 @@ public class MLandOriginal extends FrameLayout {
 
         public Player(Context context) {
             super(context);
-
             setBackgroundResource(R.drawable.android);
             getBackground().setTintMode(PorterDuff.Mode.SRC_ATOP);
             color = sColors[(sNextColor++ % sColors.length)];
@@ -1125,7 +1059,6 @@ public class MLandOriginal extends FrameLayout {
                 setTranslationX(getTranslationX() - PARAMS.TRANSLATION_PER_SEC * dt);
                 return;
             }
-
             if (mBoosting) {
                 dv = -PARAMS.BOOST_DV;
             } else {
@@ -1133,12 +1066,10 @@ public class MLandOriginal extends FrameLayout {
             }
             if (dv < -PARAMS.MAX_V) dv = -PARAMS.MAX_V;
             else if (dv > PARAMS.MAX_V) dv = PARAMS.MAX_V;
-
             final float y = getTranslationY() + dv * dt;
             setTranslationY(y < 0 ? 0 : y);
             setRotation(
                     90 + lerp(clamp(rlerp(dv, PARAMS.MAX_V, -1 * PARAMS.MAX_V)), 90, -90));
-
             prepareCheckIntersections();
         }
 
@@ -1151,7 +1082,6 @@ public class MLandOriginal extends FrameLayout {
         public void boost() {
             mBoosting = true;
             dv = -PARAMS.BOOST_DV;
-
             animate().cancel();
             animate()
                     .scaleX(1.25f)
@@ -1165,7 +1095,6 @@ public class MLandOriginal extends FrameLayout {
         public void unboost() {
             mBoosting = false;
             mTouchX = mTouchY = -1;
-
             animate().cancel();
             animate()
                     .scaleX(1f)
@@ -1230,7 +1159,6 @@ public class MLandOriginal extends FrameLayout {
         // The marshmallow illustration and hitbox is 2/3 the size of its container.
         Drawable antenna, eyes, mouth;
 
-
         public Pop(Context context, float h) {
             super(context, h);
             setBackgroundResource(R.drawable.mm_head);
@@ -1266,7 +1194,6 @@ public class MLandOriginal extends FrameLayout {
             if (mRotate != 0) {
                 setRotation(getRotation() + dt * 45 * mRotate);
             }
-
             cx = (hitRect.left + hitRect.right) / 2;
             cy = (hitRect.top + hitRect.bottom) / 2;
             r = getWidth() / 3; // see above re 2/3 container size
@@ -1302,13 +1229,11 @@ public class MLandOriginal extends FrameLayout {
         public Stem(Context context, float h, boolean drawShadow) {
             super(context, h);
             id = mCurrentPipeId;
-
             mDrawShadow = drawShadow;
             setBackground(null);
             mGradient.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT);
             mPaint.setColor(0xFF000000);
             mPaint.setColorFilter(new PorterDuffColorFilter(0x22000000, PorterDuff.Mode.MULTIPLY));
-
             if (frand() < 0.01f) {
                 mGradient.setColors(new int[]{0xFFFFFFFF, 0xFFDDDDDD});
                 mJandystripe = new Path();
@@ -1340,7 +1265,6 @@ public class MLandOriginal extends FrameLayout {
             mGradient.setGradientCenter(w * 0.75f, 0);
             mGradient.setBounds(0, 0, w, h);
             mGradient.draw(c);
-
             if (mJandystripe != null) {
                 mJandystripe.reset();
                 mJandystripe.moveTo(0, w);
@@ -1353,7 +1277,6 @@ public class MLandOriginal extends FrameLayout {
                     mJandystripe.offset(0, 4 * w);
                 }
             }
-
             if (!mDrawShadow) return;
             mShadow.reset();
             mShadow.moveTo(0, 0);
@@ -1383,7 +1306,6 @@ public class MLandOriginal extends FrameLayout {
     private class Building extends Scenery {
         public Building(Context context) {
             super(context);
-
             w = irand(PARAMS.BUILDING_WIDTH_MIN, PARAMS.BUILDING_WIDTH_MAX);
             h = 0; // will be setup later, along with z
         }
@@ -1392,7 +1314,6 @@ public class MLandOriginal extends FrameLayout {
     private class Cactus extends Building {
         public Cactus(Context context) {
             super(context);
-
             setBackgroundResource(pick(CACTI));
             w = h = irand(PARAMS.BUILDING_WIDTH_MAX / 4, PARAMS.BUILDING_WIDTH_MAX / 2);
         }
@@ -1401,7 +1322,6 @@ public class MLandOriginal extends FrameLayout {
     private class Mountain extends Building {
         public Mountain(Context context) {
             super(context);
-
             setBackgroundResource(pick(MOUNTAINS));
             w = h = irand(PARAMS.BUILDING_WIDTH_MAX / 2, PARAMS.BUILDING_WIDTH_MAX);
             z = 0;
