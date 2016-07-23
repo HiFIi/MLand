@@ -1188,7 +1188,8 @@ public class MLandModified extends FrameLayout {
         }
 
         public void die() {
-           boolean mAlive = false;
+          // boolean mAlive = false;
+            mAlive = false;
             if (mScoreField != null) {
                 //mScoreField.setTextColor(0xFFFFFFFF);
                 //mScoreField.getBackground().setColorFilter(0xFF666666, PorterDuff.Mode.SRC_ATOP);
