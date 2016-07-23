@@ -45,7 +45,7 @@ public class Home extends MLandBase {
 
         Resources resources = this.getResources();
         String label = resources.getString(this.getApplicationInfo().labelRes);
-        final int aboutPrimaryDark = resources.getColor(R.color.tealish_green__primaryDark);
+        final int aboutPrimaryDark = resources.getColor(R.color.colorPrimaryDark);
 
         if (sIcon == null) {
             // Cache to avoid decoding the same bitmap on every Activity change

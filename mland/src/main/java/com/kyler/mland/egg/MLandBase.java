@@ -51,6 +51,7 @@ public abstract class MLandBase extends AppCompatActivity {
     protected static final int NAVDRAWER_ITEM_INVALID = -1;
     protected static final int NAVDRAWER_ITEM_SEPARATOR = -2;
     protected static final int NAVDRAWER_ITEM_SEPARATOR_SPECIAL = -3;
+    public static String mVersionNumber;
 
     /**
      * TO DO:
@@ -116,6 +117,8 @@ public abstract class MLandBase extends AppCompatActivity {
 
         SharedPreferences first = PreferenceManager
                 .getDefaultSharedPreferences(this);
+
+        mVersionNumber = getResources().getString(R.string.version_number);
 
         if (getIntent().getBooleanExtra("EXIT", false)) {
             super.finish();

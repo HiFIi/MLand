@@ -21,7 +21,7 @@ limitations under the License.
         android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/dark_ui_bg"
+        android:background="@color/colorPrimary"
         android:orientation="vertical">
 
         <RelativeLayout

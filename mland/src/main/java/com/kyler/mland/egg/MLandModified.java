@@ -590,6 +590,7 @@ public class MLandModified extends FrameLayout {
     }
 
     public void stop() {
+        boolean mGodMode = false;
         if (mAnimating) {
             mAnim.cancel();
             mAnim = null;
@@ -598,9 +599,10 @@ public class MLandModified extends FrameLayout {
             mTimeOfDay = irand(0, SKIES.length - 1); // for next reset
             mScene = irand(0, SCENE_COUNT);
             mFrozen = true;
+
             for (Player p : mPlayers) {
-                p.die();
-            }
+                    p.die();
+                }
             postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -1186,7 +1188,7 @@ public class MLandModified extends FrameLayout {
         }
 
         public void die() {
-            mAlive = false;
+           boolean mAlive = false;
             if (mScoreField != null) {
                 //mScoreField.setTextColor(0xFFFFFFFF);
                 //mScoreField.getBackground().setColorFilter(0xFF666666, PorterDuff.Mode.SRC_ATOP);

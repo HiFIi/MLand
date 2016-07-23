@@ -71,12 +71,11 @@
                     android:paddingBottom="@dimen/session_details_extra_space_bottom">
 
                     <com.kyler.mland.egg.ui.MLandTextView
-                        android:id="@+id/currentBranch"
+                        android:id="@+id/currentVersionNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="50dp"
-                        android:text="Version 1.0.3"
                         android:textColor="@color/navdrawer_item_text_color"
                         android:textSize="22.0sp"
                         customfontdemo:fontName="Roboto-Regular.ttf" />

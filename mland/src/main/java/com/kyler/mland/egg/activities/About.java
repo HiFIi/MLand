@@ -10,6 +10,7 @@ import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.TextView;
 
 import com.facebook.common.logging.FLog;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -44,6 +45,7 @@ public class About extends MLandBase implements ObservableScrollView.Callbacks {
     private View mHeaderBox;
     private Handler mHandler;
     private float mFABElevation;
+    private static TextView mVersionNumberTV;
     //  private static String draweeUrlString;
     private OnGlobalLayoutListener mGlobalLayoutListener
             = new OnGlobalLayoutListener() {
@@ -78,6 +80,9 @@ public class About extends MLandBase implements ObservableScrollView.Callbacks {
         Fresco.initialize(getApplicationContext());
         setContentView(R.layout.about);
         getSupportActionBar().setTitle(null);
+
+        mVersionNumberTV = (TextView) findViewById(R.id.currentVersionNumber);
+        mVersionNumberTV.setText(mVersionNumber);
 
         mHasPhoto = true;
         mDraweeUri = Uri.parse("http://i.imgur.com/BLdW1QI.jpg");
