@@ -51,8 +51,6 @@ public abstract class MLandBase extends AppCompatActivity {
     protected static final int NAVDRAWER_ITEM_INVALID = -1;
     protected static final int NAVDRAWER_ITEM_SEPARATOR = -2;
     protected static final int NAVDRAWER_ITEM_SEPARATOR_SPECIAL = -3;
-    public static String mVersionNumber;
-
     /**
      * TO DO:
      * Play with the launch delay values some more.
@@ -83,6 +81,7 @@ public abstract class MLandBase extends AppCompatActivity {
             R.drawable.ic_landscape__mland_modified,
             0
     };
+    public static String mVersionNumber;
     public DrawerLayout mDrawerLayout;
     // Primary toolbar and drawer toggle
     public Toolbar mActionBarToolbar;

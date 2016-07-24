@@ -601,8 +601,8 @@ public class MLandModified extends FrameLayout {
             mFrozen = true;
 
             for (Player p : mPlayers) {
-                    p.die();
-                }
+                p.die();
+            }
             postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -1188,7 +1188,7 @@ public class MLandModified extends FrameLayout {
         }
 
         public void die() {
-          // boolean mAlive = false;
+            // boolean mAlive = false;
             mAlive = false;
             if (mScoreField != null) {
                 //mScoreField.setTextColor(0xFFFFFFFF);

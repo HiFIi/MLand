@@ -30,6 +30,7 @@ public class About extends MLandBase implements ObservableScrollView.Callbacks {
     private static final float PHOTO_ASPECT_RATIO = 1.7777777f;
     private static final float DRAWEE_PHOTO_ASPECT_RATIO = 1.33f;
     private static Uri mDraweeUri;
+    private static TextView mVersionNumberTV;
     private SimpleDraweeView draweeView;
     private int mPhotoHeightPixels;
     private View mAddScheduleButtonContainer;
@@ -45,7 +46,6 @@ public class About extends MLandBase implements ObservableScrollView.Callbacks {
     private View mHeaderBox;
     private Handler mHandler;
     private float mFABElevation;
-    private static TextView mVersionNumberTV;
     //  private static String draweeUrlString;
     private OnGlobalLayoutListener mGlobalLayoutListener
             = new OnGlobalLayoutListener() {
