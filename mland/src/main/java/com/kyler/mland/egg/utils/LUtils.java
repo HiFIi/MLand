@@ -29,7 +29,7 @@ import android.graphics.drawable.AnimatedStateListDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -42,14 +42,14 @@ public class LUtils {
 
     private static Typeface sMediumTypeface;
 
-    protected ActionBarActivity mActivity;
+    private final AppCompatActivity mActivity;
     private Handler mHandler = new Handler();
 
-    private LUtils(ActionBarActivity activity) {
+    private LUtils(AppCompatActivity activity) {
         mActivity = activity;
     }
 
-    public static LUtils getInstance(ActionBarActivity activity) {
+    public static LUtils getInstance(AppCompatActivity activity) {
         return new LUtils(activity);
     }
 
@@ -118,8 +118,8 @@ public class LUtils {
         }
     }
 
-    public void compatSetOrAnimatePlusCheckIcon(final ImageView imageView, boolean isCheck,
-                                                boolean allowAnimate) {
+    private void compatSetOrAnimatePlusCheckIcon(final ImageView imageView, boolean isCheck,
+                                                 boolean allowAnimate) {
 
         if (imageView.getTag() != null) {
             if (imageView.getTag() instanceof Animator) {

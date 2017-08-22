@@ -42,7 +42,7 @@
                 android:layout_height="220.0dip"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/marshmallow" />
+                android:src="@drawable/oreo" />
 
             <RelativeLayout
                 android:id="@+id/chosen_account_content_view"

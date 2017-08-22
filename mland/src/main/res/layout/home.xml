@@ -21,7 +21,7 @@ limitations under the License.
         android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
+        android:background="#FF1F2B35"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -38,7 +38,7 @@ limitations under the License.
                 android:text="@string/app_name"
                 android:textColor="@color/scorecard"
                 android:textSize="56.0sp"
-                customfontdemo:fontName="ProductSans-Regular.ttf" />
+                customfontdemo:fontName="Roboto-Bold.ttf" />
 
             <include layout="@layout/toolbar_actionbar_actually_transparent" />
 

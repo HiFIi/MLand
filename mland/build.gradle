@@ -1,29 +1,76 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.0"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.1"
 
     defaultConfig {
         applicationId "com.kyler.mland.egg"
         minSdkVersion 21
-        maxSdkVersion 24
-        targetSdkVersion 24
-        versionCode 16
-        versionName "1.0.6"
+        maxSdkVersion 26
+        targetSdkVersion 26
+        versionCode 200
+        versionName "2.0.0"
+            // Enabling multidex support.
+        multiDexEnabled true
+
+        lintOptions {
+            checkReleaseBuilds false
+            abortOnError false
+        }
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        dexOptions {
+            preDexLibraries false
+            maxProcessCount 8
+            jumboMode = true
+            // Instead of setting the heap size for the DEX process, increase Gradle's
+            // heap size to enable dex-in-process. To learm more, read the next section.
+            // javaMaxHeapSize "2048m"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dexOptions {
+        javaMaxHeapSize '2048m'
     }
     buildTypes {
         release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro', 'proguard-fresco.pro'
+        }
+        buildTypes {
+            debug {
+                debuggable true
+                minifyEnabled true
+                shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro', 'proguard-fresco.pro'
+            }
         }
     }
 }
 
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
 dependencies {
-    compile 'com.android.support:design:+'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:+', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
     compile 'com.android.support:appcompat-v7:+'
+    compile 'com.android.support:design:+'
+    testCompile 'junit:junit:+'
     compile 'com.android.support:support-v4:+'
-    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.facebook.fresco:fresco:+'
+    compile 'com.facebook.fresco:imagepipeline-okhttp:+'
+    compile 'com.android.support:multidex:+'
 }
