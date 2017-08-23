@@ -26,11 +26,10 @@ import static android.view.ViewTreeObserver.OnGlobalLayoutListener;
 /**
  * Created by kyler on 10/6/15.
  */
+@SuppressWarnings({"ALL", "DefaultFileTemplate"})
 public class About extends MLandBase implements ObservableScrollView.Callbacks {
     private static final float PHOTO_ASPECT_RATIO = 1.7777777f;
     private static final float DRAWEE_PHOTO_ASPECT_RATIO = 1.33f;
-    private static Uri mDraweeUri;
-    private static TextView mVersionNumberTV;
     private SimpleDraweeView draweeView;
     private int mPhotoHeightPixels;
     private View mAddScheduleButtonContainer;
@@ -48,12 +47,7 @@ public class About extends MLandBase implements ObservableScrollView.Callbacks {
     private float mFABElevation;
     //  private static String draweeUrlString;
     private OnGlobalLayoutListener mGlobalLayoutListener
-            = new OnGlobalLayoutListener() {
-        @Override
-        public void onGlobalLayout() {
-            recomputePhotoAndScrollingMetrics();
-        }
-    };
+            = () -> recomputePhotoAndScrollingMetrics();
 
     @Override
     protected int getSelfNavDrawerItem() {
@@ -81,11 +75,11 @@ public class About extends MLandBase implements ObservableScrollView.Callbacks {
         setContentView(R.layout.about);
         getSupportActionBar().setTitle(null);
 
-        mVersionNumberTV = (TextView) findViewById(R.id.currentVersionNumber);
+        TextView mVersionNumberTV = (TextView) findViewById(R.id.currentVersionNumber);
         mVersionNumberTV.setText(mVersionNumber);
 
         mHasPhoto = true;
-        mDraweeUri = Uri.parse("http://i.imgur.com/BLdW1QI.jpg");
+        Uri mDraweeUri = Uri.parse("http://i.imgur.com/BLdW1QI.jpg");
 
         draweeView = (SimpleDraweeView) findViewById(R.id.session_photo);
         draweeView.setImageURI(mDraweeUri);
@@ -208,11 +202,6 @@ public class About extends MLandBase implements ObservableScrollView.Callbacks {
     }
 
     public void displayData() {
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                mScrollViewChild.setVisibility(View.VISIBLE);
-            }
-        });
+        mHandler.post(() -> mScrollViewChild.setVisibility(View.VISIBLE));
     }
 }

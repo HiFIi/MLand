@@ -90,10 +90,8 @@ public abstract class MLandBase extends AppCompatActivity {
     private Runnable mDeferredOnDrawerClosedRunnable;
     private CharSequence mTitle;
     private Context context;
-    private Handler mHandler;
-    private ViewGroup mDrawerItemsListContainer;
     // list of navdrawer items that were actually added to the navdrawer, in order
-    private ArrayList<Integer> mNavDrawerItems = new ArrayList<Integer>();
+    private ArrayList<Integer> mNavDrawerItems = new ArrayList<>();
     // views that correspond to each navdrawer item, null if not yet created
     private View[] mNavDrawerItemViews = null;
     // Helper methods for L APIs
@@ -102,8 +100,6 @@ public abstract class MLandBase extends AppCompatActivity {
     private int selfItem = getSelfNavDrawerItem();
     private ActionBarDrawerToggle mDrawerToggle;
     private SharedPreferences.Editor editor;
-
-    private ImageView iconView;
 
     private int drawerColorCalendar = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 
@@ -125,11 +121,8 @@ public abstract class MLandBase extends AppCompatActivity {
 
         if (!first.getBoolean("firstTimeRan", false)) {
 
-            new Handler().post(new Runnable() {
-                @Override
-                public void run() {
+            new Handler().post(() -> {
 
-                }
             });
 
             SharedPreferences.Editor editor = first.edit();
@@ -142,7 +135,7 @@ public abstract class MLandBase extends AppCompatActivity {
         if (getIntent().getBooleanExtra("EXIT", false)) {
             super.finish();
         }
-        mHandler = new Handler();
+        Handler mHandler = new Handler();
 
         // Enable or disable each Activity depending on the form factor. This is necessary
         // because this app uses many implicit intents where we don't name the exact Activity
@@ -192,7 +185,7 @@ public abstract class MLandBase extends AppCompatActivity {
         ScrimInsetsScrollView navDrawer = (ScrimInsetsScrollView)
                 mDrawerLayout.findViewById(R.id.navdrawer);
 
-        /** TO-DO: Make Menudrawer dark from 7pm-5am
+        /* TO-DO: Make Menudrawer dark from 7pm-5am
          if (drawerColorCalendar == 20) {
          Toast.makeText(this, "8pm", Toast.LENGTH_LONG).show();
          navDrawer.setBackgroundColor(getResources().getColor(R.color.night));
@@ -219,30 +212,23 @@ public abstract class MLandBase extends AppCompatActivity {
 
             final int navDrawerChosenAccountHeight = getResources().getDimensionPixelSize(
                     R.dimen.navdrawer_chosen_account_height);
-            navDrawer.setOnInsetsCallback(new ScrimInsetsScrollView.OnInsetsCallback() {
-                @Override
-                public void onInsetsChanged(Rect insets) {
-                    ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams)
-                            chosenAccountContentView.getLayoutParams();
-                    lp.topMargin = insets.top;
-                    chosenAccountContentView.setLayoutParams(lp);
+            navDrawer.setOnInsetsCallback(insets -> {
+                ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams)
+                        chosenAccountContentView.getLayoutParams();
+                lp.topMargin = insets.top;
+                chosenAccountContentView.setLayoutParams(lp);
 
-                    ViewGroup.LayoutParams lp2 = chosenAccountView.getLayoutParams();
-                    chosenAccountView.setLayoutParams(lp2);
-                }
+                ViewGroup.LayoutParams lp2 = chosenAccountView.getLayoutParams();
+                chosenAccountView.setLayoutParams(lp2);
             });
         }
 
         if (mActionBarToolbar != null) {
             mActionBarToolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_drawer_white));
-            mActionBarToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mDrawerLayout.openDrawer(GravityCompat.START);
-                }
-            });
+            mActionBarToolbar.setNavigationOnClickListener(view -> mDrawerLayout.openDrawer(GravityCompat.START));
         }
 
+        //noinspection deprecation
         mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerClosed(View drawerView) {
@@ -328,7 +314,7 @@ public abstract class MLandBase extends AppCompatActivity {
     }
 
     private void createNavDrawerItems() {
-        mDrawerItemsListContainer = (ViewGroup) findViewById(R.id.navdrawer_items_list);
+        ViewGroup mDrawerItemsListContainer = (ViewGroup) findViewById(R.id.navdrawer_items_list);
         if (mDrawerItemsListContainer == null) {
             return;
         }
@@ -405,13 +391,7 @@ public abstract class MLandBase extends AppCompatActivity {
 
     private void onNavDrawerItemClicked(final int itemId) {
         if (itemId == getSelfNavDrawerItem()) {
-            new Handler().postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    mDrawerLayout.closeDrawer(GravityCompat.START);
-                }
-            }, NAVDRAWER_CLOSE_PRELAUNCH);
+            new Handler().postDelayed(() -> mDrawerLayout.closeDrawer(GravityCompat.START), NAVDRAWER_CLOSE_PRELAUNCH);
             return;
         }
 
@@ -421,28 +401,20 @@ public abstract class MLandBase extends AppCompatActivity {
 
             mDrawerLayout.closeDrawer(GravityCompat.START);
 
-            new Handler().postDelayed(new Runnable() {
+            new Handler().postDelayed(() -> {
+                // change the active item on the list so the user can see the item changed
+                setSelectedNavDrawerItem(itemId);
 
-                @Override
-                public void run() {
-                    // change the active item on the list so the user can see the item changed
-                    setSelectedNavDrawerItem(itemId);
-
-                    goToNavDrawerItem(itemId);
-                }
+                goToNavDrawerItem(itemId);
             }, NAVDRAWER_LAUNCH_DELAY);
 
             //    goToNavDrawerItem(itemId);
 
-            new Handler().postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    // fade out the main content
-                    View mainContent = findViewById(R.id.main_content);
-                    if (mainContent != null) {
-                        mainContent.animate().alpha(0).setDuration(MAIN_CONTENT_FADEOUT_DURATION);
-                    }
+            new Handler().postDelayed(() -> {
+                // fade out the main content
+                View mainContent = findViewById(R.id.main_content);
+                if (mainContent != null) {
+                    mainContent.animate().alpha(0).setDuration(MAIN_CONTENT_FADEOUT_DURATION);
                 }
             }, POST_LAUNCH_FADE);
         }
@@ -534,12 +506,7 @@ public abstract class MLandBase extends AppCompatActivity {
 
         formatNavDrawerItem(view, itemId, selected);
 
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onNavDrawerItemClicked(itemId);
-            }
-        });
+        view.setOnClickListener(v -> onNavDrawerItemClicked(itemId));
 
         return view;
     }
@@ -559,7 +526,7 @@ public abstract class MLandBase extends AppCompatActivity {
             return;
         }
 
-        iconView = (ImageView) view.findViewById(R.id.icon);
+        ImageView iconView = (ImageView) view.findViewById(R.id.icon);
         TextView titleView = (TextView) view.findViewById(R.id.title);
         LinearLayout ll = (LinearLayout) view.findViewById(R.id.ll);
 
@@ -571,7 +538,7 @@ public abstract class MLandBase extends AppCompatActivity {
         titleView.setTextColor(selected ?
                 getResources().getColor(R.color.navdrawer_item_text_color) :
                 getResources().getColor(R.color.navdrawer_item_text_color));
-        /**    iconView.setColorFilter(selected ?
+        /*    iconView.setColorFilter(selected ?
          getResources().getColor(R.color.navdrawer_item_icon_color) :
          getResources().getColor(R.color.navdrawer_item_icon_color)); **/
     }
@@ -608,11 +575,8 @@ public abstract class MLandBase extends AppCompatActivity {
         TypedValue floatingWindowFlag = new TypedValue();
 
         // Check isFloatingWindow flag is defined in theme.
-        if (theme == null || !theme
-                .resolveAttribute(R.attr.isFloatingWindow, floatingWindowFlag, true)) {
-            return false;
-        }
+        return !(theme == null || !theme
+                .resolveAttribute(R.attr.isFloatingWindow, floatingWindowFlag, true)) && (floatingWindowFlag.data != 0);
 
-        return (floatingWindowFlag.data != 0);
     }
 }

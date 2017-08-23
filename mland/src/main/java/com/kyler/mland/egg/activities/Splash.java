@@ -1,5 +1,6 @@
 package com.kyler.mland.egg.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -15,6 +16,8 @@ import com.kyler.mland.egg.R;
  * Created by kyler on 1/4/16.
  */
 
+@SuppressWarnings("DefaultFileTemplate")
+@SuppressLint("Registered")
 public class Splash extends AppCompatActivity {
 
     private static final int SPLASH_DISPLAY_LENGTH = 3000;
@@ -31,13 +34,10 @@ public class Splash extends AppCompatActivity {
             window.setStatusBarColor(Color.BLUE);
         }
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent mainIntent = new Intent(Splash.this, Home.class);
-                Splash.this.startActivity(mainIntent);
-                Splash.this.finish();
-            }
+        new Handler().postDelayed(() -> {
+            Intent mainIntent = new Intent(Splash.this, Home.class);
+            Splash.this.startActivity(mainIntent);
+            Splash.this.finish();
         }, SPLASH_DISPLAY_LENGTH);
     }
 }

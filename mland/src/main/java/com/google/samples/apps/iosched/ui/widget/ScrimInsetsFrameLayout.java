@@ -16,6 +16,7 @@
 
 package com.google.samples.apps.iosched.ui.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -54,7 +55,7 @@ public class ScrimInsetsFrameLayout extends FrameLayout {
     }
 
     private void init(Context context, AttributeSet attrs, int defStyle) {
-        final TypedArray a = context.obtainStyledAttributes(attrs,
+        @SuppressLint("CustomViewStyleable") final TypedArray a = context.obtainStyledAttributes(attrs,
                 R.styleable.ScrimInsetsView, defStyle, 0);
         if (a == null) {
             return;
@@ -65,6 +66,7 @@ public class ScrimInsetsFrameLayout extends FrameLayout {
         setWillNotDraw(true);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     protected boolean fitSystemWindows(Rect insets) {
         mInsets = new Rect(insets);
@@ -136,7 +138,7 @@ public class ScrimInsetsFrameLayout extends FrameLayout {
         mOnInsetsCallback = onInsetsCallback;
     }
 
-    public static interface OnInsetsCallback {
-        public void onInsetsChanged(Rect insets);
+    public interface OnInsetsCallback {
+        void onInsetsChanged(Rect insets);
     }
 }

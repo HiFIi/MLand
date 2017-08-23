@@ -44,7 +44,8 @@ public class RecentTasksStyler {
 
         Resources resources = activity.getResources();
         String label = resources.getString(activity.getApplicationInfo().labelRes);
-        final int colorPrimaryDark = resources.getColor(R.color.colorPrimary);
+        //noinspection deprecation
+        @SuppressWarnings("deprecation") final int colorPrimaryDark = resources.getColor(R.color.colorPrimary);
 
         if (sIcon == null) {
             // Cache to avoid decoding the same bitmap on every Activity change

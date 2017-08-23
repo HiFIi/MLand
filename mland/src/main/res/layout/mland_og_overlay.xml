@@ -13,7 +13,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16.0dip"
-        android:text="Welcome!"
+        android:text="@string/welcome"
         android:textColor="@color/navdrawer_item_text_color"
         android:textSize="56.0sp"
         customfontdemo:fontName="Roboto-Bold.ttf" />

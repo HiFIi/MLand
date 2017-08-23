@@ -18,6 +18,7 @@ package com.kyler.mland.egg;
 
 import android.animation.LayoutTransition;
 import android.animation.TimeAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -105,8 +106,8 @@ public class MLandModified extends FrameLayout {
     private AudioManager mAudioManager;
     private View mSplash;
     private ViewGroup mScoreFields;
-    private ArrayList<Player> mPlayers = new ArrayList<Player>();
-    private ArrayList<Obstacle> mObstaclesInPlay = new ArrayList<Obstacle>();
+    private ArrayList<Player> mPlayers = new ArrayList<>();
+    private ArrayList<Obstacle> mObstaclesInPlay = new ArrayList<>();
     private float t, dt;
     private float mLastPipeTime; // in sec
     private int mCurrentPipeId; // basically, equivalent to the current score
@@ -176,27 +177,27 @@ public class MLandModified extends FrameLayout {
                 + 0.0722f * (float) (bgcolor & 0xFF) / 0xFF;
     }
 
-    public static final float lerp(float x, float a, float b) {
+    public static float lerp(float x, float a, float b) {
         return (b - a) * x + a;
     }
 
-    public static final float rlerp(float v, float a, float b) {
+    public static float rlerp(float v, float a, float b) {
         return (v - a) / (b - a);
     }
 
-    public static final float clamp(float f) {
+    public static float clamp(float f) {
         return f < 0f ? 0f : f > 1f ? 1f : f;
     }
 
-    public static final float frand() {
+    public static float frand() {
         return (float) Math.random();
     }
 
-    public static final float frand(float a, float b) {
+    public static float frand(float a, float b) {
         return lerp(frand(), a, b);
     }
 
-    public static final int irand(int a, int b) {
+    public static int irand(int a, int b) {
         return Math.round(frand((float) a, (float) b));
     }
 
@@ -294,7 +295,7 @@ public class MLandModified extends FrameLayout {
     private int addPlayerInternal(Player p) {
         mPlayers.add(p);
         realignPlayers();
-        TextView scoreField = (TextView)
+        @SuppressLint("InflateParams") TextView scoreField = (TextView)
                 LayoutInflater.from(getContext()).inflate(R.layout.mland_scorefield, null);
         if (mScoreFields != null) {
             mScoreFields.addView(scoreField,
@@ -492,12 +493,7 @@ public class MLandModified extends FrameLayout {
             mAnim.cancel();
         }
         mAnim = new TimeAnimator();
-        mAnim.setTimeListener(new TimeAnimator.TimeListener() {
-            @Override
-            public void onTimeUpdate(TimeAnimator timeAnimator, long t, long dt) {
-                step(t, dt);
-            }
-        });
+        mAnim.setTimeListener((timeAnimator, t, dt) -> step(t, dt));
     }
 
     public void start(boolean startPlaying) {
@@ -542,12 +538,7 @@ public class MLandModified extends FrameLayout {
         if (mSplash != null && mSplash.getVisibility() == View.VISIBLE) {
             mSplash.setClickable(false);
             mSplash.animate().alpha(0).translationZ(0).setDuration(300).withEndAction(
-                    new Runnable() {
-                        @Override
-                        public void run() {
-                            mSplash.setVisibility(View.GONE);
-                        }
-                    }
+                    () -> mSplash.setVisibility(View.GONE)
             );
         }
     }
@@ -603,15 +594,11 @@ public class MLandModified extends FrameLayout {
             for (Player p : mPlayers) {
                 p.die();
             }
-            postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mFrozen = false;
-                }
-            }, 250);
+            postDelayed(() -> mFrozen = false, 250);
         }
     }
 
+    @SuppressLint("RtlHardcoded")
     private void step(long t_ms, long dt_ms) {
         t = t_ms / 1000f; // seconds
         dt = dt_ms / 1000f;
@@ -785,6 +772,7 @@ public class MLandModified extends FrameLayout {
         if (SHOW_TOUCHES || DEBUG_DRAW) invalidate();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         L("touch: %s", ev);
@@ -960,7 +948,7 @@ public class MLandModified extends FrameLayout {
     }
 
     private interface GameView {
-        public void step(long t_ms, long dt_ms, float t, float dt);
+        void step(long t_ms, long dt_ms, float t, float dt);
     }
 
     private static class Params {

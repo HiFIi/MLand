@@ -14,6 +14,7 @@ import com.kyler.mland.egg.R;
 /**
  * Created by kyler on 10/26/15.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class Home extends MLandBase {
     private static Bitmap sIcon = null;
 

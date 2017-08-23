@@ -29,7 +29,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#FFE4E4E4"
-                android:clipChildren="false">
+                android:clipChildren="false"
+                fresco:ignore="ExtraText">
 
                 <!-- Background photo. -->
                 <FrameLayout

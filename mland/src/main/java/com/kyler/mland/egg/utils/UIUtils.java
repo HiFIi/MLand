@@ -16,6 +16,7 @@
 
 package com.kyler.mland.egg.utils;
 
+import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
@@ -64,6 +65,7 @@ public class UIUtils {
     private static CharSequence sNowPlayingText;
     private static CharSequence sLivestreamNowText;
     private static CharSequence sLivestreamAvailableText;
+    @SuppressLint("SimpleDateFormat")
     private static SimpleDateFormat sDayOfWeekFormat = new SimpleDateFormat("E");
     private static DateFormat sShortTimeFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
     public Context context;
@@ -109,8 +111,7 @@ public class UIUtils {
                                 : PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                         PackageManager.DONT_KILL_APP);
             }
-        } catch (PackageManager.NameNotFoundException e) {
-        } catch (ClassNotFoundException e) {
+        } catch (PackageManager.NameNotFoundException | ClassNotFoundException ignored) {
         }
     }
 

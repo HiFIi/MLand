@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.fabiomsr.drawableoptimizer'
 
 android {
     compileSdkVersion 26
@@ -10,34 +11,39 @@ android {
         maxSdkVersion 26
         targetSdkVersion 26
         versionCode 200
-        versionName "2.0.0"
-            // Enabling multidex support.
+        versionName "2.0.0-wip"
+        // Enabling multidex support.
         multiDexEnabled true
 
         lintOptions {
             checkReleaseBuilds false
             abortOnError false
         }
-
+        
+        drawableOptimizer {
+    optimizer = 'zopfli'
+    compressionLevel = 9
+    iterations = 15
+    onlyOnRelease = false
+    logLevel = 'info'
+}
+        
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         dexOptions {
-            preDexLibraries false
-            maxProcessCount 8
+            preDexLibraries true
+            maxProcessCount 24
             jumboMode = true
-            // Instead of setting the heap size for the DEX process, increase Gradle's
-            // heap size to enable dex-in-process. To learm more, read the next section.
-            // javaMaxHeapSize "2048m"
         }
     }
-
+   
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
     dexOptions {
-        javaMaxHeapSize '2048m'
+        javaMaxHeapSize '4096m'
     }
     buildTypes {
         release {
@@ -49,7 +55,7 @@ android {
                 debuggable true
                 minifyEnabled true
                 shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro', 'proguard-fresco.pro'
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro', 'proguard-fresco.pro'
             }
         }
     }
@@ -66,11 +72,18 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:+', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    //noinspection GradleDynamicVersion
     compile 'com.android.support:appcompat-v7:+'
+    //noinspection GradleDynamicVersion
     compile 'com.android.support:design:+'
+    //noinspection GradleDynamicVersion
     testCompile 'junit:junit:+'
+    //noinspection GradleDynamicVersion
     compile 'com.android.support:support-v4:+'
+    //noinspection GradleDynamicVersion
     compile 'com.facebook.fresco:fresco:+'
+    //noinspection GradleDynamicVersion
     compile 'com.facebook.fresco:imagepipeline-okhttp:+'
+    //noinspection GradleDynamicVersion
     compile 'com.android.support:multidex:+'
 }

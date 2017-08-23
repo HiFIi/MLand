@@ -11,6 +11,7 @@
      limitations under the License.
 -->
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -40,7 +41,8 @@
                 android:layout_height="match_parent"
                 android:background="@color/real_black_20"
                 android:clickable="true"
-                android:visibility="gone">
+                android:visibility="gone"
+                tools:ignore="KeyboardInaccessibleWidget">
 
                 <FrameLayout
                     android:id="@+id/play_button"
@@ -59,7 +61,8 @@
                         android:layout_gravity="center"
                         android:scaleType="fitCenter"
                         android:src="@drawable/play"
-                        android:tint="@android:color/black" />
+                        android:tint="@android:color/black"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:id="@+id/play_button_text"
@@ -68,7 +71,7 @@
                         android:layout_gravity="center"
                         android:alpha="0"
                         android:textColor="@android:color/black"
-                        android:textSize="40dp" />
+                        android:textSize="40sp" />
                 </FrameLayout>
             </FrameLayout>
 
@@ -89,7 +92,8 @@
                     android:onClick="playerMinus"
                     android:padding="10dp"
                     android:scaleType="centerInside"
-                    android:src="@drawable/minus" />
+                    android:src="@drawable/minus"
+                    tools:ignore="ContentDescription" />
 
                 <LinearLayout
                     android:id="@+id/scores"
@@ -106,7 +110,8 @@
                     android:onClick="playerPlus"
                     android:padding="10dp"
                     android:scaleType="centerInside"
-                    android:src="@drawable/plus" />
+                    android:src="@drawable/plus"
+                    tools:ignore="ContentDescription" />
             </LinearLayout>
         </FrameLayout>
     </LinearLayout>

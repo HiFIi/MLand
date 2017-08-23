@@ -5,13 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.kyler.mland.egg.R;
 
-/**
- * TODO
- **/
+/*
+  TODO
+ */
 
 /**
  * Created by kyler on 1/18/16.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class MoreInfo extends AppCompatActivity {
 
     @Override

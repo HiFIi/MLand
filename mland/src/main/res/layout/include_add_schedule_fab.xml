@@ -16,11 +16,13 @@ limitations under the License.
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/add_schedule_button_container"
     android:layout_width="@dimen/add_to_schedule_button_height"
     android:layout_height="@dimen/add_to_schedule_button_height"
     android:layout_marginLeft="@dimen/keyline_1_minus_8dp"
-    android:fitsSystemWindows="false">
+    android:fitsSystemWindows="false"
+    tools:ignore="RtlHardcoded">
 
     <com.google.samples.apps.iosched.ui.widget.CheckableFloatingActionButton
         android:id="@+id/add_schedule_button"
