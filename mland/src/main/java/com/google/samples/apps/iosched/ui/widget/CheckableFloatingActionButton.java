@@ -22,49 +22,47 @@ import android.util.AttributeSet;
 import android.widget.Checkable;
 
 public class CheckableFloatingActionButton extends FloatingActionButton implements Checkable {
-    private static final int[] CHECKED_STATE_SET = {
-            android.R.attr.state_checked
-    };
-    protected boolean mChecked;
+  private static final int[] CHECKED_STATE_SET = {android.R.attr.state_checked};
+  protected boolean mChecked;
 
-    public CheckableFloatingActionButton(Context context) {
-        super(context);
-    }
+  public CheckableFloatingActionButton(Context context) {
+    super(context);
+  }
 
-    public CheckableFloatingActionButton(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
+  public CheckableFloatingActionButton(Context context, AttributeSet attrs) {
+    super(context, attrs);
+  }
 
-    public CheckableFloatingActionButton(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
+  public CheckableFloatingActionButton(Context context, AttributeSet attrs, int defStyleAttr) {
+    super(context, attrs, defStyleAttr);
+  }
 
-    @Override
-    public boolean isChecked() {
-        return mChecked;
-    }
+  @Override
+  public boolean isChecked() {
+    return mChecked;
+  }
 
-    @Override
-    public void setChecked(boolean checked) {
-        setChecked(checked, true);
-    }
+  @Override
+  public void setChecked(boolean checked) {
+    setChecked(checked, true);
+  }
 
-    public void setChecked(boolean checked, boolean allowAnimate) {
-        mChecked = checked;
-        refreshDrawableState();
-    }
+  public void setChecked(boolean checked, boolean allowAnimate) {
+    mChecked = checked;
+    refreshDrawableState();
+  }
 
-    @Override
-    public void toggle() {
-        setChecked(!mChecked);
-    }
+  @Override
+  public void toggle() {
+    setChecked(!mChecked);
+  }
 
-    @Override
-    public int[] onCreateDrawableState(int extraSpace) {
-        int[] drawableState = super.onCreateDrawableState(extraSpace + 1);
-        if (isChecked()) {
-            mergeDrawableStates(drawableState, CHECKED_STATE_SET);
-        }
-        return drawableState;
+  @Override
+  public int[] onCreateDrawableState(int extraSpace) {
+    int[] drawableState = super.onCreateDrawableState(extraSpace + 1);
+    if (isChecked()) {
+      mergeDrawableStates(drawableState, CHECKED_STATE_SET);
     }
+    return drawableState;
+  }
 }

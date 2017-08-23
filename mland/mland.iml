@@ -89,6 +89,8 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/symbols" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
+      <excludeFolder url="file://$MODULE_DIR$/build/tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/build/zopfli" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 26 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -108,6 +110,7 @@
     <orderEntry type="library" name="bolts-tasks-1.4.0" level="project" />
     <orderEntry type="library" scope="TEST" name="espresso-core-3.0.0" level="project" />
     <orderEntry type="library" scope="TEST" name="espresso-idling-resource-3.0.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="junit-5.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="fbcore-1.5.0" level="project" />
     <orderEntry type="library" name="transition-26.0.1" level="project" />
     <orderEntry type="library" scope="TEST" name="jsr305-2.0.1" level="project" />

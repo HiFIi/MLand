@@ -1,2 +1,4 @@
 #!/bin/bash
-for d in ./*/ ; do (cd "$d" && find -name '*.png' -print0 | xargs -0 optipng -nc -nb -o7); done
+# 08/22/17: Added threading
+
+for d in ./*/ ; do (cd "$d" && find -name '*.png' -print0 | xargs -P8 -L1 -0 optipng -nc -nb -o7); done

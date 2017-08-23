@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.fabiomsr.drawableoptimizer'
+apply plugin: 'com.github.sherter.google-java-format'
 
 android {
     compileSdkVersion 26
@@ -19,15 +20,19 @@ android {
             checkReleaseBuilds false
             abortOnError false
         }
-        
+
+        googleJavaFormat {
+            options style: 'GOOGLE'
+        }
+
         drawableOptimizer {
-    optimizer = 'zopfli'
-    compressionLevel = 9
-    iterations = 15
-    onlyOnRelease = false
-    logLevel = 'info'
-}
-        
+            optimizer = 'zopfli'
+            compressionLevel = 9
+            iterations = 15
+            onlyOnRelease = false
+            logLevel = 'info'
+        }
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         dexOptions {
@@ -36,7 +41,7 @@ android {
             jumboMode = true
         }
     }
-   
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8

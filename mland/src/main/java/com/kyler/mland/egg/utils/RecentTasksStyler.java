@@ -23,36 +23,33 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
-
 import com.kyler.mland.egg.R;
 
-/**
- * Helper class that applies the proper icon, title and background color to recent tasks list.
- */
+/** Helper class that applies the proper icon, title and background color to recent tasks list. */
 public class RecentTasksStyler {
-    private static Bitmap sIcon = null;
+  private static Bitmap sIcon = null;
 
-    private RecentTasksStyler() {
+  private RecentTasksStyler() {}
 
+  @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+  public static void styleRecentTasksEntry(Activity activity) {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+      return;
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public static void styleRecentTasksEntry(Activity activity) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            return;
-        }
+    Resources resources = activity.getResources();
+    String label = resources.getString(activity.getApplicationInfo().labelRes);
+    //noinspection deprecation
+    @SuppressWarnings("deprecation")
+    final int colorPrimaryDark = resources.getColor(R.color.colorPrimary);
 
-        Resources resources = activity.getResources();
-        String label = resources.getString(activity.getApplicationInfo().labelRes);
-        //noinspection deprecation
-        @SuppressWarnings("deprecation") final int colorPrimaryDark = resources.getColor(R.color.colorPrimary);
-
-        if (sIcon == null) {
-            // Cache to avoid decoding the same bitmap on every Activity change
-            //   sIcon = BitmapFactory.decodeResource(resources, R.drawable.tbmd_recents);
-            sIcon = BitmapFactory.decodeResource(resources, android.R.color.transparent);
-        }
-
-        activity.setTaskDescription(new ActivityManager.TaskDescription(label, sIcon, colorPrimaryDark));
+    if (sIcon == null) {
+      // Cache to avoid decoding the same bitmap on every Activity change
+      //   sIcon = BitmapFactory.decodeResource(resources, R.drawable.tbmd_recents);
+      sIcon = BitmapFactory.decodeResource(resources, android.R.color.transparent);
     }
+
+    activity.setTaskDescription(
+        new ActivityManager.TaskDescription(label, sIcon, colorPrimaryDark));
+  }
 }
