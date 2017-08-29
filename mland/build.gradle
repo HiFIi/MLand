@@ -1,6 +1,11 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.fabiomsr.drawableoptimizer'
 apply plugin: 'com.github.sherter.google-java-format'
+apply plugin: 'com.getkeepsafe.dexcount'
+
+static def buildTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
 
 android {
     compileSdkVersion 26
@@ -15,11 +20,76 @@ android {
         versionName "2.0.0-wip"
         // Enabling multidex support.
         multiDexEnabled true
+        
+         resValue "string", "build_time", buildTime()
+        
+        flavorDimensions "target", "abi"
 
         lintOptions {
             checkReleaseBuilds false
             abortOnError false
         }
+        
+             productFlavors {
+     regular {
+            dimension "target"
+            versionCode = 1
+        }
+
+        ARMv7 {
+            dimension "abi"
+            versionCode = 3
+        }
+        ARMv8 {
+            dimension "abi"
+            versionCode = 4
+        }
+    }
+        
+//Split into platform dependent APK
+splits {
+  abi {
+    enable true
+    reset()
+    include 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'mips', 'x86' //select ABIs to build APKs for
+    universalApk false //generate an additional APK that contains all the ABIs
+  }
+}
+
+// map for the version code
+project.ext.versionCodes = ['armeabi': 1, 'armeabi-v7a': 2, 'arm64-v8a': 3, 'mips': 5, 'x86': 8]
+
+// Rename with proper versioning
+android.applicationVariants.all { variant ->
+  // assign different version code for each output
+  variant.outputs.each { output ->
+    output.versionCodeOverride =
+        project.ext.versionCodes.get(output.getFilter(com.android.build.OutputFile.ABI), 0) *
+            1000000 +
+            android.defaultConfig.versionCode
+  }
+}
+  
+  dexcount {
+    format = "list"
+    includeClasses = false
+    includeClassCount = false
+    includeFieldCount = true
+    includeTotalMethodCount = false
+    orderByMethodCount = false
+    verbose = true
+    maxTreeDepth = Integer.MAX_VALUE
+    teamCityIntegration = false
+    teamCitySlug = null
+    runOnEachPackage = true
+    maxMethodCount = 64000
+}
+  
+      jackOptions {
+    enabled true
+    additionalParameters("jack.dex.debug.lines": "true")
+    additionalParameters("jack.dex.debug.source": "true")
+}
 
         googleJavaFormat {
             options style: 'GOOGLE'
@@ -37,30 +107,37 @@ android {
 
         dexOptions {
             preDexLibraries true
-            maxProcessCount 24
+            maxProcessCount 8
             jumboMode = true
         }
     }
-
+    
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
+    
+    dataBinding {
+        enabled = true
+    }
+  
     dexOptions {
         javaMaxHeapSize '4096m'
+        preDexLibraries true
     }
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro', 'proguard-fresco.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         buildTypes {
             debug {
+        applicationIdSuffix ".debug"
                 debuggable true
                 minifyEnabled true
                 shrinkResources true
-                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro', 'proguard-fresco.pro'
+                zipAlignEnabled true
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             }
         }
     }
@@ -74,9 +151,6 @@ repositories {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:+', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
     //noinspection GradleDynamicVersion
     compile 'com.android.support:appcompat-v7:+'
     //noinspection GradleDynamicVersion
@@ -86,9 +160,9 @@ dependencies {
     //noinspection GradleDynamicVersion
     compile 'com.android.support:support-v4:+'
     //noinspection GradleDynamicVersion
-    compile 'com.facebook.fresco:fresco:+'
-    //noinspection GradleDynamicVersion
-    compile 'com.facebook.fresco:imagepipeline-okhttp:+'
-    //noinspection GradleDynamicVersion
     compile 'com.android.support:multidex:+'
+    //noinspection GradleDynamicVersion
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:+'
+    //noinspection GradleDynamicVersion
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:+'
 }

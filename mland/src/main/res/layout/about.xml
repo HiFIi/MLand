@@ -39,22 +39,11 @@
                     android:layout_height="wrap_content"
                     android:fitsSystemWindows="false">
 
-                    <com.facebook.drawee.view.SimpleDraweeView
+                    <ImageView
                         android:id="@+id/session_photo"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:adjustViewBounds="true"
-                        fresco:actualImageScaleType="focusCrop"
-                        fresco:fadeDuration="1500"
-                        fresco:placeholderImage="@color/wait_color"
-                        fresco:placeholderImageScaleType="fitCenter" />
-
-                    <!--  <ImageView
-					android:layout_width="144.0dip"
-					android:layout_height="144.0dip"
-					android:id="@+id/test"
-					android:src="@drawable/icon_modified_transparent"
-					android:layout_gravity="center_horizontal" /> -->
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/oreo" />
 
                 </FrameLayout>
 

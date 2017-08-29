@@ -9,13 +9,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewCompat;
+import android.widget.ImageView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
-import com.facebook.common.logging.FLog;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.samples.apps.iosched.ui.widget.CheckableFloatingActionButton;
 import com.google.samples.apps.iosched.ui.widget.ObservableScrollView;
 import com.kyler.mland.egg.MLandBase;
@@ -27,7 +25,7 @@ import com.kyler.mland.egg.utils.UIUtils;
 public class About extends MLandBase implements ObservableScrollView.Callbacks {
   private static final float PHOTO_ASPECT_RATIO = 1.7777777f;
   private static final float DRAWEE_PHOTO_ASPECT_RATIO = 1.33f;
-  private SimpleDraweeView draweeView;
+  private ImageView mlandView;
   private int mPhotoHeightPixels;
   private View mAddScheduleButtonContainer;
   private CheckableFloatingActionButton mAddScheduleButton;
@@ -42,7 +40,6 @@ public class About extends MLandBase implements ObservableScrollView.Callbacks {
   private View mHeaderBox;
   private Handler mHandler;
   private float mFABElevation;
-  //  private static String draweeUrlString;
   private OnGlobalLayoutListener mGlobalLayoutListener = () -> recomputePhotoAndScrollingMetrics();
 
   @Override
@@ -67,8 +64,6 @@ public class About extends MLandBase implements ObservableScrollView.Callbacks {
       setupFloatingWindow(
           R.dimen.session_details_floating_width, R.dimen.session_details_floating_height, 1, 0.5f);
     }
-    FLog.setMinimumLoggingLevel(FLog.VERBOSE);
-    Fresco.initialize(getApplicationContext());
     setContentView(R.layout.about);
     getSupportActionBar().setTitle(null);
 
@@ -76,12 +71,9 @@ public class About extends MLandBase implements ObservableScrollView.Callbacks {
     mVersionNumberTV.setText(mVersionNumber);
 
     mHasPhoto = true;
-    Uri mDraweeUri = Uri.parse("http://i.imgur.com/BLdW1QI.jpg");
 
-    draweeView = (SimpleDraweeView) findViewById(R.id.session_photo);
-    draweeView.setImageURI(mDraweeUri);
-    draweeView.setAspectRatio(DRAWEE_PHOTO_ASPECT_RATIO);
-
+    mlandView = (ImageView) findViewById(R.id.session_photo);
+    
     mHandler = new Handler();
     initViews();
   }
@@ -124,7 +116,7 @@ public class About extends MLandBase implements ObservableScrollView.Callbacks {
 
     mPhotoHeightPixels = 0;
     if (mHasPhoto) {
-      mPhotoHeightPixels = (int) (draweeView.getWidth() / PHOTO_ASPECT_RATIO);
+      mPhotoHeightPixels = (int) (mlandView.getWidth() / PHOTO_ASPECT_RATIO);
       mPhotoHeightPixels = Math.min(mPhotoHeightPixels, mScrollView.getHeight() * 1 / 3);
     }
 
@@ -178,7 +170,7 @@ public class About extends MLandBase implements ObservableScrollView.Callbacks {
     Window window = getWindow();
     window.setStatusBarColor(UIUtils.getColorWithAlpha(alpha, (darkenColor(baseColor)))); */
 
-    ViewCompat.setElevation(draweeView, gapFillProgress * mMaxHeaderElevation);
+    ViewCompat.setElevation(mlandView, gapFillProgress * mMaxHeaderElevation);
     ViewCompat.setElevation(mDetailsContainer, gapFillProgress * mMaxHeaderElevation);
     ViewCompat.setElevation(mHeaderBox, gapFillProgress * mMaxHeaderElevation);
     ViewCompat.setElevation(
@@ -189,7 +181,7 @@ public class About extends MLandBase implements ObservableScrollView.Callbacks {
     ViewCompat.setTranslationZ(mHeaderBox, gapFillProgress * mMaxHeaderElevation);
 
     // testing
-    ViewCompat.setTranslationZ(draweeView, gapFillProgress * mMaxHeaderElevation);
+    ViewCompat.setTranslationZ(mlandView, gapFillProgress * mMaxHeaderElevation);
     ViewCompat.setTranslationZ(mDetailsContainer, gapFillProgress * mMaxHeaderElevation);
 
     // Move background photo (parallax effect)
