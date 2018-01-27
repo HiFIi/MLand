@@ -33,7 +33,6 @@ limitations under the License.
         android:contentDescription="@null"
         android:focusable="true"
         android:scaleType="center"
-        android:src="@drawable/ic_email"
         android:visibility="invisible"
         app:backgroundTint="@color/black_40"
         app:fabSize="mini"

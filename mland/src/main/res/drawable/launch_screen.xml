@@ -2,7 +2,7 @@
 
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android"
     android:opacity="opaque">
-    <item android:drawable="@android:color/white" />
+    <item android:drawable="@color/colorPrimaryDark" />
     <item android:bottom="@dimen/launch_screen_logo_bottom">
         <bitmap
             android:gravity="center"
