@@ -21,32 +21,29 @@ limitations under the License.
         android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="false"
         android:background="#FFfafafa"
+        android:fitsSystemWindows="false"
         android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="match_parent">
 
-                <View
-                    android:id="@+id/clr"
-                    android:layout_width="match_parent"
-                    android:layout_height="200.0dip"
-                    android:background="@color/about__dark_blue"/>
-
             <com.kyler.mland.egg.ui.MLandTextView
-                android:id="@+id/title"
+                android:id="@+id/versionCodeTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:gravity="center_horizontal"
-                android:text="About"
-                android:textColor="@android:color/white"
+                android:layout_centerInParent="true"
+                android:text="Placeholder"
+                android:textColor="#505050"
                 android:textSize="36.0sp"
                 customfontdemo:fontName="Roboto-Medium.ttf" />
 
+            <View
+                android:id="@+id/clr"
+                android:layout_width="match_parent"
+                android:layout_height="200.0dip"
+                android:background="@color/about__dark_blue" />
         </RelativeLayout>
 
         <RelativeLayout

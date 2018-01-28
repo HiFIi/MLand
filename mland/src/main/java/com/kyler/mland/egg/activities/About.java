@@ -5,14 +5,17 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 
+import com.kyler.mland.egg.BuildConfig;
 import com.kyler.mland.egg.MLandBase;
 import com.kyler.mland.egg.R;
+import com.kyler.mland.egg.ui.MLandTextView;
 
 /**
  * Created by kyler on 10/6/15.
  */
 @SuppressWarnings({"ALL", "DefaultFileTemplate"})
 public class About extends MLandBase {
+    private static MLandTextView versionCodeTV;
 
     @Override
     protected int getSelfNavDrawerItem() {
@@ -28,6 +31,10 @@ public class About extends MLandBase {
     public void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.Theme_MLand_Home);
         super.onCreate(savedInstanceState);
+
+        versionCodeTV = (MLandTextView) findViewById(R.id.versionCodeTV);
+
+        versionCodeTV.setText(BuildConfig.VERSION_CODE);
 
         setContentView(R.layout.about);
         super.getWindow()

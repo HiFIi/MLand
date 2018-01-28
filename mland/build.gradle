@@ -39,21 +39,22 @@ android {
             }
         }
 
-	//Split into platform dependent APK
+        //Split into platform dependent APK
         splits {
             abi {
-                enable true
+                enable false // for now
                 reset()
-                include 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+                // include 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+                include 'arm64-v8a'
                 //select ABIs to build APKs for
-                universalApk true //generate an additional APK that contains all the ABIs
+                universalApk false //generate an additional APK that contains all the ABIs
             }
         }
 
         // map for the version code
         project.ext.versionCodes = ['armeabi': 1, 'armeabi-v7a': 2, 'arm64-v8a': 3]
 
-	// Rename with proper versioning
+        // Rename with proper versioning
         android.applicationVariants.all { variant ->
             // assign different version code for each output
             variant.outputs.each { output ->
@@ -89,10 +90,10 @@ android {
         buildTypes {
             debug {
                 applicationIdSuffix ".debug"
-        //        minifyEnabled true
-        //        shrinkResources true
-        //       zipAlignEnabled true
-        //    proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                minifyEnabled true
+                shrinkResources true
+                zipAlignEnabled true
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             }
         }
     }

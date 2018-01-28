@@ -3,7 +3,7 @@
     package="com.kyler.mland.egg">
 
     <uses-permission android:name="android.permission.VIBRATE" />
-    
+
     <!-- We don't need this right now. :) -->
     <!--  <uses-permission android:name="android.permission.INTERNET" /> -->
 
