@@ -15,7 +15,6 @@ import com.kyler.mland.egg.ui.MLandTextView;
  */
 @SuppressWarnings({"ALL", "DefaultFileTemplate"})
 public class About extends MLandBase {
-    private static MLandTextView versionCodeTV;
 
     @Override
     protected int getSelfNavDrawerItem() {
@@ -32,19 +31,17 @@ public class About extends MLandBase {
         setTheme(R.style.Theme_MLand_Home);
         super.onCreate(savedInstanceState);
 
-        versionCodeTV = (MLandTextView) findViewById(R.id.versionCodeTV);
-
-        versionCodeTV.setText(BuildConfig.VERSION_CODE);
-
         setContentView(R.layout.about);
         super.getWindow()
                 .getDecorView()
                 .setSystemUiVisibility(
                         View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
-        // I should perhaps do some research to see whether or not
-        // setting the SupportActionBars title to an empty string is
-        // more efficient than *.setTitle(null);
+        /*
+        I should perhaps do some research to see whether or not
+        setting the SupportActionBars title to an empty string is
+        more efficient than *.setTitle(null);
+        */
 
         getSupportActionBar().setTitle(null);
 

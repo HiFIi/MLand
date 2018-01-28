@@ -18,4 +18,16 @@
     <string name="follow_me_on_google_plus">Follow me on Google Plus</string>
     <string name="welcome">Welcome!</string>
     <string name="version_number">1.0.6</string>
+
+    <!-- Greeting messages for the various time of day. -->
+    <string name="its_dawn">It\'s Dawn.</string>
+    <string name="its_morning">Good morning!</string>
+    <string name="its_afternoon">Good afternoon!</string>
+    <string name="its_daytime">It\'s daytime.</string>
+    <string name="its_midday">It\'s the middle of the day.</string>
+    <string name="its_evening">Good evening!</string>
+    <string name="its_dusk">It\'s dusk.</string>
+    <string name="its_nighttime">It\'s night time.</string>
+    <string name="its_midnight">It\'s midnight.</string>
+    <string name="tstb">TSTB</string>
 </resources>

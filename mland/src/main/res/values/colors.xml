@@ -117,4 +117,28 @@
     <color name="pink41_transparent">#FF262828</color>
     <color name="wait_color">#FF00adb5</color>
 
+    <color name="dawn_20">#FFA04000</color>
+    <color name="dawn">#FFD35400</color>
+    <color name="morning_20">#FFE67C20</color>
+    <color name="morning">#FFEB974E</color>
+    <color name="afternoon_20">#FF4788B5</color>
+    <color name="afternoon">#FF59ABE3</color>
+    <color name="daytime_20">#FF2D9FCB</color>
+    <color name="daytime">#FF52B3D9</color>
+    <color name="midday_20">#FF395F9D</color>
+    <color name="midday">#FF4B77BE</color>
+    <color name="evening_20">#FFBF392B</color>
+    <color name="evening">#FFEF4836</color>
+    <color name="dusk_20">#FFF41616</color>
+    <color name="dusk">#FFF64747</color>
+    <color name="nighttime_20">#FF4A2E52</color>
+    <color name="nighttime">#FF674172</color>
+    <color name="midnight_20">#FF3B2541</color>
+    <color name="midnight">#FF674172</color>
+
+    <color name="tstb_default_toolbar_color">#FF707070</color>
+
+    <color name="lightish_black">#FF303030</color>
+    <color name="lightish_black_darker">#FF171717</color>
+
 </resources>

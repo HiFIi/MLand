@@ -32,6 +32,7 @@ import com.kyler.mland.egg.activities.About;
 import com.kyler.mland.egg.activities.Home;
 import com.kyler.mland.egg.activities.MLandModifiedActivity;
 import com.kyler.mland.egg.activities.MLandOriginalActivity;
+import com.kyler.mland.egg.tstb.TimeSensitiveToolbar;
 import com.kyler.mland.egg.utils.LUtils;
 import com.kyler.mland.egg.utils.UIUtils;
 
@@ -40,13 +41,16 @@ import java.util.Calendar;
 
 public abstract class MLandBase extends AppCompatActivity {
 
-    // symbols for navdrawer items (indices must correspond to array below). This is
-    // not a list of items that are necessarily *present* in the Nav Drawer; rather,
-    // it's a list of all possible items.
+    /*
+    symbols for navdrawer items (indices must correspond to array below). This is
+    not a list of items that are necessarily *present* in the Nav Drawer; rather,
+    it's a list of all possible items.
+    */
     protected static final int NAVDRAWER_ITEM_HOME = 0;
     protected static final int NAVDRAWER_ITEM_MLAND = 1;
     protected static final int NAVDRAWER_ITEM_MLANDMODIFIED = 2;
-    protected static final int NAVDRAWER_ITEM_ABOUT = 3;
+    protected static final int NAVDRAWER_ITEM_TSTB = 3;
+    protected static final int NAVDRAWER_ITEM_ABOUT = 4;
 
     protected static final int NAVDRAWER_ITEM_INVALID = -1;
     protected static final int NAVDRAWER_ITEM_SEPARATOR = -2;
@@ -62,19 +66,22 @@ public abstract class MLandBase extends AppCompatActivity {
      * END TO-DO
      */
 
-    // fade in and fade out durations for the main content when switching between
-    // different Activities of the app through the Nav Drawer
+    /*
+    fade in and fade out durations for the main content when switching between
+    different Activities of the app through the Nav Drawer
+    */
     private static final int MAIN_CONTENT_FADEOUT_DURATION = 600;
     private static final int MAIN_CONTENT_FADEIN_DURATION = 800;
     // titles for navdrawer items (indices must correspond to the above)
     private static final int[] NAVDRAWER_TITLE_RES_ID =
-            new int[]{R.string.home, R.string.mland_original, R.string.mland_modified, R.string.about};
+            new int[]{R.string.home, R.string.mland_original, R.string.mland_modified, R.string.tstb, R.string.about};
     // icons for navdrawer items (indices must correspond to above array)
     private static final int[] NAVDRAWER_ICON_RES_ID =
             new int[]{
                     R.drawable.ic_home,
                     R.drawable.ic_landscape__mland_original,
                     R.drawable.ic_landscape__mland_modified,
+                    0,
                     0
             };
     public static String mVersionNumber;
@@ -130,10 +137,12 @@ public abstract class MLandBase extends AppCompatActivity {
         }
         Handler mHandler = new Handler();
 
-        // Enable or disable each Activity depending on the form factor. This is necessary
-        // because this app uses many implicit intents where we don't name the exact Activity
-        // in the Intent, so there should only be one enabled Activity that handles each
-        // Intent in the app.
+        /*
+        Enable or disable each Activity depending on the form factor. This is necessary
+        because this app uses many implicit intents where we don't name the exact Activity
+        in the Intent, so there should only be one enabled Activity that handles each
+        Intent in the app.
+        */
         UIUtils.enableDisableActivitiesByFormFactor(this);
 
         ActionBar ab = getSupportActionBar();
@@ -293,6 +302,7 @@ public abstract class MLandBase extends AppCompatActivity {
 
         mNavDrawerItems.add(NAVDRAWER_ITEM_MLAND);
         mNavDrawerItems.add(NAVDRAWER_ITEM_MLANDMODIFIED);
+        mNavDrawerItems.add(NAVDRAWER_ITEM_TSTB);
 
         mNavDrawerItems.add(NAVDRAWER_ITEM_SEPARATOR);
 
@@ -377,6 +387,12 @@ public abstract class MLandBase extends AppCompatActivity {
                 overridePendingTransition(0, 0);
                 // finish();
                 break;
+            case NAVDRAWER_ITEM_TSTB:
+                intent = new Intent(this, TimeSensitiveToolbar.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+                // finish();
+                break;
             case NAVDRAWER_ITEM_ABOUT:
                 intent = new Intent(this, About.class);
                 startActivity(intent);
@@ -388,13 +404,7 @@ public abstract class MLandBase extends AppCompatActivity {
 
     private void onNavDrawerItemClicked(final int itemId) {
         if (itemId == getSelfNavDrawerItem()) {
-            new Handler().postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    mDrawerLayout.closeDrawer(GravityCompat.START);
-                }
-            }, NAVDRAWER_CLOSE_PRELAUNCH);
+            new Handler().postDelayed(() -> mDrawerLayout.closeDrawer(GravityCompat.START), NAVDRAWER_CLOSE_PRELAUNCH);
             return;
         }
 
@@ -546,9 +556,9 @@ public abstract class MLandBase extends AppCompatActivity {
                 selected
                         ? getResources().getColor(R.color.navdrawer_item_text_color)
                         : getResources().getColor(R.color.navdrawer_item_text_color));
-    /*    iconView.setColorFilter(selected ?
-    getResources().getColor(R.color.navdrawer_item_icon_color) :
-    getResources().getColor(R.color.navdrawer_item_icon_color)); **/
+        //    iconView.setColorFilter(selected ?
+        //getResources().getColor(R.color.navdrawer_item_icon_color) :
+        //getResources().getColor(R.color.navdrawer_item_icon_color)); *
     }
 
     public LUtils getLUtils() {
