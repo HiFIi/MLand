@@ -3,15 +3,9 @@
     package="com.kyler.mland.egg">
 
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <uses-permission android:name="android.permission.VIBRATE" />
-
-    <uses-permission android:name="android.permission.VIBRATE" />
-
-    <uses-permission android:name="android.permission.VIBRATE" />
-
-    <uses-permission android:name="android.permission.VIBRATE" />
+    
+    <!-- We don't need this right now. :) -->
+    <!--  <uses-permission android:name="android.permission.INTERNET" /> -->
 
     <application
         android:allowBackup="true"
