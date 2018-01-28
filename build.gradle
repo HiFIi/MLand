@@ -13,8 +13,6 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:+'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:+'
-        classpath 'org.fabiomsr:drawable-optimizer-gradle-plugin:+'
-        classpath 'com.github.sherter.googlejavaformatgradleplugin:google-java-format-gradle-plugin:+'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

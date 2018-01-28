@@ -31,9 +31,9 @@
     <dimen name="star_size_max">5dp</dimen>
     <dimen name="G">30dp</dimen>
     <dimen name="max_v">1000dp</dimen>
-    <dimen name="scenery_z">6dp</dimen>
-    <dimen name="obstacle_z">18dp</dimen>
+    <dimen name="scenery_z">12.0dip</dimen>
+    <dimen name="obstacle_z">24.0dip</dimen>
     <dimen name="player_z">8.0dip</dimen>
     <dimen name="player_z_boost">16.0dip</dimen>
-    <dimen name="hud_z">8.0dip</dimen>
+    <dimen name="hud_z">4.0dip</dimen>
 </resources>

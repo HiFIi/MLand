@@ -40,7 +40,7 @@
             <ImageView
                 android:id="@+id/overlaycover"
                 android:layout_width="fill_parent"
-                android:layout_height="180.0dip"
+                android:layout_height="200.0dip"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/oreo"

@@ -29,22 +29,11 @@ limitations under the License.
             android:layout_width="fill_parent"
             android:layout_height="match_parent">
 
-            <FrameLayout
-                android:id="@+id/scroll_view_child"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#FFf1f1f1"
-		android:fitsSystemWindows="false"
-                android:clipChildren="false">
-
                 <View
                     android:id="@+id/clr"
                     android:layout_width="match_parent"
-                    android:layout_height="144.0dip"
-                    android:background="@color/about__dark_blue"
-                    android:elevation="10.0dip" />
-
-            </FrameLayout>
+                    android:layout_height="200.0dip"
+                    android:background="@color/about__dark_blue"/>
 
             <com.kyler.mland.egg.ui.MLandTextView
                 android:id="@+id/title"
@@ -52,7 +41,6 @@ limitations under the License.
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="49dp"
                 android:gravity="center_horizontal"
                 android:text="About"
                 android:textColor="@android:color/white"

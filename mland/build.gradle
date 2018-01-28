@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.github.sherter.google-java-format'
 
 def buildDateTime = project.hasProperty('devBuild') ? 100 : new
         Date().format('yyMMddHHmm').toInteger()
@@ -7,7 +6,6 @@ def buildDateTime = project.hasProperty('devBuild') ? 100 : new
 android {
     compileSdkVersion 27
     buildToolsVersion "27.0.3"
-
     defaultConfig {
         applicationId "com.kyler.mland.egg"
         minSdkVersion 21
@@ -15,6 +13,7 @@ android {
         versionCode buildDateTime
         versionName "2.0.0-wip"
         multiDexEnabled true
+        flavorDimensions "target", "abi"
 
         lintOptions {
             abortOnError false
@@ -24,44 +23,82 @@ android {
             disable 'InvalidPackage'
         }
 
-        googleJavaFormat {
-            options style: 'GOOGLE'
+        productFlavors {
+            regular {
+                dimension "target"
+                versionCode = 1
+            }
+
+            ARMv7 {
+                dimension "abi"
+                versionCode = 2
+            }
+            ARMv8 {
+                dimension "abi"
+                versionCode = 3
+            }
+        }
+
+	//Split into platform dependent APK
+        splits {
+            abi {
+                enable true
+                reset()
+                include 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+                //select ABIs to build APKs for
+                universalApk true //generate an additional APK that contains all the ABIs
+            }
+        }
+
+        // map for the version code
+        project.ext.versionCodes = ['armeabi': 1, 'armeabi-v7a': 2, 'arm64-v8a': 3]
+
+	// Rename with proper versioning
+        android.applicationVariants.all { variant ->
+            // assign different version code for each output
+            variant.outputs.each { output ->
+                output.versionCodeOverride =
+                        project.ext.versionCodes.get(output.getFilter(com.android.build.OutputFile.ABI), 0) *
+                                1000000 +
+                                android.defaultConfig.versionCode
+            }
         }
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
     dexOptions {
         maxProcessCount 8
         jumboMode = true
         preDexLibraries true
     }
-
     dataBinding {
         enabled = true
     }
-
     buildTypes {
         release {
             minifyEnabled true
             shrinkResources true
             zipAlignEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-project.txt'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         buildTypes {
             debug {
                 applicationIdSuffix ".debug"
-                minifyEnabled true
-                shrinkResources true
-                zipAlignEnabled true
-                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-project.txt'
+        //        minifyEnabled true
+        //        shrinkResources true
+        //       zipAlignEnabled true
+        //    proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             }
+        }
+    }
+    productFlavors {
+        ARMv8 {
+            minSdkVersion 24
         }
     }
 }
