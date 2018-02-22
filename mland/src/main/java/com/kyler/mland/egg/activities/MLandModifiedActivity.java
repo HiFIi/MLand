@@ -36,7 +36,6 @@ public class MLandModifiedActivity extends MLandBase {
     protected int getSelfNavDrawerItem() {
         return NAVDRAWER_ITEM_MLANDMODIFIED;
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -11,10 +11,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:diagonal="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FF18181C"
+    android:background="#FFdddddd"
     android:fitsSystemWindows="false">
 
     <LinearLayout
@@ -28,6 +30,28 @@ limitations under the License.
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="false">
+
+            <com.github.florent37.diagonallayout.DiagonalLayout
+                android:layout_width="match_parent"
+                android:layout_height="300.0dip"
+                android:elevation="10dp"
+                app:diagonal_angle="20"
+                diagonal:diagonal_direction="left"
+                diagonal:diagonal_position="bottom"
+                android:fitsSystemWindows="false">
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="250.0dip"
+                    android:src="@drawable/oreo"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:fitsSystemWindows="false"/>
+
+            </com.github.florent37.diagonallayout.DiagonalLayout>
+
+
+
 
             <include layout="@layout/toolbar_actionbar_actually_transparent" />
 

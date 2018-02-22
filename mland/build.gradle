@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 def buildDateTime = project.hasProperty('devBuild') ? 100 : new
         Date().format('yyMMddHHmm').toInteger()
@@ -55,16 +56,19 @@ repositories {
     flatDir {
         dirs 'libs'
     }
+    mavenCentral()
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:+'
-    implementation 'com.android.support:cardview-v7:+'
     implementation 'com.android.support:design:+'
     testImplementation 'junit:junit:+'
     implementation 'com.android.support:support-v4:+'
     implementation 'com.android.support:multidex:+'
     implementation 'com.android.support:percent:+'
     implementation 'com.android.support:palette-v7:+'
+    implementation 'com.github.florent37:diagonallayout:+'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 }

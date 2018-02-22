@@ -43,7 +43,7 @@
                 android:layout_height="200.0dip"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/oreo"
+                android:src="@drawable/drawer_bg"
                 tools:ignore="ContentDescription" />
 
             <RelativeLayout

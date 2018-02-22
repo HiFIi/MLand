@@ -32,7 +32,6 @@ import com.kyler.mland.egg.activities.About;
 import com.kyler.mland.egg.activities.Home;
 import com.kyler.mland.egg.activities.MLandModifiedActivity;
 import com.kyler.mland.egg.activities.MLandOriginalActivity;
-import com.kyler.mland.egg.tstb.TimeSensitiveToolbar;
 import com.kyler.mland.egg.utils.LUtils;
 import com.kyler.mland.egg.utils.UIUtils;
 
@@ -49,8 +48,7 @@ public abstract class MLandBase extends AppCompatActivity {
     protected static final int NAVDRAWER_ITEM_HOME = 0;
     protected static final int NAVDRAWER_ITEM_MLAND = 1;
     protected static final int NAVDRAWER_ITEM_MLANDMODIFIED = 2;
-    protected static final int NAVDRAWER_ITEM_TSTB = 3;
-    protected static final int NAVDRAWER_ITEM_ABOUT = 4;
+    protected static final int NAVDRAWER_ITEM_ABOUT = 3;
 
     protected static final int NAVDRAWER_ITEM_INVALID = -1;
     protected static final int NAVDRAWER_ITEM_SEPARATOR = -2;
@@ -74,14 +72,13 @@ public abstract class MLandBase extends AppCompatActivity {
     private static final int MAIN_CONTENT_FADEIN_DURATION = 800;
     // titles for navdrawer items (indices must correspond to the above)
     private static final int[] NAVDRAWER_TITLE_RES_ID =
-            new int[]{R.string.home, R.string.mland_original, R.string.mland_modified, R.string.tstb, R.string.about};
+            new int[]{R.string.home, R.string.mland_original, R.string.mland_modified, R.string.about};
     // icons for navdrawer items (indices must correspond to above array)
     private static final int[] NAVDRAWER_ICON_RES_ID =
             new int[]{
                     R.drawable.ic_home,
                     R.drawable.ic_landscape__mland_original,
                     R.drawable.ic_landscape__mland_modified,
-                    0,
                     0
             };
     public static String mVersionNumber;
@@ -232,7 +229,7 @@ public abstract class MLandBase extends AppCompatActivity {
                 });
 
         if (mActionBarToolbar != null) {
-            mActionBarToolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_drawer_white));
+            mActionBarToolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_drawer));
             mActionBarToolbar.setNavigationOnClickListener(
                     view -> mDrawerLayout.openDrawer(GravityCompat.START));
         }
@@ -302,7 +299,6 @@ public abstract class MLandBase extends AppCompatActivity {
 
         mNavDrawerItems.add(NAVDRAWER_ITEM_MLAND);
         mNavDrawerItems.add(NAVDRAWER_ITEM_MLANDMODIFIED);
-        mNavDrawerItems.add(NAVDRAWER_ITEM_TSTB);
 
         mNavDrawerItems.add(NAVDRAWER_ITEM_SEPARATOR);
 
@@ -383,12 +379,6 @@ public abstract class MLandBase extends AppCompatActivity {
                 break;
             case NAVDRAWER_ITEM_MLANDMODIFIED:
                 intent = new Intent(this, MLandModifiedActivity.class);
-                startActivity(intent);
-                overridePendingTransition(0, 0);
-                // finish();
-                break;
-            case NAVDRAWER_ITEM_TSTB:
-                intent = new Intent(this, TimeSensitiveToolbar.class);
                 startActivity(intent);
                 overridePendingTransition(0, 0);
                 // finish();

@@ -20,7 +20,6 @@ public class About extends MLandBase {
     protected int getSelfNavDrawerItem() {
         return NAVDRAWER_ITEM_ABOUT;
     }
-
     @Override
     protected Context getContext() {
         return About.this;
