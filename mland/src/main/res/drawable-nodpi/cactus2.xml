@@ -16,8 +16,8 @@ Copyright (C) 2015 The Android Open Source Project
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="48dp"
     android:height="48dp"
-    android:viewportHeight="48.0"
-    android:viewportWidth="48.0">
+    android:viewportWidth="48.0"
+    android:viewportHeight="48.0">
     <path
         android:fillColor="@color/cactus_green_1"
         android:pathData="M30.8,12.9l0.0,0.0l0.0,0.0z" />

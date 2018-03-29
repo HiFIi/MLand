@@ -23,7 +23,6 @@ package com.kyler.mland.egg.activities;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.kyler.mland.egg.MLandBase;
 import com.kyler.mland.egg.MLandModified;
@@ -36,6 +35,7 @@ public class MLandModifiedActivity extends MLandBase {
     protected int getSelfNavDrawerItem() {
         return NAVDRAWER_ITEM_MLANDMODIFIED;
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,8 +46,8 @@ public class MLandModifiedActivity extends MLandBase {
 
         setContentView(R.layout.mland);
         getSupportActionBar().setTitle(null);
-        mLandModified = (MLandModified) findViewById(R.id.world);
-        mLandModified.setScoreFieldHolder((ViewGroup) findViewById(R.id.scores));
+        mLandModified = findViewById(R.id.world);
+        mLandModified.setScoreFieldHolder(findViewById(R.id.scores));
         final View welcome = findViewById(R.id.welcome);
         mLandModified.setSplash(welcome);
         final int numControllers = mLandModified.getGameControllers().size();

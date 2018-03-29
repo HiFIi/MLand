@@ -60,12 +60,11 @@ public class LUtils {
     public void startActivityWithTransition(
             Intent intent, final View clickedView, final String transitionName) {
         ActivityOptions options = null;
-        if (hasL() && clickedView != null && !TextUtils.isEmpty(transitionName)) {
-            //            options = ActivityOptions.makeSceneTransitionAnimation(
-            //                    mActivity, clickedView, transitionName);
+        if (hasL() && clickedView != null) {
+            TextUtils.isEmpty(transitionName);
         }
 
-        mActivity.startActivity(intent, (options != null) ? options.toBundle() : null);
+        mActivity.startActivity(intent, null);
     }
 
     public void setMediumTypeface(TextView textView) {
@@ -159,7 +158,6 @@ public class LUtils {
                     });
             imageView.setTag(set);
             set.start();
-        } else {
         }
     }
 }

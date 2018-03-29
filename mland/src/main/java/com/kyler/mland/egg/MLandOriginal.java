@@ -461,7 +461,7 @@ public class MLandOriginal extends FrameLayout {
             showSplash();
             mSplash.findViewById(R.id.play_button).setEnabled(false);
             final View playImage = mSplash.findViewById(R.id.play_button_image);
-            final TextView playText = (TextView) mSplash.findViewById(R.id.play_button_text);
+            final TextView playText = mSplash.findViewById(R.id.play_button_text);
             playImage.animate().alpha(0f);
             playText.animate().alpha(1f);
             mCountdown = 3;
@@ -1066,11 +1066,6 @@ public class MLandOriginal extends FrameLayout {
 
         public void die() {
             mAlive = false;
-            if (mScoreField != null) {
-                //mScoreField.setTextColor(0xFFFFFFFF);
-                //mScoreField.getBackground().setColorFilter(0xFF666666, PorterDuff.Mode.SRC_ATOP);
-                //mScoreField.setBackgroundResource(R.drawable.scorecard_gameover);
-            }
         }
 
         public void start() {

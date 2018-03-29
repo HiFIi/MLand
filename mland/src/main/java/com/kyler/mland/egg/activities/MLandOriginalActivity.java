@@ -20,7 +20,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.kyler.mland.egg.MLandBase;
 import com.kyler.mland.egg.MLandOriginal;
@@ -45,8 +44,8 @@ public class MLandOriginalActivity extends MLandBase {
 
         setContentView(R.layout.mland__original);
         getSupportActionBar().setTitle(null);
-        mLand = (MLandOriginal) findViewById(R.id.world);
-        mLand.setScoreFieldHolder((ViewGroup) findViewById(R.id.scores));
+        mLand = findViewById(R.id.world);
+        mLand.setScoreFieldHolder(findViewById(R.id.scores));
         final View welcome = findViewById(R.id.welcome);
         mLand.setSplash(welcome);
         final int numControllers = mLand.getGameControllers().size();

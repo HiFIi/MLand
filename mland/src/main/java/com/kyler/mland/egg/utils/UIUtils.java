@@ -79,7 +79,7 @@ public class UIUtils {
 
     private static DateFormat sShortTimeFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
     public Context context;
-    long currentTimeMillis = UIUtils.getCurrentTime(context);
+    long currentTimeMillis = UIUtils.getCurrentTime(null);
 
     /**
      * Enables and disables {@linkplain android.app.Activity activities} based on their {@link
@@ -114,7 +114,7 @@ public class UIUtils {
                 boolean tabletActivity = TARGET_FORM_FACTOR_TABLET.equals(targetDevice);
                 boolean handsetActivity = TARGET_FORM_FACTOR_HANDSET.equals(targetDevice);
 
-                boolean enable = !(handsetActivity && isTablet) && !(tabletActivity && !isTablet);
+                boolean enable = !tabletActivity;
 
                 String className = info.name;
                 pm.setComponentEnabledSetting(

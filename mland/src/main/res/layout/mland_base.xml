@@ -14,6 +14,7 @@
 <com.google.samples.apps.iosched.ui.widget.ScrimInsetsScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:customfontdemo="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navdrawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -34,17 +35,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:foreground="?photoItemForeground">
-
-            <!-- Source for the ImageView Image below: https://www.android.com/static/img/banners/marshmallow-2200.jpg -->
-
-            <ImageView
-                android:id="@+id/overlaycover"
+            <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="200.0dip"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/drawer_bg"
-                tools:ignore="ContentDescription" />
+                android:fitsSystemWindows="false">
+
+            <com.kyler.mland.egg.ui.MLandTextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/app_name"
+                android:textColor="@color/quantum_googblue500"
+                android:textSize="48.0sp"
+                customfontdemo:fontName="LyftPro-Bold.ttf" />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/chosen_account_content_view"

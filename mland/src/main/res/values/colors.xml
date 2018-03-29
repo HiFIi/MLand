@@ -151,14 +151,5 @@
     <color name="quantum_googblue800">#ff2a56c6</color>
     <color name="quantum_googblue900">#ff1c3aa9</color>
     <color name="quantum_googblueA200">#ff448aff</color>
-    <color name="material_deep_teal_200">#ff80cbc4</color>
-    <color name="material_deep_teal_500">#ff009688</color>
-    <color name="material_grey_100">#fff5f5f5</color>
-    <color name="material_grey_300">#ffe0e0e0</color>
-    <color name="material_grey_50">#fffafafa</color>
-    <color name="material_grey_600">#ff757575</color>
-    <color name="material_grey_800">#ff424242</color>
-    <color name="material_grey_850">#ff303030</color>
-    <color name="material_grey_900">#ff212121</color>
 
 </resources>

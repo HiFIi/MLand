@@ -89,7 +89,7 @@
 -keep class com.google.samples.apps.iosched.rpc.userdata.model.**
 -keepattributes Signature,RuntimeVisibleAnnotations,AnnotationDefault
 # See https://groups.google.com/forum/#!topic/guava-discuss/YCZzeCiIVoI
--dontwarn com.google.common.collect.MinMaxPriorityQueue
+# -dontwarn com.google.common.collect.MinMaxPriorityQueue
 # Assume dependency libraries Just Work(TM)
 -dontwarn com.google.android.youtube.**
 -dontwarn com.google.android.analytics.**
@@ -132,7 +132,7 @@
 -dontwarn com.larvalabs.svgandroid.**
 
 # Firebase
-# See: http://stackoverflow.com/questions/26273929/what-proguard-configuration-do-i-need-for-firebase-on-android
+# See: http://stackoverflow.com/questions/26273929/what-proguard-configuration-do-i-need-# for-firebase-on-android
 -keepnames class com.google.samples.apps.iosched.sync.userdata.** { *; }
 -keep class com.firebase.** { *; }
 -keep class org.apache.** { *; }

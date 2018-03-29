@@ -59,7 +59,7 @@ public abstract class MLandBase extends AppCompatActivity {
     private static final int NAVDRAWER_CLOSE_PRELAUNCH = 300;
     // delay to launch nav drawer item, to allow close animation to play
     private static final int NAVDRAWER_LAUNCH_DELAY = 350;
-    private static final int POST_LAUNCH_FADE = 500;
+    private static final int POST_LAUNCH_FADE = 300;
     /**
      * END TO-DO
      */
@@ -68,8 +68,8 @@ public abstract class MLandBase extends AppCompatActivity {
     fade in and fade out durations for the main content when switching between
     different Activities of the app through the Nav Drawer
     */
-    private static final int MAIN_CONTENT_FADEOUT_DURATION = 600;
-    private static final int MAIN_CONTENT_FADEIN_DURATION = 800;
+    private static final int MAIN_CONTENT_FADEOUT_DURATION = 400;
+    private static final int MAIN_CONTENT_FADEIN_DURATION = 600;
     // titles for navdrawer items (indices must correspond to the above)
     private static final int[] NAVDRAWER_TITLE_RES_ID =
             new int[]{R.string.home, R.string.mland_original, R.string.mland_modified, R.string.about};
