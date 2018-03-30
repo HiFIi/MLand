@@ -80,6 +80,7 @@ public class Home extends MLandBase {
     int newSystemUiFlags = oldSystemUiFlags;
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
       newSystemUiFlags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+      getWindow().setStatusBarColor(getResources().getColor(R.color.black__10_percent));
     }
     if (newSystemUiFlags != oldSystemUiFlags) {
       final int systemUiFlags = newSystemUiFlags;

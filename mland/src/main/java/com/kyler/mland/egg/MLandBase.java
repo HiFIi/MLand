@@ -51,20 +51,17 @@ public abstract class MLandBase extends AppCompatActivity {
   protected static final int NAVDRAWER_ITEM_INVALID = -1;
   protected static final int NAVDRAWER_ITEM_SEPARATOR = -2;
   protected static final int NAVDRAWER_ITEM_SEPARATOR_SPECIAL = -3;
-  /** TO DO: Play with the launch delay values some more. */
-  private static final int NAVDRAWER_CLOSE_PRELAUNCH = 300;
-  // delay to launch nav drawer item, to allow close animation to play
-  private static final int NAVDRAWER_LAUNCH_DELAY = 350;
-  private static final int POST_LAUNCH_FADE = 300;
-  /** END TO-DO */
-
+  
   /*
   fade in and fade out durations for the main content when switching between
   different Activities of the app through the Nav Drawer
   */
-  private static final int MAIN_CONTENT_FADEOUT_DURATION = 400;
+  private static final long MAIN_CONTENT_FADEOUT_DURATION = 150L;
+  private static final long MAIN_CONTENT_FADEIN_DURATION = 250L;  
+  private static final long NAVDRAWER_CLOSE_PRELAUNCH = 300L;
+  private static final long NAVDRAWER_LAUNCH_DELAY = 250L;
+  private static final long POST_LAUNCH_FADE = 300L;
 
-  private static final int MAIN_CONTENT_FADEIN_DURATION = 600;
   // titles for navdrawer items (indices must correspond to the above)
   private static final int[] NAVDRAWER_TITLE_RES_ID =
       new int[] {R.string.home, R.string.mland_original, R.string.mland_modified, R.string.about};
@@ -357,26 +354,22 @@ public abstract class MLandBase extends AppCompatActivity {
       case NAVDRAWER_ITEM_HOME:
         intent = new Intent(this, Home.class);
         startActivity(intent);
-        //    overridePendingTransition(0, 0);
-        finish();
+        overridePendingTransition(0, 0);
         break;
       case NAVDRAWER_ITEM_MLAND:
         intent = new Intent(this, MLandOriginalActivity.class);
         startActivity(intent);
-        //    overridePendingTransition(0, 0);
-        finish();
+        overridePendingTransition(0, 0);
         break;
       case NAVDRAWER_ITEM_MLANDMODIFIED:
         intent = new Intent(this, MLandModifiedActivity.class);
         startActivity(intent);
-        //    overridePendingTransition(0, 0);
-        finish();
+        overridePendingTransition(0, 0);
         break;
       case NAVDRAWER_ITEM_ABOUT:
         intent = new Intent(this, About.class);
         startActivity(intent);
-        //    overridePendingTransition(0, 0);
-        finish();
+        overridePendingTransition(0, 0);
         break;
     }
   }
@@ -397,15 +390,11 @@ public abstract class MLandBase extends AppCompatActivity {
 
       new Handler()
           .postDelayed(
-              new Runnable() {
+              () -> {
+                // change the active item on the list so the user can see the item changed
+                setSelectedNavDrawerItem(itemId);
 
-                @Override
-                public void run() {
-                  // change the active item on the list so the user can see the item changed
-                  setSelectedNavDrawerItem(itemId);
-
-                  goToNavDrawerItem(itemId);
-                }
+                goToNavDrawerItem(itemId);
               },
               NAVDRAWER_LAUNCH_DELAY);
 
@@ -413,15 +402,11 @@ public abstract class MLandBase extends AppCompatActivity {
 
       new Handler()
           .postDelayed(
-              new Runnable() {
-
-                @Override
-                public void run() {
-                  // fade out the main content
-                  View mainContent = findViewById(R.id.main_content);
-                  if (mainContent != null) {
-                    mainContent.animate().alpha(0).setDuration(MAIN_CONTENT_FADEOUT_DURATION);
-                  }
+              () -> {
+                // fade out the main content
+                View mainContent = findViewById(R.id.main_content);
+                if (mainContent != null) {
+                  mainContent.animate().alpha(0).setDuration(MAIN_CONTENT_FADEOUT_DURATION);
                 }
               },
               POST_LAUNCH_FADE);
