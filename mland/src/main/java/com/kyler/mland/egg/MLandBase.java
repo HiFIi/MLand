@@ -26,7 +26,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.google.samples.apps.iosched.ui.widget.ScrimInsetsScrollView;
 import com.kyler.mland.egg.activities.About;
 import com.kyler.mland.egg.activities.Home;
@@ -34,161 +33,155 @@ import com.kyler.mland.egg.activities.MLandModifiedActivity;
 import com.kyler.mland.egg.activities.MLandOriginalActivity;
 import com.kyler.mland.egg.utils.LUtils;
 import com.kyler.mland.egg.utils.UIUtils;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public abstract class MLandBase extends AppCompatActivity {
 
-    /*
-    symbols for navdrawer items (indices must correspond to array below). This is
-    not a list of items that are necessarily *present* in the Nav Drawer; rather,
-    it's a list of all possible items.
-    */
-    protected static final int NAVDRAWER_ITEM_HOME = 0;
-    protected static final int NAVDRAWER_ITEM_MLAND = 1;
-    protected static final int NAVDRAWER_ITEM_MLANDMODIFIED = 2;
-    protected static final int NAVDRAWER_ITEM_ABOUT = 3;
+  /*
+  symbols for navdrawer items (indices must correspond to array below). This is
+  not a list of items that are necessarily *present* in the Nav Drawer; rather,
+  it's a list of all possible items.
+  */
+  protected static final int NAVDRAWER_ITEM_HOME = 0;
+  protected static final int NAVDRAWER_ITEM_MLAND = 1;
+  protected static final int NAVDRAWER_ITEM_MLANDMODIFIED = 2;
+  protected static final int NAVDRAWER_ITEM_ABOUT = 3;
 
-    protected static final int NAVDRAWER_ITEM_INVALID = -1;
-    protected static final int NAVDRAWER_ITEM_SEPARATOR = -2;
-    protected static final int NAVDRAWER_ITEM_SEPARATOR_SPECIAL = -3;
-    /**
-     * TO DO: Play with the launch delay values some more.
-     */
-    private static final int NAVDRAWER_CLOSE_PRELAUNCH = 300;
-    // delay to launch nav drawer item, to allow close animation to play
-    private static final int NAVDRAWER_LAUNCH_DELAY = 350;
-    private static final int POST_LAUNCH_FADE = 300;
-    /**
-     * END TO-DO
-     */
+  protected static final int NAVDRAWER_ITEM_INVALID = -1;
+  protected static final int NAVDRAWER_ITEM_SEPARATOR = -2;
+  protected static final int NAVDRAWER_ITEM_SEPARATOR_SPECIAL = -3;
+  /** TO DO: Play with the launch delay values some more. */
+  private static final int NAVDRAWER_CLOSE_PRELAUNCH = 300;
+  // delay to launch nav drawer item, to allow close animation to play
+  private static final int NAVDRAWER_LAUNCH_DELAY = 350;
+  private static final int POST_LAUNCH_FADE = 300;
+  /** END TO-DO */
+
+  /*
+  fade in and fade out durations for the main content when switching between
+  different Activities of the app through the Nav Drawer
+  */
+  private static final int MAIN_CONTENT_FADEOUT_DURATION = 400;
+
+  private static final int MAIN_CONTENT_FADEIN_DURATION = 600;
+  // titles for navdrawer items (indices must correspond to the above)
+  private static final int[] NAVDRAWER_TITLE_RES_ID =
+      new int[] {R.string.home, R.string.mland_original, R.string.mland_modified, R.string.about};
+  // icons for navdrawer items (indices must correspond to above array)
+  private static final int[] NAVDRAWER_ICON_RES_ID =
+      new int[] {
+        R.drawable.ic_home,
+        R.drawable.ic_landscape__mland_original,
+        R.drawable.ic_landscape__mland_modified,
+        0
+      };
+  public static String mVersionNumber;
+  public DrawerLayout mDrawerLayout;
+  // Primary toolbar and drawer toggle
+  public Toolbar mActionBarToolbar;
+  SharedPreferences pref;
+  // A Runnable that we should execute when the navigation drawer finishes its closing animation
+  private Runnable mDeferredOnDrawerClosedRunnable;
+  private CharSequence mTitle;
+  private Context context;
+  // list of navdrawer items that were actually added to the navdrawer, in order
+  private ArrayList<Integer> mNavDrawerItems = new ArrayList<>();
+  // views that correspond to each navdrawer item, null if not yet created
+  private View[] mNavDrawerItemViews = null;
+  // Helper methods for L APIs
+  private LUtils mLUtils;
+  // What nav drawer item should be selected?
+  private int selfItem = getSelfNavDrawerItem();
+  private ActionBarDrawerToggle mDrawerToggle;
+  private SharedPreferences.Editor editor;
+
+  private int drawerColorCalendar = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+
+  @SuppressLint("InlinedApi")
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    //    RecentTasksStyler.styleRecentTasksEntry(this);
+
+    SharedPreferences first = PreferenceManager.getDefaultSharedPreferences(this);
+
+    mVersionNumber = getResources().getString(R.string.version_number);
+
+    if (getIntent().getBooleanExtra("EXIT", false)) {
+      super.finish();
+    }
+
+    if (!first.getBoolean("firstTimeRan", false)) {
+
+      new Handler().post(() -> {});
+
+      SharedPreferences.Editor editor = first.edit();
+
+      editor.putBoolean("firstTimeRan", true);
+      editor.apply();
+    }
+
+    if (getIntent().getBooleanExtra("EXIT", false)) {
+      super.finish();
+    }
+    Handler mHandler = new Handler();
 
     /*
-    fade in and fade out durations for the main content when switching between
-    different Activities of the app through the Nav Drawer
+    Enable or disable each Activity depending on the form factor. This is necessary
+    because this app uses many implicit intents where we don't name the exact Activity
+    in the Intent, so there should only be one enabled Activity that handles each
+    Intent in the app.
     */
-    private static final int MAIN_CONTENT_FADEOUT_DURATION = 400;
-    private static final int MAIN_CONTENT_FADEIN_DURATION = 600;
-    // titles for navdrawer items (indices must correspond to the above)
-    private static final int[] NAVDRAWER_TITLE_RES_ID =
-            new int[]{R.string.home, R.string.mland_original, R.string.mland_modified, R.string.about};
-    // icons for navdrawer items (indices must correspond to above array)
-    private static final int[] NAVDRAWER_ICON_RES_ID =
-            new int[]{
-                    R.drawable.ic_home,
-                    R.drawable.ic_landscape__mland_original,
-                    R.drawable.ic_landscape__mland_modified,
-                    0
-            };
-    public static String mVersionNumber;
-    public DrawerLayout mDrawerLayout;
-    // Primary toolbar and drawer toggle
-    public Toolbar mActionBarToolbar;
-    SharedPreferences pref;
-    // A Runnable that we should execute when the navigation drawer finishes its closing animation
-    private Runnable mDeferredOnDrawerClosedRunnable;
-    private CharSequence mTitle;
-    private Context context;
-    // list of navdrawer items that were actually added to the navdrawer, in order
-    private ArrayList<Integer> mNavDrawerItems = new ArrayList<>();
-    // views that correspond to each navdrawer item, null if not yet created
-    private View[] mNavDrawerItemViews = null;
-    // Helper methods for L APIs
-    private LUtils mLUtils;
+    UIUtils.enableDisableActivitiesByFormFactor(this);
+
+    ActionBar ab = getSupportActionBar();
+    if (ab != null) {
+      ab.setDisplayHomeAsUpEnabled(true);
+    }
+  }
+
+  /**
+   * Returns the navigation drawer item that corresponds to this Activity. Subclasses of
+   * BaseActivity override this to indicate what nav drawer item corresponds to them Return
+   * NAVDRAWER_ITEM_INVALID to mean that this Activity should not have a Nav Drawer.
+   */
+  protected int getSelfNavDrawerItem() {
+    return NAVDRAWER_ITEM_INVALID;
+  }
+
+  /**
+   * Sets up the navigation drawer as appropriate. Note that the nav drawer will be different
+   * depending on whether the attendee indicated that they are attending the event on-site vs.
+   * attending remotely.
+   */
+  @SuppressWarnings("UnusedAssignment")
+  private void setupNavDrawer() {
     // What nav drawer item should be selected?
-    private int selfItem = getSelfNavDrawerItem();
-    private ActionBarDrawerToggle mDrawerToggle;
-    private SharedPreferences.Editor editor;
+    int selfItem = getSelfNavDrawerItem();
+    int toolbarHeight = 0;
+    TypedValue tv = new TypedValue();
 
-    private int drawerColorCalendar = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+    toolbarHeight =
+        (int)
+            (tv.getDimension(getResources().getDisplayMetrics())
+                / getResources().getDisplayMetrics().density);
+    int drawerMaxWidth =
+        (int)
+            (getResources().getDimension(R.dimen.nav_drawer_max_width)
+                / getResources().getDisplayMetrics().density);
+    Configuration configuration = getResources().getConfiguration();
+    int screenWidthDp = configuration.screenWidthDp;
+    int drawerWidth = screenWidthDp - toolbarHeight;
 
-    @SuppressLint("InlinedApi")
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        //    RecentTasksStyler.styleRecentTasksEntry(this);
-
-        SharedPreferences first = PreferenceManager.getDefaultSharedPreferences(this);
-
-        mVersionNumber = getResources().getString(R.string.version_number);
-
-        if (getIntent().getBooleanExtra("EXIT", false)) {
-            super.finish();
-        }
-
-        if (!first.getBoolean("firstTimeRan", false)) {
-
-            new Handler().post(() -> {
-            });
-
-            SharedPreferences.Editor editor = first.edit();
-
-            editor.putBoolean("firstTimeRan", true);
-            editor.apply();
-        }
-
-        if (getIntent().getBooleanExtra("EXIT", false)) {
-            super.finish();
-        }
-        Handler mHandler = new Handler();
-
-        /*
-        Enable or disable each Activity depending on the form factor. This is necessary
-        because this app uses many implicit intents where we don't name the exact Activity
-        in the Intent, so there should only be one enabled Activity that handles each
-        Intent in the app.
-        */
-        UIUtils.enableDisableActivitiesByFormFactor(this);
-
-        ActionBar ab = getSupportActionBar();
-        if (ab != null) {
-            ab.setDisplayHomeAsUpEnabled(true);
-        }
+    mDrawerLayout = findViewById(R.id.drawer_layout);
+    if (mDrawerLayout == null) {
+      return;
     }
 
-    /**
-     * Returns the navigation drawer item that corresponds to this Activity. Subclasses of
-     * BaseActivity override this to indicate what nav drawer item corresponds to them Return
-     * NAVDRAWER_ITEM_INVALID to mean that this Activity should not have a Nav Drawer.
-     */
-    protected int getSelfNavDrawerItem() {
-        return NAVDRAWER_ITEM_INVALID;
-    }
-
-    /**
-     * Sets up the navigation drawer as appropriate. Note that the nav drawer will be different
-     * depending on whether the attendee indicated that they are attending the event on-site vs.
-     * attending remotely.
-     */
-    @SuppressWarnings("UnusedAssignment")
-    private void setupNavDrawer() {
-        // What nav drawer item should be selected?
-        int selfItem = getSelfNavDrawerItem();
-        int toolbarHeight = 0;
-        TypedValue tv = new TypedValue();
-
-        toolbarHeight =
-                (int)
-                        (tv.getDimension(getResources().getDisplayMetrics())
-                                / getResources().getDisplayMetrics().density);
-        int drawerMaxWidth =
-                (int)
-                        (getResources().getDimension(R.dimen.nav_drawer_max_width)
-                                / getResources().getDisplayMetrics().density);
-        Configuration configuration = getResources().getConfiguration();
-        int screenWidthDp = configuration.screenWidthDp;
-        int drawerWidth = screenWidthDp - toolbarHeight;
-
-        mDrawerLayout = findViewById(R.id.drawer_layout);
-        if (mDrawerLayout == null) {
-            return;
-        }
-
-        mDrawerLayout.setStatusBarBackgroundColor(getResources().getColor(R.color.transparent));
-        ScrimInsetsScrollView navDrawer =
-                mDrawerLayout.findViewById(R.id.navdrawer);
+    mDrawerLayout.setStatusBarBackgroundColor(getResources().getColor(R.color.transparent));
+    ScrimInsetsScrollView navDrawer = mDrawerLayout.findViewById(R.id.navdrawer);
 
     /* TO-DO: Make Menudrawer dark from 7pm-5am
     if (drawerColorCalendar == 20) {
@@ -196,395 +189,397 @@ public abstract class MLandBase extends AppCompatActivity {
     navDrawer.setBackgroundColor(getResources().getColor(R.color.night));
     } **/
 
-        ViewGroup.LayoutParams layout_description = navDrawer.getLayoutParams();
-        layout_description.width =
-                (int)
-                        TypedValue.applyDimension(
-                                TypedValue.COMPLEX_UNIT_DIP,
-                                drawerWidth < drawerMaxWidth ? drawerWidth : drawerMaxWidth,
-                                getResources().getDisplayMetrics());
-        navDrawer.setLayoutParams(layout_description);
+    ViewGroup.LayoutParams layout_description = navDrawer.getLayoutParams();
+    layout_description.width =
+        (int)
+            TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                drawerWidth < drawerMaxWidth ? drawerWidth : drawerMaxWidth,
+                getResources().getDisplayMetrics());
+    navDrawer.setLayoutParams(layout_description);
 
-        if (selfItem == NAVDRAWER_ITEM_INVALID) {
-            // do not show a nav drawer
-            ((ViewGroup) navDrawer.getParent()).removeView(navDrawer);
-            mDrawerLayout = null;
-            return;
-        }
-
-        final View chosenAccountContentView = findViewById(R.id.chosen_account_content_view);
-        final View chosenAccountView = findViewById(R.id.chosen_account_view);
-
-        final int navDrawerChosenAccountHeight =
-                getResources().getDimensionPixelSize(R.dimen.navdrawer_chosen_account_height);
-        navDrawer.setOnInsetsCallback(
-                insets -> {
-                    ViewGroup.MarginLayoutParams lp =
-                            (ViewGroup.MarginLayoutParams) chosenAccountContentView.getLayoutParams();
-                    lp.topMargin = insets.top;
-                    chosenAccountContentView.setLayoutParams(lp);
-
-                    ViewGroup.LayoutParams lp2 = chosenAccountView.getLayoutParams();
-                    chosenAccountView.setLayoutParams(lp2);
-                });
-
-        if (mActionBarToolbar != null) {
-            mActionBarToolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_drawer));
-            mActionBarToolbar.setNavigationOnClickListener(
-                    view -> mDrawerLayout.openDrawer(GravityCompat.START));
-        }
-
-        //noinspection deprecation
-        mDrawerLayout.setDrawerListener(
-                new DrawerLayout.DrawerListener() {
-                    @Override
-                    public void onDrawerClosed(@NonNull View drawerView) {
-                        // run deferred action, if we have one
-                        if (mDeferredOnDrawerClosedRunnable != null) {
-                            mDeferredOnDrawerClosedRunnable.run();
-                            mDeferredOnDrawerClosedRunnable = null;
-                        }
-                        onNavDrawerStateChanged(false, false);
-                    }
-
-                    @Override
-                    public void onDrawerOpened(@NonNull View drawerView) {
-                        onNavDrawerStateChanged(true, false);
-                    }
-
-                    @Override
-                    public void onDrawerStateChanged(int newState) {
-                        onNavDrawerStateChanged(isNavDrawerOpen(), newState != DrawerLayout.STATE_IDLE);
-                    }
-
-                    @Override
-                    public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
-                        onNavDrawerSlide(slideOffset);
-                    }
-                });
-
-        // populate the nav drawer with the correct items
-        populateNavDrawer();
+    if (selfItem == NAVDRAWER_ITEM_INVALID) {
+      // do not show a nav drawer
+      ((ViewGroup) navDrawer.getParent()).removeView(navDrawer);
+      mDrawerLayout = null;
+      return;
     }
 
-    @Override
-    public void setContentView(int layoutResID) {
-        super.setContentView(layoutResID);
-        getActionBarToolbar();
+    final View chosenAccountContentView = findViewById(R.id.chosen_account_content_view);
+    final View chosenAccountView = findViewById(R.id.chosen_account_view);
+
+    final int navDrawerChosenAccountHeight =
+        getResources().getDimensionPixelSize(R.dimen.navdrawer_chosen_account_height);
+    navDrawer.setOnInsetsCallback(
+        insets -> {
+          ViewGroup.MarginLayoutParams lp =
+              (ViewGroup.MarginLayoutParams) chosenAccountContentView.getLayoutParams();
+          lp.topMargin = insets.top;
+          chosenAccountContentView.setLayoutParams(lp);
+
+          ViewGroup.LayoutParams lp2 = chosenAccountView.getLayoutParams();
+          chosenAccountView.setLayoutParams(lp2);
+        });
+
+    if (mActionBarToolbar != null) {
+      mActionBarToolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_drawer));
+      mActionBarToolbar.setNavigationOnClickListener(
+          view -> mDrawerLayout.openDrawer(GravityCompat.START));
     }
 
-    // Subclasses can override this for custom behavior
-    protected void onNavDrawerStateChanged(boolean isOpen, boolean isAnimating) {
-    }
-
-    protected void onNavDrawerSlide(float offset) {
-    }
-
-    protected boolean isNavDrawerOpen() {
-        return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(GravityCompat.START);
-    }
-
-    protected void closeNavDrawer() {
-        if (mDrawerLayout != null) {
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-        }
-    }
-
-    /**
-     * Populates the navigation drawer with the appropriate items.
-     */
-    private void populateNavDrawer() {
-        mNavDrawerItems.clear();
-        mNavDrawerItems.add(NAVDRAWER_ITEM_HOME);
-
-        mNavDrawerItems.add(NAVDRAWER_ITEM_MLAND);
-        mNavDrawerItems.add(NAVDRAWER_ITEM_MLANDMODIFIED);
-
-        mNavDrawerItems.add(NAVDRAWER_ITEM_SEPARATOR);
-
-        mNavDrawerItems.add(NAVDRAWER_ITEM_ABOUT);
-
-        createNavDrawerItems();
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (isNavDrawerOpen()) {
-            closeNavDrawer();
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    private void createNavDrawerItems() {
-        ViewGroup mDrawerItemsListContainer = findViewById(R.id.navdrawer_items_list);
-        if (mDrawerItemsListContainer == null) {
-            return;
-        }
-
-        mNavDrawerItemViews = new View[mNavDrawerItems.size()];
-        mDrawerItemsListContainer.removeAllViews();
-        int i = 0;
-        for (int itemId : mNavDrawerItems) {
-            mNavDrawerItemViews[i] = makeNavDrawerItem(itemId, mDrawerItemsListContainer);
-            mDrawerItemsListContainer.addView(mNavDrawerItemViews[i]);
-            ++i;
-        }
-    }
-
-    /**
-     * Sets up the given navdrawer item's appearance to the selected state. Note: this could also be
-     * accomplished (perhaps more cleanly) with state-based layouts.
-     */
-    private void setSelectedNavDrawerItem(int itemId) {
-        if (mNavDrawerItemViews != null) {
-            for (int i = 0; i < mNavDrawerItemViews.length; i++) {
-                if (i < mNavDrawerItems.size()) {
-                    int thisItemId = mNavDrawerItems.get(i);
-                    formatNavDrawerItem(mNavDrawerItemViews[i], thisItemId, itemId == thisItemId);
-                }
+    //noinspection deprecation
+    mDrawerLayout.setDrawerListener(
+        new DrawerLayout.DrawerListener() {
+          @Override
+          public void onDrawerClosed(@NonNull View drawerView) {
+            // run deferred action, if we have one
+            if (mDeferredOnDrawerClosedRunnable != null) {
+              mDeferredOnDrawerClosedRunnable.run();
+              mDeferredOnDrawerClosedRunnable = null;
             }
-        }
+            onNavDrawerStateChanged(false, false);
+          }
+
+          @Override
+          public void onDrawerOpened(@NonNull View drawerView) {
+            onNavDrawerStateChanged(true, false);
+          }
+
+          @Override
+          public void onDrawerStateChanged(int newState) {
+            onNavDrawerStateChanged(isNavDrawerOpen(), newState != DrawerLayout.STATE_IDLE);
+          }
+
+          @Override
+          public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+            onNavDrawerSlide(slideOffset);
+          }
+        });
+
+    // populate the nav drawer with the correct items
+    populateNavDrawer();
+  }
+
+  @Override
+  public void setContentView(int layoutResID) {
+    super.setContentView(layoutResID);
+    getActionBarToolbar();
+  }
+
+  // Subclasses can override this for custom behavior
+  protected void onNavDrawerStateChanged(boolean isOpen, boolean isAnimating) {}
+
+  protected void onNavDrawerSlide(float offset) {}
+
+  protected boolean isNavDrawerOpen() {
+    return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(GravityCompat.START);
+  }
+
+  protected void closeNavDrawer() {
+    if (mDrawerLayout != null) {
+      mDrawerLayout.closeDrawer(GravityCompat.START);
+    }
+  }
+
+  /** Populates the navigation drawer with the appropriate items. */
+  private void populateNavDrawer() {
+    mNavDrawerItems.clear();
+    mNavDrawerItems.add(NAVDRAWER_ITEM_HOME);
+
+    mNavDrawerItems.add(NAVDRAWER_ITEM_MLAND);
+    mNavDrawerItems.add(NAVDRAWER_ITEM_MLANDMODIFIED);
+
+    mNavDrawerItems.add(NAVDRAWER_ITEM_SEPARATOR);
+
+    mNavDrawerItems.add(NAVDRAWER_ITEM_ABOUT);
+
+    createNavDrawerItems();
+  }
+
+  @Override
+  public void onBackPressed() {
+    if (isNavDrawerOpen()) {
+      closeNavDrawer();
+    } else {
+      super.onBackPressed();
+    }
+  }
+
+  private void createNavDrawerItems() {
+    ViewGroup mDrawerItemsListContainer = findViewById(R.id.navdrawer_items_list);
+    if (mDrawerItemsListContainer == null) {
+      return;
     }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        setupNavDrawer();
+    mNavDrawerItemViews = new View[mNavDrawerItems.size()];
+    mDrawerItemsListContainer.removeAllViews();
+    int i = 0;
+    for (int itemId : mNavDrawerItems) {
+      mNavDrawerItemViews[i] = makeNavDrawerItem(itemId, mDrawerItemsListContainer);
+      mDrawerItemsListContainer.addView(mNavDrawerItemViews[i]);
+      ++i;
+    }
+  }
 
-        View mainContent = findViewById(R.id.main_content);
-        //noinspection StatementWithEmptyBody
-        if (mainContent != null) {
-            mainContent.setAlpha(0);
-            mainContent.animate().alpha(1).setDuration(MAIN_CONTENT_FADEIN_DURATION);
-        } else {
-            //  (~˘▾˘)~
+  /**
+   * Sets up the given navdrawer item's appearance to the selected state. Note: this could also be
+   * accomplished (perhaps more cleanly) with state-based layouts.
+   */
+  private void setSelectedNavDrawerItem(int itemId) {
+    if (mNavDrawerItemViews != null) {
+      for (int i = 0; i < mNavDrawerItemViews.length; i++) {
+        if (i < mNavDrawerItems.size()) {
+          int thisItemId = mNavDrawerItems.get(i);
+          formatNavDrawerItem(mNavDrawerItemViews[i], thisItemId, itemId == thisItemId);
         }
+      }
+    }
+  }
+
+  @Override
+  protected void onPostCreate(Bundle savedInstanceState) {
+    super.onPostCreate(savedInstanceState);
+    setupNavDrawer();
+
+    View mainContent = findViewById(R.id.main_content);
+    //noinspection StatementWithEmptyBody
+    if (mainContent != null) {
+      mainContent.setAlpha(0);
+      mainContent.animate().alpha(1).setDuration(MAIN_CONTENT_FADEIN_DURATION);
+    } else {
+      //  (~˘▾˘)~
+    }
+  }
+
+  private void goToNavDrawerItem(int item) {
+    Intent intent;
+    switch (item) {
+      case NAVDRAWER_ITEM_HOME:
+        intent = new Intent(this, Home.class);
+        startActivity(intent);
+        //    overridePendingTransition(0, 0);
+        finish();
+        break;
+      case NAVDRAWER_ITEM_MLAND:
+        intent = new Intent(this, MLandOriginalActivity.class);
+        startActivity(intent);
+        //    overridePendingTransition(0, 0);
+        finish();
+        break;
+      case NAVDRAWER_ITEM_MLANDMODIFIED:
+        intent = new Intent(this, MLandModifiedActivity.class);
+        startActivity(intent);
+        //    overridePendingTransition(0, 0);
+        finish();
+        break;
+      case NAVDRAWER_ITEM_ABOUT:
+        intent = new Intent(this, About.class);
+        startActivity(intent);
+        //    overridePendingTransition(0, 0);
+        finish();
+        break;
+    }
+  }
+
+  private void onNavDrawerItemClicked(final int itemId) {
+    if (itemId == getSelfNavDrawerItem()) {
+      new Handler()
+          .postDelayed(
+              () -> mDrawerLayout.closeDrawer(GravityCompat.START), NAVDRAWER_CLOSE_PRELAUNCH);
+      return;
     }
 
-    private void goToNavDrawerItem(int item) {
-        Intent intent;
-        switch (item) {
-            case NAVDRAWER_ITEM_HOME:
-                intent = new Intent(this, Home.class);
-                startActivity(intent);
-                overridePendingTransition(0, 0);
-                // finish();
-                break;
-            case NAVDRAWER_ITEM_MLAND:
-                intent = new Intent(this, MLandOriginalActivity.class);
-                startActivity(intent);
-                overridePendingTransition(0, 0);
-                // finish();
-                break;
-            case NAVDRAWER_ITEM_MLANDMODIFIED:
-                intent = new Intent(this, MLandModifiedActivity.class);
-                startActivity(intent);
-                overridePendingTransition(0, 0);
-                // finish();
-                break;
-            case NAVDRAWER_ITEM_ABOUT:
-                intent = new Intent(this, About.class);
-                startActivity(intent);
-                overridePendingTransition(0, 0);
-                // finish();
-                break;
-        }
-    }
+    if (isSpecialItem(itemId)) {
+      goToNavDrawerItem(itemId);
+    } else {
 
-    private void onNavDrawerItemClicked(final int itemId) {
-        if (itemId == getSelfNavDrawerItem()) {
-            new Handler().postDelayed(() -> mDrawerLayout.closeDrawer(GravityCompat.START), NAVDRAWER_CLOSE_PRELAUNCH);
-            return;
-        }
+      mDrawerLayout.closeDrawer(GravityCompat.START);
 
-        if (isSpecialItem(itemId)) {
-            goToNavDrawerItem(itemId);
-        } else {
-
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-
-            new Handler().postDelayed(new Runnable() {
+      new Handler()
+          .postDelayed(
+              new Runnable() {
 
                 @Override
                 public void run() {
-                    // change the active item on the list so the user can see the item changed
-                    setSelectedNavDrawerItem(itemId);
+                  // change the active item on the list so the user can see the item changed
+                  setSelectedNavDrawerItem(itemId);
 
-                    goToNavDrawerItem(itemId);
+                  goToNavDrawerItem(itemId);
                 }
-            }, NAVDRAWER_LAUNCH_DELAY);
+              },
+              NAVDRAWER_LAUNCH_DELAY);
 
-            //    goToNavDrawerItem(itemId);
+      //    goToNavDrawerItem(itemId);
 
-            new Handler().postDelayed(new Runnable() {
+      new Handler()
+          .postDelayed(
+              new Runnable() {
 
                 @Override
                 public void run() {
-                    // fade out the main content
-                    View mainContent = findViewById(R.id.main_content);
-                    if (mainContent != null) {
-                        mainContent.animate().alpha(0).setDuration(MAIN_CONTENT_FADEOUT_DURATION);
-                    }
+                  // fade out the main content
+                  View mainContent = findViewById(R.id.main_content);
+                  if (mainContent != null) {
+                    mainContent.animate().alpha(0).setDuration(MAIN_CONTENT_FADEOUT_DURATION);
+                  }
                 }
-            }, POST_LAUNCH_FADE);
-        }
-
-        //    mDrawerLayout.closeDrawer(GravityCompat.START);
+              },
+              POST_LAUNCH_FADE);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    //    mDrawerLayout.closeDrawer(GravityCompat.START);
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+  }
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+  }
+
+  @Override
+  public void onStart() {
+    super.onStart();
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+      Window window = getWindow();
+      window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+      //   window.setStatusBarColor(Color.BLUE);
+    }
+  }
+
+  @Override
+  public void onStop() {
+    super.onStop();
+  }
+
+  protected Toolbar getActionBarToolbar() {
+    if (mActionBarToolbar == null) {
+      mActionBarToolbar = findViewById(R.id.toolbar);
+      if (mActionBarToolbar != null) {
+        setSupportActionBar(mActionBarToolbar);
+      }
+    }
+    return mActionBarToolbar;
+  }
+
+  public int darkenColor(int color) {
+    float[] hsv = new float[3];
+    Color.colorToHSV(color, hsv);
+    hsv[2] *= 0.8f;
+    return Color.HSVToColor(hsv);
+    // Credits for this: https://github.com/Musenkishi/wally
+  }
+
+  @SuppressWarnings("UnusedAssignment")
+  private View makeNavDrawerItem(final int itemId, ViewGroup container) {
+    boolean selected = getSelfNavDrawerItem() == itemId;
+    int layoutToInflate = 0;
+    if (itemId == NAVDRAWER_ITEM_SEPARATOR) {
+      layoutToInflate = R.layout.navdrawer_separator;
+    } else if (itemId == NAVDRAWER_ITEM_SEPARATOR_SPECIAL) {
+      layoutToInflate = R.layout.navdrawer_separator;
+    } else {
+      layoutToInflate = R.layout.navdrawer_item;
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
+    View view = getLayoutInflater().inflate(layoutToInflate, container, false);
+
+    if (isSeparator(itemId)) {
+
+      return view;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
+    ImageView iconView = view.findViewById(R.id.icon);
+    TextView titleView = view.findViewById(R.id.title);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            //   window.setStatusBarColor(Color.BLUE);
-        }
+    int iconId =
+        itemId >= 0 && itemId < NAVDRAWER_ICON_RES_ID.length ? NAVDRAWER_ICON_RES_ID[itemId] : 0;
+    int titleId =
+        itemId >= 0 && itemId < NAVDRAWER_TITLE_RES_ID.length ? NAVDRAWER_TITLE_RES_ID[itemId] : 0;
+
+    // set icon and text
+    iconView.setVisibility(iconId > 0 ? View.VISIBLE : View.GONE);
+    if (iconId > 0) {
+      iconView.setImageResource(iconId);
+    }
+    titleView.setText(getString(titleId));
+
+    formatNavDrawerItem(view, itemId, selected);
+
+    view.setOnClickListener(v -> onNavDrawerItemClicked(itemId));
+
+    return view;
+  }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+  }
+
+  private boolean isSeparator(int itemId) {
+    return itemId == NAVDRAWER_ITEM_SEPARATOR || itemId == NAVDRAWER_ITEM_SEPARATOR_SPECIAL;
+  }
+
+  private void formatNavDrawerItem(View view, int itemId, boolean selected) {
+    if (isSeparator(itemId)) {
+      // not applicable
+      return;
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
+    ImageView iconView = view.findViewById(R.id.icon);
+    TextView titleView = view.findViewById(R.id.title);
+    LinearLayout ll = view.findViewById(R.id.ll);
+
+    if (selected) {
+      view.setBackgroundResource(R.drawable.ll_ripple);
     }
 
-    protected Toolbar getActionBarToolbar() {
-        if (mActionBarToolbar == null) {
-            mActionBarToolbar = findViewById(R.id.toolbar);
-            if (mActionBarToolbar != null) {
-                setSupportActionBar(mActionBarToolbar);
-            }
-        }
-        return mActionBarToolbar;
-    }
+    // configure its appearance according to whether or not it's selected
+    titleView.setTextColor(
+        selected
+            ? getResources().getColor(R.color.navdrawer_item_text_color)
+            : getResources().getColor(R.color.navdrawer_item_text_color));
+    //    iconView.setColorFilter(selected ?
+    //getResources().getColor(R.color.navdrawer_item_icon_color) :
+    //getResources().getColor(R.color.navdrawer_item_icon_color)); *
+  }
 
-    public int darkenColor(int color) {
-        float[] hsv = new float[3];
-        Color.colorToHSV(color, hsv);
-        hsv[2] *= 0.8f;
-        return Color.HSVToColor(hsv);
-        // Credits for this: https://github.com/Musenkishi/wally
-    }
+  public LUtils getLUtils() {
+    return mLUtils;
+  }
 
-    @SuppressWarnings("UnusedAssignment")
-    private View makeNavDrawerItem(final int itemId, ViewGroup container) {
-        boolean selected = getSelfNavDrawerItem() == itemId;
-        int layoutToInflate = 0;
-        if (itemId == NAVDRAWER_ITEM_SEPARATOR) {
-            layoutToInflate = R.layout.navdrawer_separator;
-        } else if (itemId == NAVDRAWER_ITEM_SEPARATOR_SPECIAL) {
-            layoutToInflate = R.layout.navdrawer_separator;
-        } else {
-            layoutToInflate = R.layout.navdrawer_item;
-        }
+  private boolean isSpecialItem(int itemId) {
+    return itemId == NAVDRAWER_ITEM_INVALID;
+  }
 
-        View view = getLayoutInflater().inflate(layoutToInflate, container, false);
+  protected abstract Context getContext();
 
-        if (isSeparator(itemId)) {
+  /**
+   * Configure this Activity as a floating window, with the given {@code width}, {@code height} and
+   * {@code alpha}, and dimming the background with the given {@code dim} value.
+   */
+  protected void setupFloatingWindow(int width, int height, int alpha, float dim) {
+    WindowManager.LayoutParams params = getWindow().getAttributes();
+    params.width = getResources().getDimensionPixelSize(width);
+    params.height = getResources().getDimensionPixelSize(height);
+    params.alpha = alpha;
+    params.dimAmount = dim;
+    params.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+    getWindow().setAttributes(params);
+  }
 
-            return view;
-        }
+  /** Returns true if the theme sets the {@code R.attr.isFloatingWindow} flag to true. */
+  protected boolean shouldBeFloatingWindow() {
+    Resources.Theme theme = getTheme();
+    TypedValue floatingWindowFlag = new TypedValue();
 
-        ImageView iconView = view.findViewById(R.id.icon);
-        TextView titleView = view.findViewById(R.id.title);
-
-        int iconId =
-                itemId >= 0 && itemId < NAVDRAWER_ICON_RES_ID.length ? NAVDRAWER_ICON_RES_ID[itemId] : 0;
-        int titleId =
-                itemId >= 0 && itemId < NAVDRAWER_TITLE_RES_ID.length ? NAVDRAWER_TITLE_RES_ID[itemId] : 0;
-
-        // set icon and text
-        iconView.setVisibility(iconId > 0 ? View.VISIBLE : View.GONE);
-        if (iconId > 0) {
-            iconView.setImageResource(iconId);
-        }
-        titleView.setText(getString(titleId));
-
-        formatNavDrawerItem(view, itemId, selected);
-
-        view.setOnClickListener(v -> onNavDrawerItemClicked(itemId));
-
-        return view;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    private boolean isSeparator(int itemId) {
-        return itemId == NAVDRAWER_ITEM_SEPARATOR || itemId == NAVDRAWER_ITEM_SEPARATOR_SPECIAL;
-    }
-
-    private void formatNavDrawerItem(View view, int itemId, boolean selected) {
-        if (isSeparator(itemId)) {
-            // not applicable
-            return;
-        }
-
-        ImageView iconView = view.findViewById(R.id.icon);
-        TextView titleView = view.findViewById(R.id.title);
-        LinearLayout ll = view.findViewById(R.id.ll);
-
-        if (selected) {
-            view.setBackgroundResource(R.drawable.ll_ripple);
-        }
-
-        // configure its appearance according to whether or not it's selected
-        titleView.setTextColor(
-                selected
-                        ? getResources().getColor(R.color.navdrawer_item_text_color)
-                        : getResources().getColor(R.color.navdrawer_item_text_color));
-        //    iconView.setColorFilter(selected ?
-        //getResources().getColor(R.color.navdrawer_item_icon_color) :
-        //getResources().getColor(R.color.navdrawer_item_icon_color)); *
-    }
-
-    public LUtils getLUtils() {
-        return mLUtils;
-    }
-
-    private boolean isSpecialItem(int itemId) {
-        return itemId == NAVDRAWER_ITEM_INVALID;
-    }
-
-    protected abstract Context getContext();
-
-    /**
-     * Configure this Activity as a floating window, with the given {@code width}, {@code height} and
-     * {@code alpha}, and dimming the background with the given {@code dim} value.
-     */
-    protected void setupFloatingWindow(int width, int height, int alpha, float dim) {
-        WindowManager.LayoutParams params = getWindow().getAttributes();
-        params.width = getResources().getDimensionPixelSize(width);
-        params.height = getResources().getDimensionPixelSize(height);
-        params.alpha = alpha;
-        params.dimAmount = dim;
-        params.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-        getWindow().setAttributes(params);
-    }
-
-    /**
-     * Returns true if the theme sets the {@code R.attr.isFloatingWindow} flag to true.
-     */
-    protected boolean shouldBeFloatingWindow() {
-        Resources.Theme theme = getTheme();
-        TypedValue floatingWindowFlag = new TypedValue();
-
-        // Check isFloatingWindow flag is defined in theme.
-        return !(theme == null
-                || !theme.resolveAttribute(R.attr.isFloatingWindow, floatingWindowFlag, true))
-                && (floatingWindowFlag.data != 0);
-    }
+    // Check isFloatingWindow flag is defined in theme.
+    return !(theme == null
+            || !theme.resolveAttribute(R.attr.isFloatingWindow, floatingWindowFlag, true))
+        && (floatingWindowFlag.data != 0);
+  }
 }

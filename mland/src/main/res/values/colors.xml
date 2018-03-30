@@ -25,8 +25,8 @@
     5% — 0D
     0% — 00
     -->
-    <color name="colorPrimary">#FF363636</color>
-    <color name="colorPrimaryDark">#FF18181C</color>
+    <color name="colorPrimary">#FF1c1f23</color>
+    <color name="colorPrimaryDark">#FF16181c</color>
     <color name="colorAccent">#FF4285F4</color>
     <color name="session_photo_scrim">#6000</color>
     <color name="navdrawer_item_text_color">#FF505050</color>

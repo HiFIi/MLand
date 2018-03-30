@@ -110,7 +110,7 @@
 
     <style name="Theme.MLand.Home" parent="@style/Theme">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@color/status_bar_overlay</item>
+        <item name="android:statusBarColor">@color/black__10_percent</item>
         <item name="android:colorPrimary">@color/colorPrimary</item>
         <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:colorAccent">@color/colorPrimary</item>
