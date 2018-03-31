@@ -52,10 +52,10 @@ import java.util.ArrayList;
 
 // It's like LLand, but "M"ultiplayer.
 public class MLandModified extends FrameLayout {
-  public static final String TAG = "MLand";
+  private static final String TAG = "MLand";
 
-  public static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
-  public static final boolean DEBUG_DRAW = false; // DEBUG
+  private static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
+  private static final boolean DEBUG_DRAW = false; // DEBUG
 
   /**
    * Originally, this was set to true, but idk. It looked pretty weird when the screen was touched
@@ -69,27 +69,27 @@ public class MLandModified extends FrameLayout {
    *
    * <p>public static final boolean SHOW_TOUCHES = true;
    */
-  public static final boolean SHOW_TOUCHES = false;
+  private static final boolean SHOW_TOUCHES = false;
 
-  public static final float PI_2 = (float) (Math.PI / 2);
-  public static final boolean AUTOSTART = true;
-  public static final boolean HAVE_STARS = true;
-  public static final float DEBUG_SPEED_MULTIPLIER = 0.5f; // only if DEBUG
-  public static final boolean DEBUG_IDDQD = Log.isLoggable(TAG + ".iddqd", Log.DEBUG);
-  public static final int DEFAULT_PLAYERS = 1;
-  public static final int MIN_PLAYERS = 1;
+  private static final float PI_2 = (float) (Math.PI / 2);
+  private static final boolean AUTOSTART = true;
+  private static final boolean HAVE_STARS = true;
+  private static final float DEBUG_SPEED_MULTIPLIER = 0.5f; // only if DEBUG
+  private static final boolean DEBUG_IDDQD = Log.isLoggable(TAG + ".iddqd", Log.DEBUG);
+  private static final int DEFAULT_PLAYERS = 1;
+  private static final int MIN_PLAYERS = 1;
   public static final int MAX_PLAYERS = 6;
-  static final float CONTROLLER_VIBRATION_MULTIPLIER = 2f;
+  private static final float CONTROLLER_VIBRATION_MULTIPLIER = 2f;
   static final float hsv[] = {0, 0, 0};
   static final Rect sTmpRect = new Rect();
-  static final int[] ANTENNAE = new int[] {R.drawable.mm_antennae, R.drawable.mm_antennae2};
-  static final int[] EYES = new int[] {R.drawable.mm_eyes, R.drawable.mm_eyes2};
-  static final int[] MOUTHS =
+  private static final int[] ANTENNAE = new int[] {R.drawable.mm_antennae, R.drawable.mm_antennae2};
+  private static final int[] EYES = new int[] {R.drawable.mm_eyes, R.drawable.mm_eyes2};
+  private static final int[] MOUTHS =
       new int[] {
         R.drawable.mm_mouth1, R.drawable.mm_mouth2, R.drawable.mm_mouth3, R.drawable.mm_mouth4
       };
-  static final int[] CACTI = {R.drawable.cactus1, R.drawable.cactus2, R.drawable.cactus3};
-  static final int[] MOUNTAINS = {R.drawable.mountain1, R.drawable.mountain2, R.drawable.mountain3};
+  private static final int[] CACTI = {R.drawable.cactus1, R.drawable.cactus2, R.drawable.cactus3};
+  private static final int[] MOUNTAINS = {R.drawable.mountain1, R.drawable.mountain2, R.drawable.mountain3};
   private static final int DAY = 0, NIGHT = 1, TWILIGHT = 2, SUNSET = 3, WTF = 4;
   private static final int[][] SKIES = {
     {0xFF4285F4, 0xFF6499BE}, // DAY
@@ -105,12 +105,12 @@ public class MLandModified extends FrameLayout {
   private final AudioAttributes mAudioAttrs =
       new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_GAME).build();
   private TimeAnimator mAnim;
-  private Vibrator mVibrator;
-  private AudioManager mAudioManager;
+  private final Vibrator mVibrator;
+  private final AudioManager mAudioManager;
   private View mSplash;
   private ViewGroup mScoreFields;
-  private ArrayList<Player> mPlayers = new ArrayList<>();
-  private ArrayList<Obstacle> mObstaclesInPlay = new ArrayList<>();
+  private final ArrayList<Player> mPlayers = new ArrayList<>();
+  private final ArrayList<Obstacle> mObstaclesInPlay = new ArrayList<>();
   private float t, dt;
   private float mLastPipeTime; // in sec
   private int mCurrentPipeId; // basically, equivalent to the current score
@@ -122,8 +122,9 @@ public class MLandModified extends FrameLayout {
   private int mTaps;
   private int mTimeOfDay;
   private int mScene;
-  private Paint mTouchPaint, mPlayerTracePaint;
-  private ArrayList<Integer> mGameControllers = new ArrayList<>();
+  private final Paint mTouchPaint;
+  private final Paint mPlayerTracePaint;
+  private final ArrayList<Integer> mGameControllers = new ArrayList<>();
 
   public MLandModified(Context context) {
     this(context, null);
@@ -160,13 +161,13 @@ public class MLandModified extends FrameLayout {
     //    MetricsLogger.count(getContext(), "egg_mland_create", 1);
   }
 
-  public static void L(String s, Object... objects) {
+  private static void L(String s, Object... objects) {
     if (DEBUG) {
       Log.d(TAG, objects.length == 0 ? s : String.format(s, objects));
     }
   }
 
-  public static boolean isGamePad(InputDevice dev) {
+  private static boolean isGamePad(InputDevice dev) {
     int sources = dev.getSources();
 
     // Verify that the device has gamepad buttons, control sticks, or both.
@@ -180,31 +181,31 @@ public class MLandModified extends FrameLayout {
         + 0.0722f * (float) (bgcolor & 0xFF) / 0xFF;
   }
 
-  public static float lerp(float x, float a, float b) {
+  private static float lerp(float x, float a, float b) {
     return (b - a) * x + a;
   }
 
-  public static float rlerp(float v, float a, float b) {
+  private static float rlerp(float v, float a, float b) {
     return (v - a) / (b - a);
   }
 
-  public static float clamp(float f) {
+  private static float clamp(float f) {
     return f < 0f ? 0f : f > 1f ? 1f : f;
   }
 
-  public static float frand() {
+  private static float frand() {
     return (float) Math.random();
   }
 
-  public static float frand(float a, float b) {
+  private static float frand(float a, float b) {
     return lerp(frand(), a, b);
   }
 
-  public static int irand(int a, int b) {
+  private static int irand(int a, int b) {
     return Math.round(frand((float) a, (float) b));
   }
 
-  public static int pick(int[] l) {
+  private static int pick(int[] l) {
     return l[irand(0, l.length - 1)];
   }
 
@@ -232,7 +233,7 @@ public class MLandModified extends FrameLayout {
     return mHeight;
   }
 
-  public float getGameTime() {
+  private float getGameTime() {
     return t;
   }
 
@@ -272,7 +273,7 @@ public class MLandModified extends FrameLayout {
     return mGameControllers;
   }
 
-  public int getControllerPlayer(int id) {
+  private int getControllerPlayer(int id) {
     final int player = mGameControllers.indexOf(id);
     if (player < 0 || player >= mPlayers.size()) return 0;
     return player;
@@ -290,7 +291,7 @@ public class MLandModified extends FrameLayout {
     }
   }
 
-  public Player getPlayer(int i) {
+  private Player getPlayer(int i) {
     return i < mPlayers.size() ? mPlayers.get(i) : null;
   }
 
@@ -370,7 +371,7 @@ public class MLandModified extends FrameLayout {
     mVibrator.vibrate(ms, mAudioAttrs);
   }
 
-  public void reset() {
+  private void reset() {
     L("reset");
     final Drawable sky =
         new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, SKIES[mTimeOfDay]);
@@ -532,7 +533,7 @@ public class MLandModified extends FrameLayout {
     }
   }
 
-  public void hideSplash() {
+  private void hideSplash() {
     if (mSplash != null && mSplash.getVisibility() == View.VISIBLE) {
       mSplash.setClickable(false);
       mSplash
@@ -557,7 +558,7 @@ public class MLandModified extends FrameLayout {
     }
   }
 
-  public void startPlaying() {
+  private void startPlaying() {
     mPlaying = true;
 
     t = 0;
@@ -939,23 +940,32 @@ public class MLandModified extends FrameLayout {
   }
 
   private static class Params {
-    public float TRANSLATION_PER_SEC;
-    public int OBSTACLE_SPACING, OBSTACLE_PERIOD;
-    public int BOOST_DV;
-    public int PLAYER_HIT_SIZE;
-    public int PLAYER_SIZE;
-    public int OBSTACLE_WIDTH, OBSTACLE_STEM_WIDTH;
-    public int OBSTACLE_GAP;
-    public int OBSTACLE_MIN;
-    public int BUILDING_WIDTH_MIN, BUILDING_WIDTH_MAX;
-    public int BUILDING_HEIGHT_MIN;
-    public int CLOUD_SIZE_MIN, CLOUD_SIZE_MAX;
-    public int STAR_SIZE_MIN, STAR_SIZE_MAX;
-    public int G;
-    public int MAX_V;
-    public float SCENERY_Z, OBSTACLE_Z, PLAYER_Z, PLAYER_Z_BOOST, HUD_Z;
+    final float TRANSLATION_PER_SEC;
+    final int OBSTACLE_SPACING;
+    final int OBSTACLE_PERIOD;
+    final int BOOST_DV;
+    final int PLAYER_HIT_SIZE;
+    final int PLAYER_SIZE;
+    final int OBSTACLE_WIDTH;
+    final int OBSTACLE_STEM_WIDTH;
+    final int OBSTACLE_GAP;
+    int OBSTACLE_MIN;
+    final int BUILDING_WIDTH_MIN;
+    final int BUILDING_WIDTH_MAX;
+    final int BUILDING_HEIGHT_MIN;
+    final int CLOUD_SIZE_MIN;
+    final int CLOUD_SIZE_MAX;
+    final int STAR_SIZE_MIN;
+    final int STAR_SIZE_MAX;
+    final int G;
+    final int MAX_V;
+    final float SCENERY_Z;
+    final float OBSTACLE_Z;
+    final float PLAYER_Z;
+    final float PLAYER_Z_BOOST;
+    final float HUD_Z;
 
-    public Params(Resources res) {
+    Params(Resources res) {
       TRANSLATION_PER_SEC = res.getDimension(R.dimen.translation_per_sec);
       OBSTACLE_SPACING = res.getDimensionPixelSize(R.dimen.obstacle_spacing);
       OBSTACLE_PERIOD = (int) (OBSTACLE_SPACING / TRANSLATION_PER_SEC);
@@ -1009,9 +1019,9 @@ public class MLandModified extends FrameLayout {
           0.08f, 0.75f, // sinistram
           0.08f, 0.33f, // cold shoulder
         };
-    public final float[] corners = new float[sHull.length];
-    public float dv;
-    public int color;
+    final float[] corners = new float[sHull.length];
+    float dv;
+    final int color;
     private MLandModified mLandModified;
     private boolean mBoosting;
     private float mTouchX = -1, mTouchY = -1;
@@ -1039,7 +1049,7 @@ public class MLandModified extends FrameLayout {
           });
     }
 
-    public static Player create(MLandModified land) {
+    static Player create(MLandModified land) {
       final Player p = new Player(land.getContext());
       p.mLandModified = land;
       p.reset();
@@ -1063,7 +1073,7 @@ public class MLandModified extends FrameLayout {
       setScore(mScore + incr);
     }
 
-    public void setScoreField(TextView tv) {
+    void setScoreField(TextView tv) {
       mScoreField = tv;
       if (tv != null) {
         setScore(mScore); // reapply
@@ -1073,7 +1083,7 @@ public class MLandModified extends FrameLayout {
       }
     }
 
-    public void reset() {
+    void reset() {
       //setX(mLand.mWidth / 2);
       setY(
           mLandModified.mHeight / 2
@@ -1085,7 +1095,7 @@ public class MLandModified extends FrameLayout {
       dv = 0;
     }
 
-    public void prepareCheckIntersections() {
+    void prepareCheckIntersections() {
       final int inset = (PARAMS.PLAYER_SIZE - PARAMS.PLAYER_HIT_SIZE) / 2;
       final int scale = PARAMS.PLAYER_HIT_SIZE;
       final int N = sHull.length / 2;
@@ -1097,7 +1107,7 @@ public class MLandModified extends FrameLayout {
       m.mapPoints(corners);
     }
 
-    public boolean below(int h) {
+    boolean below(int h) {
       final int N = corners.length / 2;
       for (int i = 0; i < N; i++) {
         final int y = (int) corners[i * 2 + 1];
@@ -1128,13 +1138,13 @@ public class MLandModified extends FrameLayout {
       prepareCheckIntersections();
     }
 
-    public void boost(float x, float y) {
+    void boost(float x, float y) {
       mTouchX = x;
       mTouchY = y;
       boost();
     }
 
-    public void boost() {
+    void boost() {
       mBoosting = true;
       dv = -PARAMS.BOOST_DV;
 
@@ -1144,7 +1154,7 @@ public class MLandModified extends FrameLayout {
       setScaleY(1.25f);
     }
 
-    public void unboost() {
+    void unboost() {
       mBoosting = false;
       mTouchX = mTouchY = -1;
 
@@ -1152,7 +1162,7 @@ public class MLandModified extends FrameLayout {
       animate().scaleX(1f).scaleY(1f).translationZ(PARAMS.PLAYER_Z).setDuration(200);
     }
 
-    public void die() {
+    void die() {
       // boolean mAlive = false;
       mAlive = false;
       if (mScoreField != null) {
@@ -1162,22 +1172,22 @@ public class MLandModified extends FrameLayout {
       }
     }
 
-    public void start() {
+    void start() {
       mAlive = true;
     }
   }
 
   private class Obstacle extends View implements GameView {
-    public final Rect hitRect = new Rect();
-    public float h;
+    final Rect hitRect = new Rect();
+    final float h;
 
-    public Obstacle(Context context, float h) {
+    Obstacle(Context context, float h) {
       super(context);
       setBackgroundColor(0xFFFF0000);
       this.h = h;
     }
 
-    public boolean intersects(Player p) {
+    boolean intersects(Player p) {
       final int N = p.corners.length / 2;
       for (int i = 0; i < N; i++) {
         final int x = (int) p.corners[i * 2];
@@ -1187,7 +1197,7 @@ public class MLandModified extends FrameLayout {
       return false;
     }
 
-    public boolean cleared(Player p) {
+    boolean cleared(Player p) {
       final int N = p.corners.length / 2;
       for (int i = 0; i < N; i++) {
         final int x = (int) p.corners[i * 2];
@@ -1207,9 +1217,11 @@ public class MLandModified extends FrameLayout {
     int mRotate;
     int cx, cy, r;
     // The marshmallow illustration and hitbox is 2/3 the size of its container.
-    Drawable antenna, eyes, mouth;
+    final Drawable antenna;
+    Drawable eyes;
+    Drawable mouth;
 
-    public Pop(Context context, float h) {
+    Pop(Context context, float h) {
       super(context, h);
       setBackgroundResource(R.drawable.mm_head);
       antenna = context.getDrawable(pick(ANTENNAE));
@@ -1270,15 +1282,15 @@ public class MLandModified extends FrameLayout {
   }
 
   private class Stem extends Obstacle {
-    Paint mPaint = new Paint();
-    Path mShadow = new Path();
-    GradientDrawable mGradient = new GradientDrawable();
-    boolean mDrawShadow;
+    final Paint mPaint = new Paint();
+    final Path mShadow = new Path();
+    final GradientDrawable mGradient = new GradientDrawable();
+    final boolean mDrawShadow;
     Path mJandystripe;
     Paint mPaint2;
-    int id; // use this to track which pipes have been cleared
+    final int id; // use this to track which pipes have been cleared
 
-    public Stem(Context context, float h, boolean drawShadow) {
+    Stem(Context context, float h, boolean drawShadow) {
       super(context, h);
       id = mCurrentPipeId;
 
@@ -1346,9 +1358,10 @@ public class MLandModified extends FrameLayout {
   }
 
   private class Scenery extends FrameLayout implements GameView {
-    public float z;
-    public float v;
-    public int h, w;
+    float z;
+    float v;
+    int h;
+    int w;
 
     public Scenery(Context context) {
       super(context);

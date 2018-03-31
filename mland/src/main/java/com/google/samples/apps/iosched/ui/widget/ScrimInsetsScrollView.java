@@ -35,7 +35,7 @@ public class ScrimInsetsScrollView extends ScrollView {
   private Drawable mInsetForeground;
 
   private Rect mInsets;
-  private Rect mTempRect = new Rect();
+  private final Rect mTempRect = new Rect();
   private OnInsetsCallback mOnInsetsCallback;
 
   public ScrimInsetsScrollView(Context context) {
@@ -138,7 +138,7 @@ public class ScrimInsetsScrollView extends ScrollView {
     mOnInsetsCallback = onInsetsCallback;
   }
 
-  public interface OnInsetsCallback {
+  interface OnInsetsCallback {
     void onInsetsChanged(Rect insets);
   }
 }

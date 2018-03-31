@@ -23,7 +23,7 @@ import android.widget.Checkable;
 
 public class CheckableFloatingActionButton extends FloatingActionButton implements Checkable {
   private static final int[] CHECKED_STATE_SET = {android.R.attr.state_checked};
-  protected boolean mChecked;
+  private boolean mChecked;
 
   public CheckableFloatingActionButton(Context context) {
     super(context);
@@ -47,7 +47,7 @@ public class CheckableFloatingActionButton extends FloatingActionButton implemen
     setChecked(checked, true);
   }
 
-  public void setChecked(boolean checked, boolean allowAnimate) {
+  private void setChecked(boolean checked, boolean allowAnimate) {
     mChecked = checked;
     refreshDrawableState();
   }

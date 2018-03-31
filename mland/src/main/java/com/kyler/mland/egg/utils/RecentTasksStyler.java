@@ -26,7 +26,7 @@ import android.os.Build;
 import com.kyler.mland.egg.R;
 
 /** Helper class that applies the proper icon, title and background color to recent tasks list. */
-public class RecentTasksStyler {
+class RecentTasksStyler {
   private static Bitmap sIcon = null;
 
   private RecentTasksStyler() {}

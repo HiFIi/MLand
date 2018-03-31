@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.Window;
 import com.kyler.mland.egg.MLandBase;
@@ -64,7 +65,7 @@ public class Home extends MLandBase {
 
   /** Sets the status bar to be light or not. Light status bar means dark icons. */
   @TargetApi(Build.VERSION_CODES.O)
-  public void activateLightNavigationBar() {
+  private void activateLightNavigationBar() {
     int oldSystemUiFlags = getWindow().getDecorView().getSystemUiVisibility();
     int newSystemUiFlags = oldSystemUiFlags;
     newSystemUiFlags |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
@@ -75,12 +76,12 @@ public class Home extends MLandBase {
     }
   }
 
-  public void activateLightStatusBar() {
+  private void activateLightStatusBar() {
     int oldSystemUiFlags = getWindow().getDecorView().getSystemUiVisibility();
     int newSystemUiFlags = oldSystemUiFlags;
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
       newSystemUiFlags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-      getWindow().setStatusBarColor(getResources().getColor(R.color.black__10_percent));
+      getWindow().setStatusBarColor(ContextCompat.getColor(Home.this, R.color.black__10_percent));
     }
     if (newSystemUiFlags != oldSystemUiFlags) {
       final int systemUiFlags = newSystemUiFlags;

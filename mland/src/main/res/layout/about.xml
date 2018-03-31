@@ -31,7 +31,6 @@ limitations under the License.
             android:layout_height="match_parent">
 
             <com.kyler.mland.egg.ui.MLandTextView
-                android:id="@+id/versionCodeTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"

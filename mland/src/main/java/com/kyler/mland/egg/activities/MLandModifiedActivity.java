@@ -28,7 +28,7 @@ import com.kyler.mland.egg.MLandModified;
 import com.kyler.mland.egg.R;
 
 public class MLandModifiedActivity extends MLandBase {
-  MLandModified mLandModified;
+  private MLandModified mLandModified;
 
   @Override
   protected int getSelfNavDrawerItem() {
@@ -55,7 +55,7 @@ public class MLandModifiedActivity extends MLandBase {
     }
   }
 
-  public void updateSplashPlayers() {
+  private void updateSplashPlayers() {
     final int N = mLandModified.getNumPlayers();
     final View minus = findViewById(R.id.player_minus_button);
     final View plus = findViewById(R.id.player_plus_button);
@@ -63,7 +63,7 @@ public class MLandModifiedActivity extends MLandBase {
       minus.setVisibility(View.INVISIBLE);
       plus.setVisibility(View.VISIBLE);
       plus.requestFocus();
-    } else if (N == mLandModified.MAX_PLAYERS) {
+    } else if (N == MLandModified.MAX_PLAYERS) {
       minus.setVisibility(View.VISIBLE);
       plus.setVisibility(View.INVISIBLE);
       minus.requestFocus();

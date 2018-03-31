@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -48,16 +46,16 @@ public abstract class MLandBase extends AppCompatActivity {
   protected static final int NAVDRAWER_ITEM_MLANDMODIFIED = 2;
   protected static final int NAVDRAWER_ITEM_ABOUT = 3;
 
-  protected static final int NAVDRAWER_ITEM_INVALID = -1;
-  protected static final int NAVDRAWER_ITEM_SEPARATOR = -2;
-  protected static final int NAVDRAWER_ITEM_SEPARATOR_SPECIAL = -3;
-  
+  private static final int NAVDRAWER_ITEM_INVALID = -1;
+  private static final int NAVDRAWER_ITEM_SEPARATOR = -2;
+  private static final int NAVDRAWER_ITEM_SEPARATOR_SPECIAL = -3;
+
   /*
   fade in and fade out durations for the main content when switching between
   different Activities of the app through the Nav Drawer
   */
   private static final long MAIN_CONTENT_FADEOUT_DURATION = 150L;
-  private static final long MAIN_CONTENT_FADEIN_DURATION = 250L;  
+  private static final long MAIN_CONTENT_FADEIN_DURATION = 250L;
   private static final long NAVDRAWER_CLOSE_PRELAUNCH = 300L;
   private static final long NAVDRAWER_LAUNCH_DELAY = 250L;
   private static final long POST_LAUNCH_FADE = 300L;
@@ -73,17 +71,17 @@ public abstract class MLandBase extends AppCompatActivity {
         R.drawable.ic_landscape__mland_modified,
         0
       };
-  public static String mVersionNumber;
-  public DrawerLayout mDrawerLayout;
+  private static String mVersionNumber;
+  private DrawerLayout mDrawerLayout;
   // Primary toolbar and drawer toggle
-  public Toolbar mActionBarToolbar;
+  private Toolbar mActionBarToolbar;
   SharedPreferences pref;
   // A Runnable that we should execute when the navigation drawer finishes its closing animation
   private Runnable mDeferredOnDrawerClosedRunnable;
   private CharSequence mTitle;
   private Context context;
   // list of navdrawer items that were actually added to the navdrawer, in order
-  private ArrayList<Integer> mNavDrawerItems = new ArrayList<>();
+  private final ArrayList<Integer> mNavDrawerItems = new ArrayList<>();
   // views that correspond to each navdrawer item, null if not yet created
   private View[] mNavDrawerItemViews = null;
   // Helper methods for L APIs
@@ -180,12 +178,6 @@ public abstract class MLandBase extends AppCompatActivity {
     mDrawerLayout.setStatusBarBackgroundColor(getResources().getColor(R.color.transparent));
     ScrimInsetsScrollView navDrawer = mDrawerLayout.findViewById(R.id.navdrawer);
 
-    /* TO-DO: Make Menudrawer dark from 7pm-5am
-    if (drawerColorCalendar == 20) {
-    Toast.makeText(this, "8pm", Toast.LENGTH_LONG).show();
-    navDrawer.setBackgroundColor(getResources().getColor(R.color.night));
-    } **/
-
     ViewGroup.LayoutParams layout_description = navDrawer.getLayoutParams();
     layout_description.width =
         (int)
@@ -201,22 +193,6 @@ public abstract class MLandBase extends AppCompatActivity {
       mDrawerLayout = null;
       return;
     }
-
-    final View chosenAccountContentView = findViewById(R.id.chosen_account_content_view);
-    final View chosenAccountView = findViewById(R.id.chosen_account_view);
-
-    final int navDrawerChosenAccountHeight =
-        getResources().getDimensionPixelSize(R.dimen.navdrawer_chosen_account_height);
-    navDrawer.setOnInsetsCallback(
-        insets -> {
-          ViewGroup.MarginLayoutParams lp =
-              (ViewGroup.MarginLayoutParams) chosenAccountContentView.getLayoutParams();
-          lp.topMargin = insets.top;
-          chosenAccountContentView.setLayoutParams(lp);
-
-          ViewGroup.LayoutParams lp2 = chosenAccountView.getLayoutParams();
-          chosenAccountView.setLayoutParams(lp2);
-        });
 
     if (mActionBarToolbar != null) {
       mActionBarToolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_drawer));
@@ -264,15 +240,15 @@ public abstract class MLandBase extends AppCompatActivity {
   }
 
   // Subclasses can override this for custom behavior
-  protected void onNavDrawerStateChanged(boolean isOpen, boolean isAnimating) {}
+  private void onNavDrawerStateChanged(boolean isOpen, boolean isAnimating) {}
 
-  protected void onNavDrawerSlide(float offset) {}
+  private void onNavDrawerSlide(float offset) {}
 
-  protected boolean isNavDrawerOpen() {
+  private boolean isNavDrawerOpen() {
     return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(GravityCompat.START);
   }
 
-  protected void closeNavDrawer() {
+  private void closeNavDrawer() {
     if (mDrawerLayout != null) {
       mDrawerLayout.closeDrawer(GravityCompat.START);
     }
@@ -398,8 +374,6 @@ public abstract class MLandBase extends AppCompatActivity {
               },
               NAVDRAWER_LAUNCH_DELAY);
 
-      //    goToNavDrawerItem(itemId);
-
       new Handler()
           .postDelayed(
               () -> {
@@ -411,8 +385,6 @@ public abstract class MLandBase extends AppCompatActivity {
               },
               POST_LAUNCH_FADE);
     }
-
-    //    mDrawerLayout.closeDrawer(GravityCompat.START);
   }
 
   @Override
@@ -432,7 +404,6 @@ public abstract class MLandBase extends AppCompatActivity {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       Window window = getWindow();
       window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-      //   window.setStatusBarColor(Color.BLUE);
     }
   }
 
@@ -441,7 +412,7 @@ public abstract class MLandBase extends AppCompatActivity {
     super.onStop();
   }
 
-  protected Toolbar getActionBarToolbar() {
+  private Toolbar getActionBarToolbar() {
     if (mActionBarToolbar == null) {
       mActionBarToolbar = findViewById(R.id.toolbar);
       if (mActionBarToolbar != null) {
@@ -449,14 +420,6 @@ public abstract class MLandBase extends AppCompatActivity {
       }
     }
     return mActionBarToolbar;
-  }
-
-  public int darkenColor(int color) {
-    float[] hsv = new float[3];
-    Color.colorToHSV(color, hsv);
-    hsv[2] *= 0.8f;
-    return Color.HSVToColor(hsv);
-    // Credits for this: https://github.com/Musenkishi/wally
   }
 
   @SuppressWarnings("UnusedAssignment")
@@ -542,29 +505,4 @@ public abstract class MLandBase extends AppCompatActivity {
   }
 
   protected abstract Context getContext();
-
-  /**
-   * Configure this Activity as a floating window, with the given {@code width}, {@code height} and
-   * {@code alpha}, and dimming the background with the given {@code dim} value.
-   */
-  protected void setupFloatingWindow(int width, int height, int alpha, float dim) {
-    WindowManager.LayoutParams params = getWindow().getAttributes();
-    params.width = getResources().getDimensionPixelSize(width);
-    params.height = getResources().getDimensionPixelSize(height);
-    params.alpha = alpha;
-    params.dimAmount = dim;
-    params.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-    getWindow().setAttributes(params);
-  }
-
-  /** Returns true if the theme sets the {@code R.attr.isFloatingWindow} flag to true. */
-  protected boolean shouldBeFloatingWindow() {
-    Resources.Theme theme = getTheme();
-    TypedValue floatingWindowFlag = new TypedValue();
-
-    // Check isFloatingWindow flag is defined in theme.
-    return !(theme == null
-            || !theme.resolveAttribute(R.attr.isFloatingWindow, floatingWindowFlag, true))
-        && (floatingWindowFlag.data != 0);
-  }
 }

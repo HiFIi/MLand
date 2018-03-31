@@ -36,12 +36,12 @@ public class UIUtils {
    * Factor applied to session color to derive the background color on panels and when a session
    * photo could not be downloaded (or while it is being downloaded)
    */
-  public static final float SESSION_BG_COLOR_SCALE_FACTOR = 0.75f;
+  private static final float SESSION_BG_COLOR_SCALE_FACTOR = 0.75f;
 
-  public static final String TARGET_FORM_FACTOR_ACTIVITY_METADATA =
+  private static final String TARGET_FORM_FACTOR_ACTIVITY_METADATA =
       "com.google.samples.apps.iosched.meta.TARGET_FORM_FACTOR";
-  public static final String TARGET_FORM_FACTOR_HANDSET = "handset";
-  public static final String TARGET_FORM_FACTOR_TABLET = "tablet";
+  private static final String TARGET_FORM_FACTOR_HANDSET = "handset";
+  private static final String TARGET_FORM_FACTOR_TABLET = "tablet";
   public static final String GOOGLE_PLUS_PACKAGE_NAME = "com.google.android.apps.plus";
   public static final String YOUTUBE_PACKAGE_NAME = "com.google.android.youtube";
   public static final int ANIMATION_FADE_IN_TIME = 250;
@@ -139,7 +139,7 @@ public class UIUtils {
     return Color.argb(255, Color.red(color), Color.green(color), Color.blue(color));
   }
 
-  public static int scaleColor(int color, float factor, boolean scaleAlpha) {
+  private static int scaleColor(int color, float factor, boolean scaleAlpha) {
     return Color.argb(
         scaleAlpha ? (Math.round(Color.alpha(color) * factor)) : Color.alpha(color),
         Math.round(Color.red(color) * factor),
@@ -151,7 +151,7 @@ public class UIUtils {
     return scaleColor(color, SESSION_BG_COLOR_SCALE_FACTOR, false);
   }
 
-  public static long getCurrentTime(final Context context) {
+  private static long getCurrentTime(final Context context) {
     /*    if (BuildConfig.DEBUG) {
           return context.getSharedPreferences("mock_data", Context.MODE_PRIVATE)
     .getLong("mock_current_time", System.currentTimeMillis())

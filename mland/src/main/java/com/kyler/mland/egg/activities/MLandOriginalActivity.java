@@ -25,7 +25,7 @@ import com.kyler.mland.egg.MLandOriginal;
 import com.kyler.mland.egg.R;
 
 public class MLandOriginalActivity extends MLandBase {
-  MLandOriginal mLand;
+  private MLandOriginal mLand;
   SharedPreferences pref;
 
   @Override
@@ -53,7 +53,7 @@ public class MLandOriginalActivity extends MLandBase {
     }
   }
 
-  public void updateSplashPlayers() {
+  private void updateSplashPlayers() {
     final int N = mLand.getNumPlayers();
     final View minus = findViewById(R.id.player_minus_button);
     final View plus = findViewById(R.id.player_plus_button);
@@ -61,7 +61,7 @@ public class MLandOriginalActivity extends MLandBase {
       minus.setVisibility(View.INVISIBLE);
       plus.setVisibility(View.VISIBLE);
       plus.requestFocus();
-    } else if (N == mLand.MAX_PLAYERS) {
+    } else if (N == MLandOriginal.MAX_PLAYERS) {
       minus.setVisibility(View.VISIBLE);
       plus.setVisibility(View.INVISIBLE);
       minus.requestFocus();

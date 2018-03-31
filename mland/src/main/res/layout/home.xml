@@ -32,7 +32,7 @@ limitations under the License.
             android:background="#fafafa"
             android:fitsSystemWindows="false">
 
-        <FrameLayout
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="220.0dip"
             android:background="#fafafa"
@@ -55,13 +55,12 @@ limitations under the License.
                 customfontdemo:fontName="LyftPro-Bold.ttf" />
             </RelativeLayout>
 
-        </FrameLayout>
+        </RelativeLayout>
 
         </RelativeLayout>
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/md_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="false">

@@ -1,9 +1,10 @@
 apply plugin: 'com.android.application'
 
+//noinspection GroovyUnusedAssignment
 def buildDateTime = project.hasProperty('devBuild') ? 100 : new
         Date().format('yyMMddHHmm').toInteger()
-        
-def getDate() {
+
+static def getDate() {
     new Date().format('MM-dd-yyyy-HHmm')
 }         
 

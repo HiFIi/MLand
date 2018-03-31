@@ -29,12 +29,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <FrameLayout
-            android:id="@+id/chosen_account_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:foreground="?photoItemForeground">
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="200.0dip"
@@ -51,13 +45,6 @@
                 customfontdemo:fontName="LyftPro-Bold.ttf" />
             </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/chosen_account_content_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </RelativeLayout>
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -67,8 +54,6 @@
                 tools:ignore="RtlHardcoded">
 
             </LinearLayout>
-
-        </FrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"

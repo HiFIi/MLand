@@ -1,24 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
+    <issue id="GradleDependency" severity="informational" />
+    <issue id="IconDensities" severity="ignore" />
     <issue id="IconLauncherShape">
         <ignore path="src/main/res/drawable-hdpi/mland_ic_one.png" />
         <ignore path="src/main/res/drawable-xhdpi/mland_ic_one.png" />
         <ignore path="src/main/res/drawable-xxhdpi/mland_ic_one.png" />
         <ignore path="src/main/res/drawable-xxxhdpi/mland_ic_one.png" />
+        <ignore path="src/main/res/drawable-xxxhdpi/mland_ic_one.webp" />
     </issue>
     <issue id="IconLocation">
         <ignore path="src/main/res/drawable/ic_email.png" />
     </issue>
-    <!-- Availablility of new versions of dependencies should not affect builds -->
-    <issue id="GradleDependency" severity="informational" />
-    <issue id="OldTargetApi" severity="informational" />
-
-    <!-- Used in layouts with tools:text -->
-    <issue id="UnusedResources">
-        <ignore path="src/*/res/values/placeholder_strings.xml" />
-    </issue>
-
-    <!-- We don't have icons for every density and want to move to vectors anyway -->
-    <issue id="IconDensities" severity="ignore" />
     <issue id="IconMissingDensityFolder" severity="ignore" />
+    <issue id="OldTargetApi" severity="informational" />
 </lint>

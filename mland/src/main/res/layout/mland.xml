@@ -76,7 +76,6 @@ limitations under the License.
             </FrameLayout>
 
             <LinearLayout
-                android:id="@+id/player_setup"
                 android:layout_width="wrap_content"
                 android:layout_height="56.0dip"
                 android:layout_gravity="top|center_horizontal"
