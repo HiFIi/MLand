@@ -73,7 +73,9 @@ public class MLandOriginal extends FrameLayout {
         R.drawable.mm_mouth1, R.drawable.mm_mouth2, R.drawable.mm_mouth3, R.drawable.mm_mouth4
       };
   private static final int[] CACTI = {R.drawable.cactus1, R.drawable.cactus2, R.drawable.cactus3};
-  private static final int[] MOUNTAINS = {R.drawable.mountain1, R.drawable.mountain2, R.drawable.mountain3};
+  private static final int[] MOUNTAINS = {
+    R.drawable.mountain1, R.drawable.mountain2, R.drawable.mountain3
+  };
   private static final int DAY = 0, NIGHT = 1, TWILIGHT = 2, SUNSET = 3;
   private static final int[][] SKIES = {
     {0xFFc0c0FF, 0xFFa0a0FF}, // DAY
@@ -865,28 +867,28 @@ public class MLandOriginal extends FrameLayout {
   private static class Params {
     final float TRANSLATION_PER_SEC;
     final int OBSTACLE_SPACING;
-      final int OBSTACLE_PERIOD;
+    final int OBSTACLE_PERIOD;
     final int BOOST_DV;
     final int PLAYER_HIT_SIZE;
     final int PLAYER_SIZE;
     final int OBSTACLE_WIDTH;
-      final int OBSTACLE_STEM_WIDTH;
+    final int OBSTACLE_STEM_WIDTH;
     final int OBSTACLE_GAP;
     int OBSTACLE_MIN;
     final int BUILDING_WIDTH_MIN;
-      final int BUILDING_WIDTH_MAX;
+    final int BUILDING_WIDTH_MAX;
     final int BUILDING_HEIGHT_MIN;
     final int CLOUD_SIZE_MIN;
-      final int CLOUD_SIZE_MAX;
+    final int CLOUD_SIZE_MAX;
     final int STAR_SIZE_MIN;
-      final int STAR_SIZE_MAX;
+    final int STAR_SIZE_MAX;
     final int G;
     final int MAX_V;
     final float SCENERY_Z;
-      final float OBSTACLE_Z;
-      final float PLAYER_Z;
-      final float PLAYER_Z_BOOST;
-      final float HUD_Z;
+    final float OBSTACLE_Z;
+    final float PLAYER_Z;
+    final float PLAYER_Z_BOOST;
+    final float HUD_Z;
 
     Params(Resources res) {
       TRANSLATION_PER_SEC = res.getDimension(R.dimen.translation_per_sec);
@@ -1261,7 +1263,7 @@ public class MLandOriginal extends FrameLayout {
     float z;
     float v;
     int h;
-      int w;
+    int w;
 
     public Scenery(Context context) {
       super(context);

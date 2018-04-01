@@ -89,7 +89,9 @@ public class MLandModified extends FrameLayout {
         R.drawable.mm_mouth1, R.drawable.mm_mouth2, R.drawable.mm_mouth3, R.drawable.mm_mouth4
       };
   private static final int[] CACTI = {R.drawable.cactus1, R.drawable.cactus2, R.drawable.cactus3};
-  private static final int[] MOUNTAINS = {R.drawable.mountain1, R.drawable.mountain2, R.drawable.mountain3};
+  private static final int[] MOUNTAINS = {
+    R.drawable.mountain1, R.drawable.mountain2, R.drawable.mountain3
+  };
   private static final int DAY = 0, NIGHT = 1, TWILIGHT = 2, SUNSET = 3, WTF = 4;
   private static final int[][] SKIES = {
     {0xFF4285F4, 0xFF6499BE}, // DAY
