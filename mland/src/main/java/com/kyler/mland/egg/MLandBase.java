@@ -71,7 +71,6 @@ public abstract class MLandBase extends AppCompatActivity {
         R.drawable.ic_landscape__mland_modified,
         0
       };
-  private static String mVersionNumber;
   private DrawerLayout mDrawerLayout;
   // Primary toolbar and drawer toggle
   private Toolbar mActionBarToolbar;
@@ -101,8 +100,6 @@ public abstract class MLandBase extends AppCompatActivity {
     //    RecentTasksStyler.styleRecentTasksEntry(this);
 
     SharedPreferences first = PreferenceManager.getDefaultSharedPreferences(this);
-
-    mVersionNumber = getResources().getString(R.string.version_number);
 
     if (getIntent().getBooleanExtra("EXIT", false)) {
       super.finish();

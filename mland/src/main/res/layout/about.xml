@@ -42,13 +42,8 @@ limitations under the License.
 
         </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent">
-
             <include layout="@layout/toolbar_actionbar_actually_transparent" />
-
-        </RelativeLayout>
+            
     </LinearLayout>
 
     <!-- Nav drawer -->
