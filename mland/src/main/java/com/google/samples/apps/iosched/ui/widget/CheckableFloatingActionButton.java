@@ -17,9 +17,10 @@
 package com.google.samples.apps.iosched.ui.widget;
 
 import android.content.Context;
-import android.support.design.widget.FloatingActionButton;
 import android.util.AttributeSet;
 import android.widget.Checkable;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class CheckableFloatingActionButton extends FloatingActionButton implements Checkable {
   private static final int[] CHECKED_STATE_SET = {android.R.attr.state_checked};

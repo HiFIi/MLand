@@ -23,7 +23,7 @@
     android:choiceMode="singleChoice"
     android:elevation="16dp"
     android:fitsSystemWindows="true"
-    app:appInsetForeground="@color/black__10_percent">
+    app:appInsetForeground="@android:color/transparent">
 
     <LinearLayout
         android:layout_width="match_parent"

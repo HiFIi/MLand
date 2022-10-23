@@ -1,7 +1,9 @@
 package com.kyler.mland.egg.activities;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.kyler.mland.egg.R;
 
 /*

@@ -1,41 +1,35 @@
 apply plugin: 'com.android.application'
 
-//noinspection GroovyUnusedAssignment
-def buildDateTime = project.hasProperty('devBuild') ? 100 : new
-        Date().format('yyMMddHHmm').toInteger()
-
 static def getDate() {
     new Date().format('MM-dd-yyyy-HHmm')
-}         
+}
 
 android {
+    compileSdk 33
+    buildToolsVersion '33.0.0'
 
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
-    
     lintOptions {
-            abortOnError false
-            htmlReport true
-            xmlReport true
-            checkReleaseBuilds false
-            disable 'InvalidPackage'
+        abortOnError false
+        htmlReport true
+        xmlReport true
+        checkReleaseBuilds false
+        disable 'InvalidPackage'
     }
     dataBinding {
         enabled true
     }
-    
-    android.applicationVariants.all { final variant ->
-        variant.outputs.all {
-            outputFileName = "MLand-2.0.0-${getDate()}.apk"
-        }
-    }
+
+      android.applicationVariants.all { final variant ->
+         variant.outputs.all {
+             outputFileName = "MLand-2.0.0-${getDate()}.apk"
+         }
+     }
     defaultConfig {
         applicationId "com.kyler.mland.egg"
-        minSdkVersion 21
-        targetSdkVersion 27
+        minSdkVersion 31
+        targetSdkVersion 33
         versionCode 200
         versionName "2.0.0-wip"
-        multiDexEnabled true
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -43,11 +37,6 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-    }
-    dexOptions {
-        maxProcessCount 8
-        jumboMode = true
-        preDexLibraries true
     }
     buildTypes {
         release {
@@ -58,32 +47,27 @@ android {
         }
         buildTypes {
             debug {
-            }           
+                crunchPngs false
+            }
         }
     }
 }
 
 repositories {
-    flatDir {
-        dirs 'libs'
-    }
 }
 
 ext {
-    supportLibsVersion = '27.1.0'
+    supportLibsVersion = '33.0.0'
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "com.android.support:appcompat-v7:$supportLibsVersion"
-    implementation "com.android.support:exifinterface:$supportLibsVersion"
-    implementation "com.android.support:cardview-v7:$supportLibsVersion"
-    implementation "com.android.support:recyclerview-v7:$supportLibsVersion"
-    implementation "com.android.support:support-v13:$supportLibsVersion"
-    implementation "com.android.support:design:$supportLibsVersion"
-    implementation "com.android.support:palette-v7:$supportLibsVersion"
-    implementation "com.android.support:preference-v14:$supportLibsVersion"
-    testImplementation 'junit:junit:+'
-    implementation 'com.github.florent37:diagonallayout:+'
-    implementation 'com.android.support.constraint:constraint-layout:+'
+    implementation 'androidx.appcompat:appcompat:+'
+    implementation 'androidx.constraintlayout:constraintlayout:+'
+    implementation 'com.google.android.material:material:+'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:+'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:+'
+    implementation 'androidx.navigation:navigation-fragment:+'
+    implementation 'androidx.navigation:navigation-ui:+'
+    implementation "androidx.drawerlayout:drawerlayout:+"
+    implementation 'com.facebook.fresco:fresco:+'
 }

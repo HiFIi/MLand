@@ -3,8 +3,40 @@
 
     <!-- 'Borrowed' From the Hangouts 5.0 values/dimens.xml :p -->
 
+    <dimen name="keyline_1">16dp</dimen>
+    <dimen name="list_item_primary_action">24.0dip</dimen>
+    <dimen name="about_header_bg_height">220dp</dimen>
+    <dimen name="max_height_drawer_img">220.0dip</dimen>
+
+    <dimen name="drawer_item_icon_left_padding">16.0dip</dimen>
+    <dimen name="drawer_item_icon_right_padding">16.0dip</dimen>
+
+    <dimen name="g_top_margin">100dp</dimen>
+
+    <dimen name="drawer_item_text_left_padding">16.0dip</dimen>
+    <dimen name="drawer_item_text_right_padding">16.0dip</dimen>
+
+    <dimen name="play_drawer_item_left_padding">16.0dip</dimen>
+    <dimen name="play_drawer_item_primary_min_height">48.0dip</dimen>
+    <dimen name="play_drawer_item_right_padding">16.0dip</dimen>
+
+    <dimen name="splash_icon_width">144dp</dimen>
+    <dimen name="splash_icon_height">144dp</dimen>
+    <dimen name="splash_text_size">36.0sp</dimen>
+
+    <!-- 'Borrowed' From the Hangouts 5.0 values/dimens.xml :p -->
+    <dimen name="launchscreens_google_logo_bottom">48.0dip</dimen>
+
+    <dimen name="card_margin">16dp</dimen>
+
+    <dimen name="fab_touch_raise">6dp</dimen>
+    <dimen name="fab_elevation">8dp</dimen>
+    <dimen name="fab_press_translation_z">6dp</dimen>
+    <dimen name="headerbar_elevation">10.0dip</dimen>
+    <dimen name="session_detail_max_header_elevation">@dimen/headerbar_elevation</dimen>
+
     <dimen name="launch_screen_logo_bottom">16.0dip</dimen>
     <dimen name="launch_screen_text_bottom">48.0dip</dimen>
-    <dimen name="keyline_1">16dp</dimen>
 
+    <dimen name="headerbox_height">96.0dip</dimen>
 </resources>

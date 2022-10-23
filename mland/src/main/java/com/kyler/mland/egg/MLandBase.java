@@ -9,13 +9,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +17,15 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.google.samples.apps.iosched.ui.widget.ScrimInsetsScrollView;
 import com.kyler.mland.egg.activities.About;
 import com.kyler.mland.egg.activities.Home;
@@ -31,6 +33,7 @@ import com.kyler.mland.egg.activities.MLandModifiedActivity;
 import com.kyler.mland.egg.activities.MLandOriginalActivity;
 import com.kyler.mland.egg.utils.LUtils;
 import com.kyler.mland.egg.utils.UIUtils;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -55,7 +58,7 @@ public abstract class MLandBase extends AppCompatActivity {
   different Activities of the app through the Nav Drawer
   */
   private static final long MAIN_CONTENT_FADEOUT_DURATION = 150L;
-  private static final long MAIN_CONTENT_FADEIN_DURATION = 250L;
+  private static final long MAIN_CONTENT_FADEIN_DURATION = 400L;
   private static final long NAVDRAWER_CLOSE_PRELAUNCH = 300L;
   private static final long NAVDRAWER_LAUNCH_DELAY = 250L;
   private static final long POST_LAUNCH_FADE = 300L;
@@ -73,7 +76,7 @@ public abstract class MLandBase extends AppCompatActivity {
       };
   private DrawerLayout mDrawerLayout;
   // Primary toolbar and drawer toggle
-  private Toolbar mActionBarToolbar;
+  public Toolbar mActionBarToolbar;
   SharedPreferences pref;
   // A Runnable that we should execute when the navigation drawer finishes its closing animation
   private Runnable mDeferredOnDrawerClosedRunnable;

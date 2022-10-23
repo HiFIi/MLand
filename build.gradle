@@ -11,7 +11,7 @@ buildscript {
     }
     dependencies {
         //noinspection GradleDynamicVersion
-        classpath 'com.android.tools.build:gradle:+'
+        classpath 'com.android.tools.build:gradle:7.3.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:+'
         classpath 'com.github.sherter.googlejavaformatgradleplugin:google-java-format-gradle-plugin:+'
     }

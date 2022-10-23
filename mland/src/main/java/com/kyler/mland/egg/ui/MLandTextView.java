@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 import com.kyler.mland.egg.R;
 
-public class MLandTextView extends TextView {
+public class MLandTextView extends androidx.appcompat.widget.AppCompatTextView {
 
   public MLandTextView(Context context, AttributeSet attrs, int defStyle) {
     super(context, attrs, defStyle);
