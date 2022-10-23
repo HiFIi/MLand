@@ -8,9 +8,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.Window;
+
+import androidx.core.content.ContextCompat;
+
 import com.kyler.mland.egg.MLandBase;
 import com.kyler.mland.egg.R;
 import java.util.Objects;

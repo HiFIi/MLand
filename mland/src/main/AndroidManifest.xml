@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?><!--suppress AndroidDomInspection -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.kyler.mland.egg">
 
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -16,7 +18,8 @@
             android:name=".MLandBase"
             android:hardwareAccelerated="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.MLand.Home">
+            android:theme="@style/Theme.MLand.Home"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,7 +35,8 @@
             android:icon="@drawable/mland_ic_one"
             android:label="@string/app_name"
             android:launchMode="singleTop"
-            android:theme="@style/Theme.MLand.Splash">
+            android:theme="@style/Theme.MLand.Splash"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -84,7 +88,9 @@
             android:icon="@drawable/mland_ic_one"
             android:label="@string/about"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.MLand.About">
+            android:theme="@style/Theme.MLand.About"
+            android:exported="false"
+            tools:ignore="AppLinkUrlError">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 

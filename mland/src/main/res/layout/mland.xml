@@ -10,7 +10,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
@@ -31,7 +31,7 @@ limitations under the License.
             <com.kyler.mland.egg.MLandModified
                 android:id="@+id/world"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"></com.kyler.mland.egg.MLandModified>
+                android:layout_height="fill_parent" />
 
             <include layout="@layout/toolbar_actionbar_transparent" />
 
@@ -99,7 +99,7 @@ limitations under the License.
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:clipToPadding="false"
-                    android:orientation="horizontal"></LinearLayout>
+                    android:orientation="horizontal" />
 
                 <ImageButton
                     android:id="@+id/player_plus_button"
@@ -117,4 +117,4 @@ limitations under the License.
 
     <!-- Nav drawer -->
     <include layout="@layout/mland_base" />
-</android.support.v4.widget.DrawerLayout>
+</androidx.drawerlayout.widget.DrawerLayout>
