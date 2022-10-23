@@ -2,7 +2,7 @@
     <!-- Root styles that vary by API level -->
     <!-- Disable RTL support on older devices -->
     <!-- Prevents crash on certain devices to namespace conflict -->
-    <style name="FrameworkRoot.Theme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="FrameworkRoot.Theme" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="photoItemForeground">?android:selectableItemBackground</item>
         <item name="windowActionModeOverlay">true</item>
@@ -19,7 +19,7 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
-    <style name="Theme.MLand" parent="@style/Theme">
+    <style name="Theme.MLand" parent="@style/Theme.Material3.Dark.NoActionBar">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@color/real_black_20</item>
         <item name="android:colorPrimary">@color/colorPrimary</item>
