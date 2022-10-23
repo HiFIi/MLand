@@ -11,7 +11,8 @@
    limitations under the License.
 -->
 
-<com.google.samples.apps.iosched.ui.widget.ScrimInsetsScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.samples.apps.iosched.ui.widget.ScrimInsetsScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:customfontdemo="http://schemas.android.com/apk/res-auto"

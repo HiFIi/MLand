@@ -133,7 +133,7 @@ public class About extends MLandBase implements ObservableScrollView.Callbacks
         if (mHasPhoto)
         {
             mPhotoHeightPixels = (int) (draweeView.getWidth() / PHOTO_ASPECT_RATIO);
-            mPhotoHeightPixels = Math.min(mPhotoHeightPixels, mScrollView.getHeight() / 3);
+            mPhotoHeightPixels = Math.min(mPhotoHeightPixels, mScrollView.getHeight() / 1);
         }
 
         ViewGroup.LayoutParams lp;
@@ -193,19 +193,19 @@ public class About extends MLandBase implements ObservableScrollView.Callbacks
          Window window = getWindow();
          window.setStatusBarColor(UIUtils.getColorWithAlpha(alpha, (darkenColor(baseColor)))); */
 
-        ViewCompat.setElevation(draweeView, gapFillProgress * mMaxHeaderElevation);
-        ViewCompat.setElevation(mDetailsContainer, gapFillProgress * mMaxHeaderElevation);
-        ViewCompat.setElevation(mHeaderBox, gapFillProgress * mMaxHeaderElevation);
+        ViewCompat.setElevation(draweeView, gapFillProgress * mMaxHeaderElevation / 2);
+        ViewCompat.setElevation(mDetailsContainer, gapFillProgress * mMaxHeaderElevation / 4);
+        ViewCompat.setElevation(mHeaderBox, gapFillProgress * mMaxHeaderElevation / 4);
         ViewCompat.setElevation(mAddScheduleButtonContainer, gapFillProgress * mMaxHeaderElevation
-                + mFABElevation);
+                + mFABElevation / 4);
         ViewCompat.setElevation(mAddScheduleButton, gapFillProgress * mMaxHeaderElevation
-                + mFABElevation);
+                + mFABElevation / 2);
 
-        ViewCompat.setTranslationZ(mHeaderBox, gapFillProgress * mMaxHeaderElevation);
+        ViewCompat.setTranslationZ(mHeaderBox, gapFillProgress * mMaxHeaderElevation / 2);
 
         // testing
-        ViewCompat.setTranslationZ(draweeView, gapFillProgress * mMaxHeaderElevation);
-        ViewCompat.setTranslationZ(mDetailsContainer, gapFillProgress * mMaxHeaderElevation);
+        ViewCompat.setTranslationZ(draweeView, gapFillProgress * mMaxHeaderElevation / 2);
+        ViewCompat.setTranslationZ(mDetailsContainer, gapFillProgress * mMaxHeaderElevation / 2);
 
         // Move background photo (parallax effect)
         mPhotoViewContainer.setTranslationY(scrollY * 0.5f);

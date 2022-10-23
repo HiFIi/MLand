@@ -16,8 +16,7 @@ limitations under the License.
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/system_neutral1_600"
-    android:fitsSystemWindows="true">
+    android:background="@android:color/system_neutral1_600">
 
     <LinearLayout
         android:id="@+id/main_content"
@@ -27,8 +26,7 @@ limitations under the License.
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="false">
+            android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -39,8 +37,7 @@ limitations under the License.
 
             <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:fitsSystemWindows="false">
+                android:layout_height="match_parent">
 
             <com.kyler.mland.egg.ui.MLandTextView
                 android:id="@+id/title"
@@ -60,8 +57,7 @@ limitations under the License.
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="false">
+        android:layout_height="wrap_content">
 
         <include layout="@layout/toolbar_actionbar_actually_transparent" />
 

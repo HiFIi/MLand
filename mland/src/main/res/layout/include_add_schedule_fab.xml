@@ -16,7 +16,6 @@ limitations under the License.
     android:id="@+id/add_schedule_button_container"
     android:layout_width="8dp"
     android:layout_height="8dp"
-    android:fitsSystemWindows="false"
     android:layout_marginLeft="8dp">
 
     <com.google.samples.apps.iosched.ui.widget.CheckableFloatingActionButton

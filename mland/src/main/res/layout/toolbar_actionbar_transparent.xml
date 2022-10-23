@@ -20,5 +20,5 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="24.0dip"
-    android:background="@color/status_bar_overlay"
+    android:background="#00000000"
     android:minHeight="?attr/actionBarSize" />
